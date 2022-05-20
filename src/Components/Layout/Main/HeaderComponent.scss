@@ -1,0 +1,42 @@
+@import "../../../Styles/Variables.scss";
+
+.main-content-header {
+  display: flex;
+  flex-direction: row;
+  height: 6rem;
+  border-radius: 8px;
+  background-color: white;
+  justify-content: space-between;
+  padding: 1rem;
+  align-items: center;
+  .left-side-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    .lbl-style.title-style {
+      font-size: xx-large;
+    }
+
+    .greeting-msg-style {
+      color: $LightGrey;
+    }
+  }
+
+  .filter-container {
+    display: flex;
+    width: fit-content;
+    height: fit-content;
+    padding: 0.625rem;
+    // border: 1px solid $LightGrey;
+    box-shadow: $MyBoxShadow;
+    border-radius: 8px;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      box-shadow: $MyBoxShadowHover;
+      cursor: pointer;
+    }
+  }
+}

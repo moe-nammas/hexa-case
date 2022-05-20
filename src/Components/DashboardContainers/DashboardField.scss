@@ -1,0 +1,29 @@
+@import "../../Styles/Variables.scss";
+
+.dasboard-field-container {
+  display: flex;
+  flex-direction: column;
+  width: 16rem;
+  height: 9rem;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: $MyBoxShadow;
+  transition: box-shadow 0.3s ease-in-out;
+  gap: 0.5rem;
+  .field-title {
+    // font-size: x-large !important;
+    border: 1px solid bur;
+    border-radius: 8px;
+    padding: 0.5rem;
+  }
+
+  .stats-field {
+    font-size: 50px;
+    font-weight: bolder;
+  }
+
+  &:hover {
+    box-shadow: $MyBoxShadowHover;
+    cursor: pointer;
+  }
+}

@@ -1,0 +1,23 @@
+@import "../../Styles/Variables.scss";
+
+.navbar-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  .img-container {
+    margin-top: 1rem;
+    margin-left: 1rem;
+    border-color: white;
+    width: 7rem;
+    height: 4rem;
+  }
+  .navbar-content-container {
+    .iconLabels-container {
+      width: fit-content;
+      height: fit-content;
+      display: flex;
+      flex-direction: row;
+    }
+  }
+}

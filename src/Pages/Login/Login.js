@@ -7,15 +7,18 @@ import {
   Label,
   Input,
   FormFeedback,
-  FormText,
   Button,
 } from "reactstrap";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const router = useNavigate();
 
-  const handleSubmit = () => {};
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
 
   const handleUsername = (e) => {
     setUsername(e.target.value);
@@ -56,10 +59,11 @@ const Login = () => {
                 </div>
               </div>
               <Button
-                type="submit"
+                // type="submit"
                 color="primary"
                 outline
-                onSubmit={handleSubmit}
+                // onSubmit={handleSubmit}
+                onClick={() => router("/Main/Dashboard", { replace: true })}
               >
                 Login
               </Button>
