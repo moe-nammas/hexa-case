@@ -10,11 +10,15 @@ import {
   Button,
 } from "reactstrap";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { userActionCreator } from "../../Redux/Actions/index";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
   const router = useNavigate();
+  const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -63,7 +67,10 @@ const Login = () => {
                 color="primary"
                 outline
                 // onSubmit={handleSubmit}
-                onClick={() => router("/Main/Dashboard", { replace: true })}
+                onClick={() => {
+                  dispatch(userActionCreator.login(username));
+                  router("/Dashboard", { replace: true });
+                }}
               >
                 Login
               </Button>

@@ -3,27 +3,44 @@
 .dasboard-field-container {
   display: flex;
   flex-direction: column;
-  width: 16rem;
-  height: 9rem;
+  align-items: center;
+  width: 16.5rem;
+  height: fit-content;
   background-color: white;
-  border-radius: 8px;
+  border-radius: $BorderRadius;
   box-shadow: $MyBoxShadow;
   transition: box-shadow 0.3s ease-in-out;
   gap: 0.5rem;
   .field-title {
     // font-size: x-large !important;
-    border: 1px solid bur;
-    border-radius: 8px;
+    width: fit-content;
+    height: fit-content;
     padding: 0.5rem;
+    font-size: 23px;
+    font-weight: 600;
+    color: $Info;
   }
 
   .stats-field {
-    font-size: 50px;
+    font-size: 40px;
     font-weight: bolder;
   }
 
-  &:hover {
-    box-shadow: $MyBoxShadowHover;
-    cursor: pointer;
+  .footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    width: 100%;
+    height: 3rem;
+    background-color: $PrimaryColor;
+    color: white;
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
+
+    &:hover {
+      box-shadow: $MyBoxShadowHover;
+      cursor: pointer;
+    }
   }
 }

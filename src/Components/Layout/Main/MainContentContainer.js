@@ -1,21 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Dashboard from "../../../Pages/Dashboard/Dashboard";
-import { Routes, Route, Link } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import "./MainContentContainer.scss";
 import HeaderComponent from "./HeaderComponent";
 
 const MainContentContainer = () => {
+  const location = useLocation();
+
   return (
-    <>
-      <Routes>
-        <Route path="/Dashboard" element={<Dashboard />} />
-        <Route path="/Cases" element={<Dashboard />} />
-      </Routes>
-      <div className="main-content-container">
-        <HeaderComponent pageName={"Dashboard"} withFilter />
-        <Dashboard />
-      </div>
-    </>
+    <div className="main-content-container">
+      <HeaderComponent
+        pageName={location.pathname.replace("/", "")}
+        withFilter={location.pathname.includes("Dashboard") ? true : false}
+      />
+      <Outlet />
+    </div>
   );
 };
 

@@ -7,13 +7,6 @@ import { MdOutlineSpaceDashboard } from "react-icons/md";
 import { FiAlertTriangle } from "react-icons/fi";
 import { IoTicketOutline } from "react-icons/io5";
 import { GoSettings } from "react-icons/go";
-import {
-  FcSalesPerformance,
-  FcEngineering,
-  FcBriefcase,
-  FcHighPriority,
-} from "react-icons/fc";
-import { FaTicketAlt } from "react-icons/fa";
 import { IoIosLogOut } from "react-icons/io";
 import MainContentContainer from "./Main/MainContentContainer";
 

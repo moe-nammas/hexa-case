@@ -1,6 +1,6 @@
 import React from "react";
 import "./IconLabel.scss";
-import { useNavigate } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 
 const IconLabel = ({ label, icon }) => {
   const router = useNavigate();
