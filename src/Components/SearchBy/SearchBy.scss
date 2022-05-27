@@ -1,0 +1,51 @@
+@import "../../Styles/Variables.scss";
+
+.search-by-container {
+  display: flex;
+  flex-direction: row;
+  border-bottom: 1px solid $BorderColor;
+  padding-bottom: 0.5rem;
+  gap: 0.5rem;
+
+  .dropdown-style {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    align-self: flex-start;
+    width: 11rem;
+    background-color: $DarkPrimaryColor;
+
+    &:hover {
+      background-color: $DarkPrimaryHoverColor;
+    }
+    &:active {
+      background-color: $DarkPrimaryHoverColor;
+    }
+  }
+
+  .dropdown-choices-container {
+    width: 11rem;
+  }
+
+  .text-container {
+    width: fit-content;
+    height: fit-content;
+    width: 80rem;
+    .search-input {
+      &:focus {
+        box-shadow: none !important;
+      }
+    }
+  }
+
+  .search-btn-container {
+    .search-btn {
+      background-color: $DarkPrimaryColor !important;
+      width: 6.8vw;
+      &:hover {
+        background-color: $DarkPrimaryHoverColor !important;
+      }
+    }
+  }
+}

@@ -1,16 +1,16 @@
 @import "../../../Styles/Variables.scss";
 
 .main-content-container {
-  position: relative;
   display: flex;
   flex-direction: column;
-  left: 1.1rem;
-  width: 98vw;
-  height: calc(100vh - 96px);
+  margin-left: 1rem;
+  margin-right: 1rem;
+  margin-bottom: 1rem;
+  height: calc(100vh - 112px);
   background-color: lightgray;
-  border-top-right-radius: $BorderRadius;
-  border-top-left-radius: $BorderRadius;
+  border-radius: $BorderRadius;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   padding: 1rem 0.7rem;
   gap: 1rem;
+  overflow: auto;
 }

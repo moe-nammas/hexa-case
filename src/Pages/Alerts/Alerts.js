@@ -1,15 +1,22 @@
 import React from "react";
-import "./Cases.scss";
+import "./Alerts.scss";
 import TableTemplate from "../../Components/Table/TableTemplate";
 
-const Cases = () => {
+const Alerts = () => {
   const choices = ["Name", "Source IP", "Destination IP"];
-  const headers = ["#", "First Name", "Last Name", "Username"];
+  const headers = [
+    "ID",
+    "Time",
+    "Severity",
+    "Status",
+    "Host IP",
+    "Destination IP",
+  ];
   return (
-    <div className="cases-container">
+    <div className="Alerts-container">
       <TableTemplate searchChoices={choices} headers={headers} />
     </div>
   );
 };
 
-export default Cases;
+export default Alerts;

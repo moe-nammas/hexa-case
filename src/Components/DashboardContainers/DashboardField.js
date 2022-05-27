@@ -6,7 +6,7 @@ const DashboardField = ({ title, stats, icon }) => {
   return (
     <div className="dasboard-field-container">
       <div className="field-title">
-        {title} {icon}
+        {icon} {title}
       </div>
       <div
         className="stats-field"

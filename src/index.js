@@ -9,6 +9,7 @@ import { Provider } from "react-redux";
 import store from "./Redux/Store/index";
 import Cases from "./Pages/Cases/Cases";
 import "bootstrap/dist/css/bootstrap.min.css";
+import Alerts from "./Pages/Alerts/Alerts";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -19,6 +20,7 @@ ReactDOM.render(
             <Route path="/" element={<Login />} />
             <Route path="/Dashboard" element={<Dashboard />} />
             <Route path="/Cases" element={<Cases />} />
+            <Route path="/Alerts" element={<Alerts />} />
           </Route>
         </Routes>
       </BrowserRouter>
