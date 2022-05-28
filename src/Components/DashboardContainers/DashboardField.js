@@ -2,7 +2,7 @@ import React from "react";
 import "./DashboardField.scss";
 import { FiChevronsRight } from "react-icons/fi";
 
-const DashboardField = ({ title, stats, icon }) => {
+const DashboardField = ({ title, stats, icon, more = true }) => {
   return (
     <div className="dasboard-field-container">
       <div className="field-title">
@@ -14,10 +14,12 @@ const DashboardField = ({ title, stats, icon }) => {
       >
         {stats}
       </div>
-      <div className="footer-container">
-        <label>More</label>
-        <FiChevronsRight />
-      </div>
+      {more && (
+        <div className="footer-container">
+          <label>More</label>
+          <FiChevronsRight />
+        </div>
+      )}
     </div>
   );
 };

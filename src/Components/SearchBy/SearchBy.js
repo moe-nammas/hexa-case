@@ -47,11 +47,18 @@ const SearchBy = ({ choices }) => {
         </Dropdown>
       </div>
       <div className="text-container">
-        <Input
-          className="search-input"
-          onChange={(e) => handleSearchInput(e)}
-          disabled={selectedChoice === "Search By" ? true : false}
-        />
+        {selectedChoice === "Time" ? (
+          <div className="datetime-container">
+            <Input placeholder="From" type="date" />
+            <Input placeholder="To" type="date" />
+          </div>
+        ) : (
+          <Input
+            className="search-input"
+            onChange={(e) => handleSearchInput(e)}
+            disabled={selectedChoice === "Search By" ? true : false}
+          />
+        )}
       </div>
       <div className="search-btn-container">
         <Button

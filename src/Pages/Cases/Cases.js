@@ -3,7 +3,7 @@ import "./Cases.scss";
 import TableTemplate from "../../Components/Table/TableTemplate";
 
 const Cases = () => {
-  const choices = ["Name", "Source IP", "Destination IP"];
+  const choices = ["Name", "Source IP", "Destination IP", "Time"];
   const headers = ["#", "First Name", "Last Name", "Username"];
   return (
     <div className="cases-container">

@@ -29,6 +29,12 @@
     width: 11rem;
   }
 
+  .datetime-container {
+    display: flex;
+    gap: 0.5rem;
+    height: 3rem;
+  }
+
   .text-container {
     width: fit-content;
     height: fit-content;

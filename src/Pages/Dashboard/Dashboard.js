@@ -2,9 +2,10 @@ import React from "react";
 import DashboardField from "../../Components/DashboardContainers/DashboardField";
 import "./Dashboard.scss";
 import { AiOutlineFileSearch } from "react-icons/ai";
-import { MdOutlineSpaceDashboard } from "react-icons/md";
+import { BsShieldX } from "react-icons/bs";
 import { FiAlertTriangle } from "react-icons/fi";
 import { IoTicketOutline } from "react-icons/io5";
+import { GoDeviceDesktop } from "react-icons/go";
 import DashboardMediumContainer from "../../Components/DashboardContainers/DashboardCharts/DashboardMediumContainer/DashboardMediumContainer";
 
 const Dashboard = () => {
@@ -54,24 +55,25 @@ const Dashboard = () => {
           icon={<IoTicketOutline />}
         />
         <DashboardField
-          title={"Alerts"}
+          title={"Monitored Assets"}
           stats={"0"}
-          icon={<FiAlertTriangle />}
+          icon={<GoDeviceDesktop />}
         />
         <DashboardField
-          title={"Cases"}
-          stats={"103"}
-          icon={<AiOutlineFileSearch />}
-        />
-        <DashboardField
-          title={"Tickets"}
+          title={"Attacked Assets"}
           stats={"85999"}
-          icon={<IoTicketOutline />}
+          icon={<BsShieldX />}
         />
         <DashboardField
           title={"Tickets"}
           stats={"85"}
           icon={<IoTicketOutline />}
+        />
+        <DashboardField
+          title={"APS"}
+          stats={"103"}
+          icon={<FiAlertTriangle />}
+          // more={false}
         />
       </div>
       <div className="dashboard-medium-boxes-container">

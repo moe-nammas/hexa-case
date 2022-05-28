@@ -15,7 +15,7 @@ const Settings = () => {
       icon: <FiUser />,
     },
     {
-      title: "Permissions",
+      title: "Roles & Permissions",
       icon: <AiOutlineSafety />,
     },
     {
