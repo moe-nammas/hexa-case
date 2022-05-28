@@ -10,10 +10,15 @@ import {
 } from "reactstrap";
 const SearchBy = ({ choices }) => {
   const [openDropdown, setOpenDropdown] = useState(false);
-  const [selectedChoice, setSelectedChoice] = useState("");
+  const [selectedChoice, setSelectedChoice] = useState("Search By");
+  const [searchTerm, setSearchTerm] = useState("");
 
   const handleDropdownChange = (e) => {
     setSelectedChoice(e.target.innerText);
+  };
+
+  const handleSearchInput = (e) => {
+    setSearchTerm(e.target.value);
   };
 
   return (
@@ -26,9 +31,13 @@ const SearchBy = ({ choices }) => {
           }}
         >
           <DropdownToggle caret className="dropdown-style">
-            {!selectedChoice ? "Search" : selectedChoice}
+            {selectedChoice}
           </DropdownToggle>
           <DropdownMenu className="dropdown-choices-container">
+            <DropdownItem onClick={(e) => handleDropdownChange(e)}>
+              Search By
+            </DropdownItem>
+            <DropdownItem divider />
             {choices.map((item) => (
               <DropdownItem key={item} onClick={(e) => handleDropdownChange(e)}>
                 {item}
@@ -38,10 +47,19 @@ const SearchBy = ({ choices }) => {
         </Dropdown>
       </div>
       <div className="text-container">
-        <Input className="search-input" />
+        <Input
+          className="search-input"
+          onChange={(e) => handleSearchInput(e)}
+          disabled={selectedChoice === "Search By" ? true : false}
+        />
       </div>
       <div className="search-btn-container">
-        <Button className="search-btn">Search</Button>
+        <Button
+          className="search-btn"
+          disabled={selectedChoice === "Search By" ? true : false}
+        >
+          Search
+        </Button>
       </div>
     </div>
   );
