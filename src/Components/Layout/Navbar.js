@@ -11,24 +11,28 @@ import { IoIosLogOut } from "react-icons/io";
 import MainContentContainer from "./Main/MainContentContainer";
 
 const Navbar = () => {
-  // const iconLabelList = [
-  //   {
-  //     label: "Dashboard",
-  //     icon: <FcSalesPerformance />,
-  //   },
-  //   {
-  //     label: "Cases",
-  //     Icon: <IoBriefcaseOutline />,
-  //   },
-  //   {
-  //     label: "Alerts",
-  //     Icon: <AiOutlineAlert />,
-  //   },
-  //   {
-  //     label: "Tickets",
-  //     Icon: <FaTicketAlt />,
-  //   },
-  // ];
+  const iconLabelList = [
+    {
+      label: "Dashboard",
+      Icon: <MdOutlineSpaceDashboard />,
+    },
+    {
+      label: "Cases",
+      Icon: <AiOutlineFileSearch />,
+    },
+    {
+      label: "Alerts",
+      Icon: <FiAlertTriangle />,
+    },
+    {
+      label: "Tickets",
+      Icon: <IoTicketOutline />,
+    },
+    {
+      label: "Settings",
+      Icon: <GoSettings />,
+    },
+  ];
 
   return (
     <>
@@ -38,12 +42,9 @@ const Navbar = () => {
         </div>
         <div className="navbar-content-container">
           <div className="iconLabels-container">
-            {/* {iconLabelList.map((item) => { */}
-            <IconLabel label={"Dashboard"} icon={<MdOutlineSpaceDashboard />} />
-            <IconLabel label={"Cases"} icon={<AiOutlineFileSearch />} />
-            <IconLabel label={"Alerts"} icon={<FiAlertTriangle />} />
-            <IconLabel label={"Tickets"} icon={<IoTicketOutline />} />
-            <IconLabel label={"Settings"} icon={<GoSettings />} />
+            {iconLabelList.map((item) => (
+              <IconLabel label={item.label} icon={item.Icon} />
+            ))}
             <div
               style={{
                 borderLeft: "1px lightgray solid",
@@ -52,7 +53,6 @@ const Navbar = () => {
               }}
             ></div>
             <IconLabel label={"Logout"} icon={<IoIosLogOut />} />
-            {/* })} */}
           </div>
         </div>
       </div>

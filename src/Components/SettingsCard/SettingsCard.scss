@@ -1,0 +1,32 @@
+@import "../../Styles/Variables.scss";
+
+.settings-card-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 7.4rem;
+  width: 49.5%;
+  padding: 1rem;
+  background-color: white;
+  border-radius: $BorderRadius;
+  box-shadow: $MyBoxShadow;
+  color: $DarkPrimaryColor;
+  &:hover {
+    box-shadow: $MyBoxShadowHover;
+    cursor: pointer;
+  }
+  .icon-container {
+    font-size: 50px;
+    margin-bottom: 1rem;
+  }
+
+  .title-container {
+    font-size: 30px;
+    align-self: center;
+  }
+
+  .more-container {
+    font-size: 30px;
+  }
+}

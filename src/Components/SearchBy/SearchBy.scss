@@ -14,6 +14,7 @@
     justify-content: space-between;
     align-self: flex-start;
     width: 11rem;
+    height: 3rem;
     background-color: $DarkPrimaryColor;
 
     &:hover {
@@ -31,8 +32,9 @@
   .text-container {
     width: fit-content;
     height: fit-content;
-    width: 80rem;
+    width: 81.1rem;
     .search-input {
+      height: 3rem;
       &:focus {
         box-shadow: none !important;
       }
@@ -40,7 +42,10 @@
   }
 
   .search-btn-container {
+    width: fit-content;
+    height: fit-content;
     .search-btn {
+      height: 3rem;
       background-color: $DarkPrimaryColor !important;
       width: 6.8vw;
       &:hover {

@@ -10,6 +10,8 @@ import store from "./Redux/Store/index";
 import Cases from "./Pages/Cases/Cases";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Alerts from "./Pages/Alerts/Alerts";
+import Settings from "./Pages/Settings/Settings";
+import Tickets from "./Pages/Tickets/Tickets";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -21,6 +23,8 @@ ReactDOM.render(
             <Route path="/Dashboard" element={<Dashboard />} />
             <Route path="/Cases" element={<Cases />} />
             <Route path="/Alerts" element={<Alerts />} />
+            <Route path="/Tickets" element={<Tickets />} />
+            <Route path="/Settings" element={<Settings />} />
           </Route>
         </Routes>
       </BrowserRouter>
