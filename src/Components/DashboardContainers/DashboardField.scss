@@ -10,7 +10,18 @@
   border-radius: $BorderRadius;
   box-shadow: $MyBoxShadow;
   transition: box-shadow 0.3s ease-in-out;
-  gap: 0.3rem;
+  flex-grow: 1;
+  margin-inline: 0.5rem;
+
+  &:first-child {
+    margin-inline: 0;
+    margin-right: 0.5rem;
+  }
+
+  &:last-child {
+    margin-inline: 0;
+    margin-left: 0.5rem;
+  }
   .field-title {
     // font-size: x-large !important;
     width: fit-content;

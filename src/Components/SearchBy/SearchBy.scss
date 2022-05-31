@@ -38,7 +38,8 @@
   .text-container {
     width: fit-content;
     height: fit-content;
-    width: 81.1rem;
+    flex-grow: 1;
+
     .search-input {
       height: 3rem;
       &:focus {
