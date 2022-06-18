@@ -1,11 +1,12 @@
 @import "../../Styles/Variables.scss";
 
-.Alerts-container {
+.users-container {
   display: flex;
   flex-direction: column;
+  gap: 1rem;
   background-color: white;
   padding: 0.5rem;
   width: 100%;
-  height: fit-content;
+  height: 100%;
   border-radius: $BorderRadius;
 }

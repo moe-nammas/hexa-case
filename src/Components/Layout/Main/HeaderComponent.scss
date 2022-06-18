@@ -35,8 +35,16 @@
     justify-content: center;
 
     &:hover {
-      box-shadow: $MyBoxShadowHover;
       cursor: pointer;
+    }
+
+    &:hover > .filter-icon {
+      color: $LightPrimaryColor;
+      cursor: pointer;
+    }
+
+    .filter-icon {
+      color: $PrimaryColor;
     }
   }
 }

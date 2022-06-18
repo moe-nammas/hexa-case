@@ -7,9 +7,4 @@
   // border: 1px solid $BorderColor;
   padding: 1rem;
   border-radius: $BorderRadius;
-  .pagination-item {
-    &:active {
-      background-color: $DarkPrimaryColor !important;
-    }
-  }
 }

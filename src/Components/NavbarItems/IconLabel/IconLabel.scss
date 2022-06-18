@@ -23,4 +23,14 @@
     color: $LightPrimaryColor;
     cursor: pointer;
   }
+
+  &#active {
+    color: $LightPrimaryColor;
+    margin-top: 0.5rem;
+    height: 5rem;
+
+    &:hover {
+      color: $PrimaryColor;
+    }
+  }
 }

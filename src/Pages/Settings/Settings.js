@@ -13,41 +13,54 @@ const Settings = () => {
     {
       title: "Users",
       icon: <FiUser />,
+      path: "/Users",
     },
     {
       title: "Roles & Permissions",
       icon: <AiOutlineSafety />,
+      path: "/Permissions",
     },
     {
       title: "System",
       icon: <BsGear />,
+      path: "/System",
     },
     {
       title: "About",
       icon: <AiOutlineInfoCircle />,
+      path: "/About",
     },
     {
       title: "Cases",
       icon: <AiOutlineFileSearch />,
+      path: "/Cases",
     },
     {
       title: "Alerts",
       icon: <FiAlertTriangle />,
+      path: "/Alerts",
     },
     {
       title: "Tickets",
       icon: <IoTicketOutline />,
+      path: "/Tickets",
     },
     {
-      title: "Notification",
+      title: "Notifications",
       icon: <MdOutlineNotificationsActive />,
+      path: "/Notifications",
     },
   ];
 
   return (
     <div className="settings-container">
       {settingsList.map((item) => (
-        <SettingsCard title={item.title} icon={item.icon} />
+        <SettingsCard
+          title={item.title}
+          icon={item.icon}
+          path={item.path}
+          key={item.title}
+        />
       ))}
     </div>
   );

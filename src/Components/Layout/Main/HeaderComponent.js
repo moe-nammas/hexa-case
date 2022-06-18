@@ -16,7 +16,7 @@ const HeaderComponent = ({ pageName, withFilter = false }) => {
       </div>
       {withFilter && (
         <div className="filter-container">
-          <FiFilter size="2rem" color="#366db6" />
+          <FiFilter size="2rem" className="filter-icon" />
         </div>
       )}
     </div>

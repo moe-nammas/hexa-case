@@ -1,11 +1,23 @@
-import Axios from "axios";
+import axiosConfiguration from "./axiosConfiguration";
 
-const axiosConfig = {
-  baseURL: process.env.BACKEND_URL,
+const axios = axiosConfiguration("/");
+
+const headers = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers": "*",
+  "Access-Control-Allow-Credentials": "true",
 };
 
-const axios = Axios.create(axiosConfig);
-
 export const AlertsApi = {
-  test: () => axios.get("/api"),
+  getNumberOfAlerts: () => axios.get("/Alerts/NumberOfAlerts"),
+  getAlerts: () => axios.get("Alerts"),
+};
+
+export const CasesApi = {
+  getNumberOfCases: () => axios.get("Cases/NumberOfCases"),
+  getCases: () => axios.get("Cases"),
+};
+
+export const UsersApi = {
+  getUsers: () => axios.get("Users"),
 };

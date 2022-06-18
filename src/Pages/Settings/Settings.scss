@@ -3,9 +3,11 @@
 .settings-container {
   display: flex;
   flex-direction: row;
+  align-items: stretch;
   flex-wrap: wrap;
   flex-grow: 1;
   gap: 1rem;
+  row-gap: 0;
   height: 100%;
   width: 100%;
 }

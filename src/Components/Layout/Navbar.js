@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Navbar.scss";
 import logo from "../../Assets/Images/kytl-logo.png";
 import IconLabel from "../NavbarItems/IconLabel/IconLabel";
@@ -11,26 +11,33 @@ import { IoIosLogOut } from "react-icons/io";
 import MainContentContainer from "./Main/MainContentContainer";
 
 const Navbar = () => {
+  const [currentActive, setCurrentActive] = useState("Dashboards");
+
   const iconLabelList = [
     {
       label: "Dashboard",
       Icon: <MdOutlineSpaceDashboard />,
+      active: true,
     },
     {
       label: "Cases",
       Icon: <AiOutlineFileSearch />,
+      active: false,
     },
     {
       label: "Alerts",
       Icon: <FiAlertTriangle />,
+      active: false,
     },
     {
       label: "Tickets",
       Icon: <IoTicketOutline />,
+      active: false,
     },
     {
       label: "Settings",
       Icon: <GoSettings />,
+      active: false,
     },
   ];
 
@@ -43,7 +50,13 @@ const Navbar = () => {
         <div className="navbar-content-container">
           <div className="iconLabels-container">
             {iconLabelList.map((item) => (
-              <IconLabel label={item.label} icon={item.Icon} />
+              <IconLabel
+                label={item.label}
+                icon={item.Icon}
+                key={item.label}
+                active={item.active}
+                setCurrentActive={setCurrentActive}
+              />
             ))}
             <div
               style={{

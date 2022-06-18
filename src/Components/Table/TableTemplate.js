@@ -1,55 +1,44 @@
-import React from "react";
-import { Table, Pagination, PaginationItem, PaginationLink } from "reactstrap";
+import React, { useState } from "react";
 import SearchBy from "../SearchBy/SearchBy";
 import "./TableTemplate.scss";
+import DataTable from "react-data-table-component";
 
-const TableTemplate = ({ headers, data, extraElements, searchChoices }) => {
+const TableTemplate = ({ columns, data, searchChoices }) => {
+  const [tempData, setTempData] = useState([]);
+  const customStyles = {
+    headCells: {
+      style: {
+        fontSize: "20px",
+        backgroundColor: "lightGray",
+      },
+    },
+    cells: {
+      style: {
+        fontSize: "18px",
+        // width: "15rem",
+      },
+    },
+    pagination: {
+      style: {
+        fontSize: "1rem",
+        color: "black",
+      },
+    },
+  };
+
   return (
     <div className="table-template-container">
       <div className="search-container">
-        <SearchBy choices={searchChoices} />
+        <SearchBy choices={searchChoices} data={data} setData={setTempData} />
       </div>
-      <Table striped>
-        <thead>
-          <tr>
-            {headers?.map((header) => (
-              <th key={header}>{header}</th>
-            ))}
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </Table>
-      <Pagination size="lg">
-        <PaginationItem disabled>
-          <PaginationLink first href="#" />
-        </PaginationItem>
-        <PaginationItem disabled>
-          <PaginationLink href="#" previous />
-        </PaginationItem>
-        <PaginationItem active>
-          <PaginationLink className="pagination-item" href="#">
-            1
-          </PaginationLink>
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationLink href="#">2</PaginationLink>
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationLink href="#">3</PaginationLink>
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationLink href="#">4</PaginationLink>
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationLink href="#">5</PaginationLink>
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationLink href="#" next />
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationLink href="#" last />
-        </PaginationItem>
-      </Pagination>
+      <DataTable
+        columns={columns}
+        data={tempData.length > 0 ? tempData : data}
+        customStyles={customStyles}
+        pagination
+        selectableRows
+        responsive
+      />
     </div>
   );
 };
