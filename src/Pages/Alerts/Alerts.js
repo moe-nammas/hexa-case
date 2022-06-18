@@ -7,7 +7,7 @@ import Loading from "../../Components/Loading/Loading";
 
 const Alerts = () => {
   const [alerts, setAlerts] = useState([]);
-  const choices = ["Name", "Source IP", "Destination IP", "Time"];
+  const choices = ["Rule Name", "Description", "Destination IP", "Time"];
   const [isLoading, setIsLoading] = useState(false);
 
   const columns = [

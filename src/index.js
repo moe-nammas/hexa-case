@@ -9,6 +9,7 @@ import { Provider } from "react-redux";
 import store from "./Redux/Store/index";
 import Cases from "./Pages/Cases/Cases";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "react-datepicker/dist/react-datepicker.css";
 import Alerts from "./Pages/Alerts/Alerts";
 import Settings from "./Pages/Settings/Settings";
 import Tickets from "./Pages/Tickets/Tickets";

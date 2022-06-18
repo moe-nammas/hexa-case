@@ -85,7 +85,7 @@ const Dashboard = () => {
       isLoading: isLoading,
     },
     {
-      title: "Tickets",
+      title: "Ticket",
       stats: 91,
       icon: <IoTicketOutline />,
       isLoading: isLoading,
@@ -125,6 +125,7 @@ const Dashboard = () => {
             stats={item.stats}
             icon={item.icon}
             isLoading={isLoading}
+            key={item.title}
           />
         ))}
       </div>
