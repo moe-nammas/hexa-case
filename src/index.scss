@@ -67,3 +67,109 @@ code {
     border-color: blue !important;
   }
 }
+
+.table-icons-container {
+  display: flex;
+  gap: 1rem;
+
+  .edit-icon-style {
+    color: $PrimaryColor;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .delete-icon-style {
+    color: $Danger;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+.primary-btn-style {
+  height: 3rem;
+  background-color: $DarkPrimaryColor !important;
+  width: fit-content;
+  height: 3rem;
+  width: 8rem;
+  &:hover {
+    background-color: $DarkPrimaryHoverColor !important;
+  }
+}
+.danger-btn-style {
+  height: 3rem;
+  background-color: $Danger !important;
+  border: none !important;
+  width: fit-content;
+  height: 3rem;
+  width: 8rem;
+  &:hover {
+    background-color: $DangerHover !important;
+  }
+}
+
+.form-container-style {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  font-size: larger;
+  font-weight: bold;
+  color: $PrimaryColor;
+  padding: 1rem;
+  margin: 0 !important;
+
+  .inputs-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    gap: 0.5rem;
+    .row-container-form-style {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .form-label-input-container {
+      display: flex;
+      flex-direction: column;
+
+      Label {
+        width: fit-content;
+      }
+      .form-dropdown-style {
+        width: 100%;
+
+        .dropdown-style {
+          width: 100%;
+          // background-color: $DarkPrimaryColor;
+          background-color: white;
+          color: #646363;
+          border-color: #ced4da;
+          text-align: left;
+        }
+      }
+      width: 50%;
+    }
+  }
+  .form-btn-container-style {
+    display: flex;
+    width: fit-content;
+    align-self: flex-end;
+    gap: 1rem;
+    .form-submit-btn-style {
+      width: 10rem;
+      height: 3rem;
+      background-color: $DarkPrimaryColor;
+
+      &:hover {
+        background-color: $DarkPrimaryHoverColor;
+      }
+    }
+    .form-back-btn-style {
+      width: 10rem;
+      height: 3rem;
+    }
+  }
+}

@@ -9,10 +9,7 @@ const MainContentContainer = () => {
 
   return (
     <div className="main-content-container">
-      <HeaderComponent
-        pageName={location.pathname.replace("/", "")}
-        withFilter={location.pathname.includes("Dashboard") ? true : false}
-      />
+      <HeaderComponent />
       <Outlet />
     </div>
   );

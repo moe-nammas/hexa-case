@@ -2,6 +2,7 @@ import React from "react";
 import "./IconLabel.scss";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { pageTitleCreator } from "../../../Redux/Actions/index";
 import { userActionCreator } from "../../../Redux/Actions/index";
 
 const IconLabel = ({ label, icon, active, setCurrentActive }) => {
@@ -15,6 +16,7 @@ const IconLabel = ({ label, icon, active, setCurrentActive }) => {
       router("/");
       return;
     }
+    dispatch(pageTitleCreator.change({ title: label }));
     router(`/${label}`);
   };
   return (

@@ -104,6 +104,7 @@ const Alerts = () => {
           searchChoices={choices}
           columns={columns}
           data={alerts}
+          multiSelection
         />
       )}
     </div>

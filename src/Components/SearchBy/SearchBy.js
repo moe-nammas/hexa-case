@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./SearchBy.scss";
 import {
   Dropdown,
@@ -8,11 +8,9 @@ import {
   Input,
   Button,
 } from "reactstrap";
-import moment from "moment";
 import { Camelize } from "../../Helpers/Camelize";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { BsCalendar3 } from "react-icons/bs";
 
 const FROM = new Date();
 const TO = new Date();
@@ -36,14 +34,18 @@ const SearchBy = ({ choices, data, setData }) => {
     setSearchTerm(e.target.value);
   };
 
+  useEffect(() => {
+    if (!searchTerm) setData([]);
+  }, [searchTerm]);
+
   const handleSearchClick = () => {
     if (selectedChoice !== "Search By" && searchTerm) {
-      // console.log(data);
       const filteredData = data.filter((item) => {
         const selected = Camelize(selectedChoice);
-        return item[selected].toLocaleLowerCase().includes(searchTerm);
+        return typeof item[selected] === "string"
+          ? item[selected].toLocaleLowerCase().includes(searchTerm)
+          : item[selected].toString().includes(searchTerm);
       });
-      console.log(filteredData);
       setData(filteredData);
     }
   };
@@ -100,7 +102,7 @@ const SearchBy = ({ choices, data, setData }) => {
       </div>
       <div className="search-btn-container">
         <Button
-          className="search-btn"
+          className="primary-btn-style search-btn"
           onClick={handleSearchClick}
           disabled={selectedChoice === "Search By" ? true : false}
         >

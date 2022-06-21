@@ -2,8 +2,15 @@ import React, { useState } from "react";
 import SearchBy from "../SearchBy/SearchBy";
 import "./TableTemplate.scss";
 import DataTable from "react-data-table-component";
+import { useEffect } from "react";
 
-const TableTemplate = ({ columns, data, searchChoices }) => {
+const TableTemplate = ({
+  columns,
+  data,
+  searchChoices,
+  handleRowClick,
+  multiSelection,
+}) => {
   const [tempData, setTempData] = useState([]);
   const customStyles = {
     headCells: {
@@ -25,7 +32,6 @@ const TableTemplate = ({ columns, data, searchChoices }) => {
       },
     },
   };
-
   return (
     <div className="table-template-container">
       <div className="search-container">
@@ -36,7 +42,7 @@ const TableTemplate = ({ columns, data, searchChoices }) => {
         data={tempData.length > 0 ? tempData : data}
         customStyles={customStyles}
         pagination
-        selectableRows
+        selectableRows={multiSelection}
         responsive
       />
     </div>

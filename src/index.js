@@ -14,6 +14,7 @@ import Alerts from "./Pages/Alerts/Alerts";
 import Settings from "./Pages/Settings/Settings";
 import Tickets from "./Pages/Tickets/Tickets";
 import Users from "./Pages/Users/Users";
+import AddUser from "./Pages/Users/AddUser/AddUser";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -28,6 +29,7 @@ ReactDOM.render(
             <Route path="/Tickets" element={<Tickets />} />
             <Route path="/Settings" element={<Settings />} />
             <Route path="/Users" element={<Users />} />
+            <Route path="/AddUser" element={<AddUser />} />
           </Route>
         </Routes>
       </BrowserRouter>
