@@ -4,6 +4,7 @@ import TableTemplate from "../../Components/Table/TableTemplate";
 import { CasesApi } from "../../Api/AxiosApi";
 import { DataFormatter } from "../../Helpers/DataFormatter";
 import Loading from "../../Components/Loading/Loading";
+import toast from "react-hot-toast";
 
 const Cases = () => {
   const [cases, setCases] = useState([]);
@@ -73,6 +74,7 @@ const Cases = () => {
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
+      toast.error("Something went wrong! Please try again later");
       console.log(error);
     }
   };

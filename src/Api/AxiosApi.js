@@ -11,6 +11,7 @@ const headers = {
 export const AlertsApi = {
   getNumberOfAlerts: () => axios.get("/Alerts/NumberOfAlerts"),
   getAlerts: () => axios.get("Alerts"),
+  getAlertDetails: (id) => axios.get(`Alerts/AlertDetails?id=${id}`),
 };
 
 export const CasesApi = {
@@ -20,4 +21,11 @@ export const CasesApi = {
 
 export const UsersApi = {
   getUsers: () => axios.get("Users"),
+  updateUser: (id, formData) => axios.put(`Users?id=${id}`, formData),
+  createUser: (formData) => axios.post(`Users`, formData),
+  deleteUser: (id) => axios.delete(`Users?id=${id}`),
+  Login: (formData) =>
+    axios.get(
+      `Users/Login?username=${formData.username}&password=${formData.password}`
+    ),
 };

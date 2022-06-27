@@ -3,6 +3,7 @@ import { userActions } from "../Actions";
 const initialState = {
   userName: "",
   isAuthenticated: false,
+  permission: 0,
 };
 
 const userReducer = (state = initialState, action) => {
@@ -12,6 +13,7 @@ const userReducer = (state = initialState, action) => {
         ...state,
         userName: action.payload.userName,
         isAuthenticated: true,
+        permission: action.payload.permission,
       };
     case userActions.LOGOUT:
       return {

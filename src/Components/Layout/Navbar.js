@@ -8,7 +8,7 @@ import { FiAlertTriangle } from "react-icons/fi";
 import { IoTicketOutline } from "react-icons/io5";
 import { GoSettings } from "react-icons/go";
 import { IoIosLogOut } from "react-icons/io";
-import MainContentContainer from "./Main/MainContentContainer";
+import { useEffect } from "react";
 
 const Navbar = () => {
   const [currentActive, setCurrentActive] = useState("Dashboards");
@@ -41,6 +41,15 @@ const Navbar = () => {
     },
   ];
 
+  useEffect(() => {
+    iconLabelList.map((item) => {
+      item.label === currentActive
+        ? (item.active = true)
+        : (item.active = false);
+    });
+    console.log(iconLabelList);
+  }, [currentActive]);
+
   return (
     <>
       <div className="navbar-container">
@@ -62,14 +71,13 @@ const Navbar = () => {
               style={{
                 borderLeft: "1px lightgray solid",
                 height: "3rem",
-                marginTop: "1.5rem",
+                marginTop: "5px",
               }}
             ></div>
             <IconLabel label={"Logout"} icon={<IoIosLogOut />} />
           </div>
         </div>
       </div>
-      <MainContentContainer />
     </>
   );
 };

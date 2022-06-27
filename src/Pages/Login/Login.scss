@@ -12,13 +12,14 @@
       rgba(0, 0, 0, 0.23) 0px 6px 6px;
     align-items: center;
     background-color: white;
-    width: 35rem;
-    height: 35rem;
+    width: 30rem;
+    height: fit-content;
     gap: 2rem;
+    padding: 1rem;
     .logo-container {
-      width: 12rem;
-      height: 8rem;
-      margin-top: 2rem;
+      width: 7rem;
+      height: 4rem;
+      margin-top: 1rem;
     }
     .form-container {
       display: flex;
@@ -35,7 +36,7 @@
           align-items: flex-start;
 
           .input {
-            width: 30rem;
+            width: 25rem;
           }
         }
       }

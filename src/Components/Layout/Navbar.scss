@@ -5,14 +5,17 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  padding-block: 1rem;
   .img-container {
-    margin-top: 1rem;
     margin-left: 1rem;
     border-color: white;
-    width: 7rem;
-    height: 4rem;
+    width: 6rem;
+    height: 3.5rem;
   }
   .navbar-content-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     .iconLabels-container {
       width: fit-content;
       height: fit-content;

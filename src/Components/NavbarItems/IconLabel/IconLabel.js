@@ -12,10 +12,10 @@ const IconLabel = ({ label, icon, active, setCurrentActive }) => {
   const handleClick = () => {
     if (label === "Logout") {
       dispatch(userActionCreator.logout());
-      setCurrentActive(label);
       router("/");
       return;
     }
+    setCurrentActive(label);
     dispatch(pageTitleCreator.change({ title: label }));
     router(`/${label}`);
   };

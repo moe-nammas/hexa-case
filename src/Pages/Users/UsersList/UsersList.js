@@ -1,18 +1,18 @@
 import React, { useEffect, useState, useMemo } from "react";
-import "./Users.scss";
-import { DataFormatter } from "../../Helpers/DataFormatter";
-import Loading from "../../Components/Loading/Loading";
-import TableTemplate from "../../Components/Table/TableTemplate";
-import { UsersApi } from "../../Api/AxiosApi";
-import { AiOutlineEye } from "react-icons/ai";
+import "./UsersList.scss";
+import { DataFormatter } from "../../../Helpers/DataFormatter";
+import Loading from "../../../Components/Loading/Loading";
+import TableTemplate from "../../../Components/Table/TableTemplate";
+import { UsersApi } from "../../../Api/AxiosApi";
 import { IoTrashOutline } from "react-icons/io5";
 import { BiEdit } from "react-icons/bi";
 import { Button } from "reactstrap";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { pageTitleCreator } from "../../Redux/Actions/index";
+import { pageTitleCreator } from "../../../Redux/Actions/index";
+import toast from "react-hot-toast";
 
-const Users = () => {
+const UsersList = () => {
   const [users, setUsers] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedRows, setSelectedRows] = useState([]);
@@ -28,9 +28,14 @@ const Users = () => {
       selector: (row) => row.userId,
     },
     {
-      name: "Name",
+      name: "Full Name",
       sortable: true,
       selector: (row) => row.name,
+    },
+    {
+      name: "Username",
+      sortable: true,
+      selector: (row) => row.username,
     },
     {
       name: "Phone",
@@ -47,31 +52,16 @@ const Users = () => {
       sortable: true,
       selector: (row) => row.role,
     },
-    // {
-    //   cell: (row) => (
-    //     <AiOutlineEye
-    //       className="edit-icon-style"
-    //       onClick={(e) => handleButtonClick(e, row)}
-    //     />
-    //   ),
-    //   ignoreRowClick: true,
-    //   allowOverflow: true,
-    //   button: true,
-    // },
     {
       cell: (row) => (
         <div className="table-icons-container">
-          <AiOutlineEye
-            className="edit-icon-style"
-            onClick={(e) => handleButtonClick(e, row)}
-          />
           <BiEdit
             className="edit-icon-style"
             onClick={(e) => handleButtonClick(e, row)}
           />
           <IoTrashOutline
             className="delete-icon-style"
-            onClick={(e) => handleButtonClick(e, row)}
+            onClick={(e) => handleDelete(e, row)}
           />
         </div>
       ),
@@ -81,8 +71,16 @@ const Users = () => {
     },
   ]);
 
+  const handleDelete = async (e, row) => {
+    try {
+      await UsersApi.deleteUser(row.userId);
+      toast.success("User Deleted Successfully");
+      getTableData();
+    } catch (error) {}
+  };
+
   const handleButtonClick = (e, row) => {
-    console.log("clicked", row);
+    router("/AddUser", { state: row });
   };
 
   const getTableData = async () => {
@@ -94,6 +92,7 @@ const Users = () => {
           ...item,
           userId: DataFormatter(item.userID),
           name: DataFormatter(item.name),
+          username: DataFormatter(item.username),
           email: DataFormatter(item.email),
           phone: DataFormatter(item.phone),
           role: DataFormatter(item.role),
@@ -142,4 +141,4 @@ const Users = () => {
   );
 };
 
-export default Users;
+export default UsersList;

@@ -14,7 +14,14 @@ const DashboardField = ({ title, stats, icon, more = true, isLoading }) => {
       ) : (
         <div
           className="stats-field"
-          style={{ color: stats > 0 ? "#e62e51" : "#58b84c" }}
+          style={{
+            color:
+              stats === 0
+                ? "#58b84c"
+                : stats > 0 && stats <= 50
+                ? "#efa81b"
+                : "#E62E51",
+          }}
         >
           {stats}
         </div>

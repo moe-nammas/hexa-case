@@ -13,8 +13,9 @@ import "react-datepicker/dist/react-datepicker.css";
 import Alerts from "./Pages/Alerts/Alerts";
 import Settings from "./Pages/Settings/Settings";
 import Tickets from "./Pages/Tickets/Tickets";
-import Users from "./Pages/Users/Users";
-import AddUser from "./Pages/Users/AddUser/AddUser";
+import AddEditUser from "./Pages/Users/AddUser/AddEditUser";
+import UsersList from "./Pages/Users/UsersList/UsersList";
+import ViewAlertDetails from "./Pages/Alerts/ViewAlert/ViewAlertDetails";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -28,8 +29,9 @@ ReactDOM.render(
             <Route path="/Alerts" element={<Alerts />} />
             <Route path="/Tickets" element={<Tickets />} />
             <Route path="/Settings" element={<Settings />} />
-            <Route path="/Users" element={<Users />} />
-            <Route path="/AddUser" element={<AddUser />} />
+            <Route path="/Users" element={<UsersList />} />
+            <Route path="/AddUser" element={<AddEditUser />} />
+            <Route path="/ViewAlertDetails" element={<ViewAlertDetails />} />
           </Route>
         </Routes>
       </BrowserRouter>

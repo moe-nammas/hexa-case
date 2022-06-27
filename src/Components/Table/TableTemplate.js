@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import SearchBy from "../SearchBy/SearchBy";
 import "./TableTemplate.scss";
 import DataTable from "react-data-table-component";
-import { useEffect } from "react";
 
 const TableTemplate = ({
   columns,
@@ -15,19 +14,19 @@ const TableTemplate = ({
   const customStyles = {
     headCells: {
       style: {
-        fontSize: "20px",
+        fontSize: "15px",
         backgroundColor: "lightGray",
       },
     },
     cells: {
       style: {
-        fontSize: "18px",
+        fontSize: "14px",
         // width: "15rem",
       },
     },
     pagination: {
       style: {
-        fontSize: "1rem",
+        fontSize: "15px",
         color: "black",
       },
     },

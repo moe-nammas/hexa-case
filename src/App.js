@@ -1,20 +1,24 @@
+import React from "react";
 import "./App.css";
 import Login from "./Pages/Login/Login";
 import Navbar from "./Components/Layout/Navbar";
-import MainContentContainer from "./Components/Layout/Main/MainContentContainer";
 import { useSelector } from "react-redux";
-import { useEffect } from "react";
+import MainContentContainer from "./Components/Layout/Main/MainContentContainer";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   const userInfo = useSelector((state) => state.user);
 
   return (
     <div className="App">
-      {!userInfo.isAuthenticated && <Login />}
-      {userInfo.isAuthenticated && (
-        <Navbar>
+      {userInfo.isAuthenticated ? (
+        <>
+          <Navbar />
           <MainContentContainer />
-        </Navbar>
+          <Toaster position="top-center" reverseOrder={false} />
+        </>
+      ) : (
+        <Login />
       )}
     </div>
   );

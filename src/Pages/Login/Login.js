@@ -8,27 +8,68 @@ import {
   Input,
   FormFeedback,
   Button,
+  Alert,
 } from "reactstrap";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { userActionCreator } from "../../Redux/Actions/index";
+import { UsersApi } from "../../Api/AxiosApi";
+import toast from "react-hot-toast";
 
 const Login = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [formData, setFormData] = useState({
+    username: "",
+    password: "",
+  });
+
+  const [errors, setErrors] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const router = useNavigate();
   const dispatch = useDispatch();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = async (e) => {
+    try {
+      e.preventDefault();
+      setErrors(null);
+      setLoading(true);
+      const res = await UsersApi.Login(formData);
+      if (res.data === "Unauthorized") {
+        setErrors({
+          Invalid: "Invalid username or password",
+        });
+        setLoading(false);
+      } else {
+        dispatch(
+          userActionCreator.login({
+            userName: res.data.username,
+            permission: res.data.permission,
+          })
+        );
+        router("/Dashboard", { replace: true });
+        setLoading(false);
+      }
+    } catch (error) {
+      toast.error("Something went wrong! try again later");
+      setLoading(false);
+      setErrors({
+        failed: "Something went wrong! Please try again later ",
+      });
+      console.log(error);
+    }
   };
 
   const handleUsername = (e) => {
-    setUsername(e.target.value);
+    setFormData({
+      ...formData,
+      username: e.target.value,
+    });
   };
   const handlePassword = (e) => {
-    setPassword(e.target.value);
+    setFormData({
+      ...formData,
+      password: e.target.value,
+    });
   };
 
   return (
@@ -46,8 +87,8 @@ const Login = () => {
                   <Label className="lbl-style">Username</Label>
                   <Input
                     className="input"
-                    valid={username.length > 0 ? true : false}
                     onChange={(e) => handleUsername(e)}
+                    disabled={loading}
                   />
                   <FormFeedback>You will not be able to see this</FormFeedback>
                 </div>
@@ -56,21 +97,31 @@ const Login = () => {
                   <Input
                     className="input"
                     onChange={(e) => handlePassword(e)}
-                    valid={password.length > 0 ? true : false}
                     type="password"
+                    disabled={loading}
                   />
                   <FormFeedback>You will not be able to see this</FormFeedback>
                 </div>
               </div>
+              {errors && (
+                <div className="validation-errors-container">
+                  <Alert
+                    color="danger"
+                    style={{ padding: "0.5rem", alignItems: "center" }}
+                  >
+                    {Object.keys(errors).map((item) => (
+                      <p key={item} className="error-item">
+                        - {errors[item]}
+                      </p>
+                    ))}
+                  </Alert>
+                </div>
+              )}
               <Button
-                // type="submit"
                 color="primary"
                 outline
-                // onSubmit={handleSubmit}
-                onClick={() => {
-                  dispatch(userActionCreator.login(username));
-                  router("/Dashboard", { replace: true });
-                }}
+                onClick={handleSubmit}
+                disabled={loading}
               >
                 Login
               </Button>
