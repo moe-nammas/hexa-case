@@ -7,10 +7,11 @@ const TableTemplate = ({
   columns,
   data,
   searchChoices,
-  handleRowClick,
   multiSelection,
+  handleSelectedRow,
 }) => {
   const [tempData, setTempData] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
   const customStyles = {
     headCells: {
       style: {
@@ -34,14 +35,22 @@ const TableTemplate = ({
   return (
     <div className="table-template-container">
       <div className="search-container">
-        <SearchBy choices={searchChoices} data={data} setData={setTempData} />
+        <SearchBy
+          choices={searchChoices}
+          data={data}
+          setData={setTempData}
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+        />
       </div>
       <DataTable
         columns={columns}
-        data={tempData.length > 0 ? tempData : data}
+        data={searchTerm.length > 0 ? tempData : data}
         customStyles={customStyles}
         pagination
+        paginationPerPage={20}
         selectableRows={multiSelection}
+        onSelectedRowsChange={handleSelectedRow}
         responsive
       />
     </div>

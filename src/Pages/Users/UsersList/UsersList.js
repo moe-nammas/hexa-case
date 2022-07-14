@@ -127,7 +127,7 @@ const UsersList = () => {
             >
               Add User
             </Button>
-            <Button className="danger-btn-style"> Delete Users</Button>
+            {/* <Button className="danger-btn-style"> Delete Users</Button> */}
           </div>
           <TableTemplate
             searchChoices={filters}

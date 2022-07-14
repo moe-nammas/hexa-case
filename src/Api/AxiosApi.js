@@ -17,6 +17,7 @@ export const AlertsApi = {
 export const CasesApi = {
   getNumberOfCases: () => axios.get("Cases/NumberOfCases"),
   getCases: () => axios.get("Cases"),
+  getCaseDetails: (id) => axios.get(`Cases/CaseDetails?id=${id}`),
 };
 
 export const UsersApi = {

@@ -11,6 +11,10 @@
     border-color: white;
     width: 6rem;
     height: 3.5rem;
+
+    &:hover {
+      cursor: pointer;
+    }
   }
   .navbar-content-container {
     display: flex;

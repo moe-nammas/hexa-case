@@ -9,9 +9,12 @@ import { IoTicketOutline } from "react-icons/io5";
 import { GoSettings } from "react-icons/go";
 import { IoIosLogOut } from "react-icons/io";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [currentActive, setCurrentActive] = useState("Dashboards");
+
+  const router = useNavigate();
 
   const iconLabelList = [
     {
@@ -47,13 +50,12 @@ const Navbar = () => {
         ? (item.active = true)
         : (item.active = false);
     });
-    console.log(iconLabelList);
   }, [currentActive]);
 
   return (
     <>
       <div className="navbar-container">
-        <div className="img-container">
+        <div className="img-container" onClick={() => router("/Dashboard")}>
           <img src={logo} width="100%" height="100%" />
         </div>
         <div className="navbar-content-container">

@@ -6,8 +6,14 @@ import { AlertsApi } from "../../../Api/AxiosApi";
 import { DataFormatter } from "../../../Helpers/DataFormatter";
 import Loading from "../../../Components/Loading/Loading";
 import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { pageTitleCreator } from "../../../Redux/Actions/index";
 
 const ViewAlertDetails = () => {
+  const { state } = useLocation();
+  const router = useNavigate();
+  const dispatch = useDispatch();
+
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     timeStamp: "",
@@ -26,9 +32,6 @@ const ViewAlertDetails = () => {
     destinationIp: "",
     relatedUser: "",
   });
-
-  const { state } = useLocation();
-  const router = useNavigate();
 
   const loadAlertDetails = async () => {
     try {
@@ -60,6 +63,7 @@ const ViewAlertDetails = () => {
   };
 
   useEffect(() => {
+    dispatch(pageTitleCreator.change({ title: "Alert Details" }));
     loadAlertDetails();
   }, []);
 
@@ -158,22 +162,7 @@ const ViewAlertDetails = () => {
                 </Label>
               </div>
             </FormGroup>
-            {/* <FormGroup className="row-container-form-style">
-            </FormGroup> */}
           </div>
-          {/* {errors && (
-          <div className="validation-errors-container">
-            <Alert color="danger" className="error-style">
-              <h4>Validation Errors: </h4>
-              <hr className="divider-style" />
-              {Object.keys(errors).map((item) => (
-                <p key={item}>
-                  -{item}: {errors[item]}
-                </p>
-              ))}
-            </Alert>
-          </div>
-        )} */}
           <div className="form-btn-container-style">
             <Button
               className="form-back-btn-style"

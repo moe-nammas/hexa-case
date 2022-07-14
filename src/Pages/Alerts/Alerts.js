@@ -8,13 +8,29 @@ import { IoTrashOutline } from "react-icons/io5";
 import { AiOutlineEye } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { pageTitleCreator } from "../../Redux/Actions/index";
+import {
+  Button,
+  Input,
+  Modal,
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
+  FormFeedback,
+} from "reactstrap";
 
 const Alerts = () => {
-  const [alerts, setAlerts] = useState([]);
-  const choices = ["Alert ID", "Rule Name", "Severity", "Time", "Status"];
-  const [isLoading, setIsLoading] = useState(false);
-
   const router = useNavigate();
+  const dispatch = useDispatch();
+
+  const [alerts, setAlerts] = useState([]);
+  const choices = ["Alert Id", "Rule Name", "Severity", "Time", "Status"];
+  const [isLoading, setIsLoading] = useState(false);
+  const [alertsForCases, setAlertForCases] = useState([]);
+  const [openModal, setOpenModal] = useState(false);
+  const [description, setDescription] = useState("");
+  const [isValidDescription, setIsValidDescription] = useState(true);
 
   const columns = [
     {
@@ -32,46 +48,16 @@ const Alerts = () => {
       sortable: true,
       selector: (row) => row.ruleName,
     },
-    // {
-    //   name: "Description",
-    //   sortable: true,
-    //   selector: (row) => row.description,
-    // },
     {
       name: "Severity",
       sortable: true,
       selector: (row) => row.severity,
     },
-    // {
-    //   name: "Score",
-    //   sortable: true,
-    //   selector: (row) => row.score,
-    // },
     {
       name: "Status",
       sortable: true,
       selector: (row) => row.status,
     },
-    // {
-    //   name: "Agent",
-    //   sortable: true,
-    //   selector: (row) => row.agent,
-    // },
-    // {
-    //   name: "User Name",
-    //   sortable: true,
-    //   selector: (row) => row.username,
-    // },
-    // {
-    //   name: "Host IP",
-    //   sortable: true,
-    //   selector: (row) => row.hostIp,
-    // },
-    // {
-    //   name: "Destination IP",
-    //   sortable: true,
-    //   selector: (row) => row.desinationIp,
-    // },
     {
       cell: (row) => (
         <div className="table-icons-container">
@@ -91,6 +77,10 @@ const Alerts = () => {
     },
   ];
 
+  const handleSelectedRow = (state) => {
+    setAlertForCases(state.selectedRows);
+  };
+
   const handleDelete = async (e, row) => {
     //try {
     //   await UsersApi.deleteUser(row.userId);
@@ -100,7 +90,7 @@ const Alerts = () => {
   };
 
   const handleButtonClick = (e, row) => {
-    router("/ViewAlertDetails", { state: row.alertId });
+    router("/AlertDetails", { state: row.alertId });
   };
 
   const getTableData = async () => {
@@ -133,20 +123,78 @@ const Alerts = () => {
   };
 
   useEffect(() => {
+    if (description.length > 0) setIsValidDescription(true);
+  }, [description]);
+
+  useEffect(() => {
+    dispatch(pageTitleCreator.change({ title: "Alerts" }));
     getTableData();
   }, []);
 
+  const handleDescriptionChange = (e) => {
+    setDescription(e.target.value);
+  };
+
+  const handleSubmitNewCase = () => {
+    if (description.length <= 0) {
+      setIsValidDescription(false);
+      return;
+    }
+  };
+
   return (
     <div className="Alerts-container">
+      <Modal toggle={() => setOpenModal(!openModal)} isOpen={openModal}>
+        <ModalHeader toggle={() => setOpenModal(false)}>
+          Open a new case
+        </ModalHeader>
+        <ModalBody>
+          Please Provide a description
+          <Input
+            type="textarea"
+            placeholder="Description"
+            onChange={(e) => handleDescriptionChange(e)}
+            invalid={!isValidDescription}
+            valid={description.length > 0}
+          />
+          <FormFeedback>Please Provide a description</FormFeedback>
+        </ModalBody>
+        <ModalFooter>
+          <Button className="primary-btn-style" onClick={handleSubmitNewCase}>
+            Confirm
+          </Button>
+          <Button
+            className="secondary-btn-style"
+            // color="danger"
+            // outline
+            onClick={() => setOpenModal(false)}
+          >
+            Cancel
+          </Button>
+        </ModalFooter>
+      </Modal>
       {isLoading ? (
         <Loading />
       ) : (
-        <TableTemplate
-          searchChoices={choices}
-          columns={columns}
-          data={alerts}
-          multiSelection
-        />
+        <>
+          {alertsForCases.length > 0 && (
+            <div className="btns-container">
+              <Button
+                className="primary-btn-style"
+                onClick={() => setOpenModal(!openModal)}
+              >
+                OPEN CASE
+              </Button>
+            </div>
+          )}
+          <TableTemplate
+            searchChoices={choices}
+            columns={columns}
+            data={alerts}
+            multiSelection
+            handleSelectedRow={handleSelectedRow}
+          />
+        </>
       )}
     </div>
   );

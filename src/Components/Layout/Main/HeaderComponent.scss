@@ -3,7 +3,7 @@
 .main-content-header {
   display: flex;
   flex-direction: row;
-  height: 5rem;
+  height: 4rem;
   border-radius: $BorderRadius;
   background-color: white;
   justify-content: space-between;
@@ -15,18 +15,19 @@
     align-items: flex-start;
 
     .lbl-style.title-style {
-      font-size: x-large;
+      font-size: large;
     }
 
     .greeting-msg-style {
       color: $LightGrey;
+      font-size: small;
     }
   }
 
   .filter-container {
     display: flex;
-    width: 3rem;
-    height: 3rem;
+    width: 2.5rem;
+    height: 2.5rem;
     padding: 0.625rem;
     // border: 1px solid $LightGrey;
     box-shadow: $MyBoxShadow;

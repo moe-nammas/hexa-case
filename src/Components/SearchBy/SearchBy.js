@@ -12,13 +12,14 @@ import { Camelize } from "../../Helpers/Camelize";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-const FROM = new Date();
-const TO = new Date();
+const TODAY = new Date();
+const TOMORROW = new Date(TODAY);
+TOMORROW.setDate(TOMORROW.getDate() + 1);
 
-const SearchBy = ({ choices, data, setData }) => {
+const SearchBy = ({ choices, data, setData, searchTerm, setSearchTerm }) => {
   const [openDropdown, setOpenDropdown] = useState(false);
   const [selectedChoice, setSelectedChoice] = useState("Search By");
-  const [searchTerm, setSearchTerm] = useState("");
+
   const [fromDate, setFromDate] = useState(null);
   const [toDate, setToDate] = useState(null);
 
@@ -36,6 +37,9 @@ const SearchBy = ({ choices, data, setData }) => {
 
   useEffect(() => {
     if (!searchTerm) setData([]);
+    else {
+      handleSearchClick();
+    }
   }, [searchTerm]);
 
   const handleSearchClick = () => {
@@ -58,6 +62,7 @@ const SearchBy = ({ choices, data, setData }) => {
           toggle={() => {
             setOpenDropdown(!openDropdown);
           }}
+          className="dropdown-style"
         >
           <DropdownToggle caret className="dropdown-style">
             {selectedChoice}
@@ -79,7 +84,12 @@ const SearchBy = ({ choices, data, setData }) => {
         <Input
           className="search-input"
           value={searchTerm}
+          type="search"
           onChange={(e) => handleSearchInput(e)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter")
+              document.getElementById("search-btn").click();
+          }}
           disabled={selectedChoice === "Search By" ? true : false}
         />
       </div>
@@ -90,14 +100,15 @@ const SearchBy = ({ choices, data, setData }) => {
           selectsStart
           onChange={(date) => setFromDate(date)} //only when value has changed
           className="datetime-picker-style"
-          maxDate={toDate ? toDate : FROM}
+          maxDate={toDate ? toDate : TODAY}
         />
         <DatePicker
           placeholderText="To Date"
           selected={toDate}
           onChange={(date) => setToDate(date)} //only when value has changed
           className="datetime-picker-style"
-          minDate={fromDate ? fromDate : FROM}
+          minDate={fromDate ? fromDate : TODAY}
+          maxDate={TODAY}
         />
       </div>
       <div className="search-btn-container">
@@ -105,6 +116,7 @@ const SearchBy = ({ choices, data, setData }) => {
           className="primary-btn-style search-btn"
           onClick={handleSearchClick}
           disabled={selectedChoice === "Search By" ? true : false}
+          id="search-btn"
         >
           Search
         </Button>

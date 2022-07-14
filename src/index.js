@@ -16,6 +16,7 @@ import Tickets from "./Pages/Tickets/Tickets";
 import AddEditUser from "./Pages/Users/AddUser/AddEditUser";
 import UsersList from "./Pages/Users/UsersList/UsersList";
 import ViewAlertDetails from "./Pages/Alerts/ViewAlert/ViewAlertDetails";
+import CaseDetails from "./Pages/Cases/CaseDetails/CaseDetails";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -31,7 +32,8 @@ ReactDOM.render(
             <Route path="/Settings" element={<Settings />} />
             <Route path="/Users" element={<UsersList />} />
             <Route path="/AddUser" element={<AddEditUser />} />
-            <Route path="/ViewAlertDetails" element={<ViewAlertDetails />} />
+            <Route path="/AlertDetails" element={<ViewAlertDetails />} />
+            <Route path="/CaseDetails" element={<CaseDetails />} />
           </Route>
         </Routes>
       </BrowserRouter>

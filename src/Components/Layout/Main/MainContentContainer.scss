@@ -3,14 +3,14 @@
 .main-content-container {
   display: flex;
   flex-direction: column;
-  margin-inline: 1rem;
+  margin-inline: 0.8rem;
   margin-bottom: 1rem;
-  height: calc(100vh - 112px);
-  width: calc(100vw - 2rem);
+  height: calc(100vh - 100px);
+  width: calc(100vw - 1.7rem);
   background-color: lightgray;
   border-radius: $BorderRadius;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-  padding: 1rem 0.7rem;
+  padding: 0.7rem 0.5rem;
   gap: 1rem;
   overflow: auto;
 }

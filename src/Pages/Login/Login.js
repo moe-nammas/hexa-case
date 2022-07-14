@@ -90,7 +90,6 @@ const Login = () => {
                     onChange={(e) => handleUsername(e)}
                     disabled={loading}
                   />
-                  <FormFeedback>You will not be able to see this</FormFeedback>
                 </div>
                 <div className="input-container">
                   <Label className="lbl-style">password</Label>
@@ -100,7 +99,6 @@ const Login = () => {
                     type="password"
                     disabled={loading}
                   />
-                  <FormFeedback>You will not be able to see this</FormFeedback>
                 </div>
               </div>
               {errors && (
@@ -111,7 +109,7 @@ const Login = () => {
                   >
                     {Object.keys(errors).map((item) => (
                       <p key={item} className="error-item">
-                        - {errors[item]}
+                        {errors[item]}
                       </p>
                     ))}
                   </Alert>

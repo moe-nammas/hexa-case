@@ -9,4 +9,13 @@
   width: 100%;
   height: fit-content;
   border-radius: $BorderRadius;
+
+  .btns-container {
+    align-self: flex-start;
+    margin: 0.5rem 1rem;
+
+    .primary-btn-style {
+      width: 9rem;
+    }
+  }
 }
