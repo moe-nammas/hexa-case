@@ -34,7 +34,7 @@ const Login = () => {
       setErrors(null);
       setLoading(true);
       const res = await UsersApi.Login(formData);
-      if (res.data === "Unauthorized") {
+      if (res.data === "invalid user") {
         setErrors({
           Invalid: "Invalid username or password",
         });
@@ -42,8 +42,7 @@ const Login = () => {
       } else {
         dispatch(
           userActionCreator.login({
-            userName: res.data.username,
-            permission: res.data.permission,
+            token: res.data,
           })
         );
         router("/Dashboard", { replace: true });
@@ -105,7 +104,11 @@ const Login = () => {
                 <div className="validation-errors-container">
                   <Alert
                     color="danger"
-                    style={{ padding: "0.5rem", alignItems: "center" }}
+                    style={{
+                      padding: "0.5rem",
+                      alignItems: "center",
+                      margin: 0,
+                    }}
                   >
                     {Object.keys(errors).map((item) => (
                       <p key={item} className="error-item">

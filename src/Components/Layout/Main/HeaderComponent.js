@@ -15,7 +15,7 @@ const HeaderComponent = () => {
   const [openDropdown, setOpenDropdown] = useState(false);
   const [selectedChoice, setSelectedChoice] = useState("Today");
 
-  const userInfo = useSelector((state) => state.user);
+  const userInfo = useSelector((state) => state.user).user;
   const { pageTitle } = useSelector((state) => state.pageTitle);
 
   const handleDropdownChange = (e) => {
@@ -31,7 +31,7 @@ const HeaderComponent = () => {
           Greetings&nbsp;
           {userInfo.userName.length > 0
             ? userInfo.userName
-            : localStorage.getItem("userName")}
+            : sessionStorage.getItem("userName")}
           <span> &#x1F44B;</span>
         </label>
       </div>

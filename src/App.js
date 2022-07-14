@@ -10,30 +10,9 @@ import { userActionCreator } from "./Redux/Actions/index";
 
 function App() {
   const userInfo = useSelector((state) => state.user);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (localStorage.getItem("isAuthenticated") === "true") {
-      const username = localStorage.getItem("userName");
-      const perm = 1;
-      dispatch(
-        userActionCreator.login({
-          userName: username,
-          permission: perm,
-        })
-      );
-    }
-  }, []);
-
-  window.addEventListener("beforeunload", (e) => {
-    localStorage.clear();
-    console.log(e);
-  });
-
   return (
     <div className="App">
-      {userInfo.isAuthenticated &&
-      localStorage.getItem("isAuthenticated") === "true" ? (
+      {userInfo.isAuthenticated && userInfo.user ? (
         <>
           <Navbar />
           <MainContentContainer />

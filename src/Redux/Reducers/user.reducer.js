@@ -1,28 +1,64 @@
+import { saveUserInfo } from "../../Helpers/SaveUserInfo";
 import { userActions } from "../Actions";
+import { decodeToken } from "react-jwt";
+import { LoadUserInfo } from "../../Helpers/LoadUserInfo";
 
-const initialState = {
-  userName: "",
+let initialState;
+const emptyState = {
   isAuthenticated: false,
-  permission: 0,
+  error: "",
+  token: null,
+  user: {
+    userName: "",
+    permission: 0,
+    name: "",
+    role: "",
+    email: "",
+  },
 };
+
+const userObj = LoadUserInfo();
+if (userObj && userObj.token) {
+  const decodedToken = decodeToken(userObj.token);
+  initialState = {
+    ...userObj,
+    user: {
+      userName: decodedToken.userName,
+      permission: decodedToken.permission,
+      name: decodedToken.name,
+      role: decodedToken.Role,
+      email: decodedToken.Email,
+    },
+  };
+} else {
+  initialState = { ...emptyState };
+}
 
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
     case userActions.LOGIN:
-      localStorage.setItem("isAuthenticated", "true");
-      localStorage.setItem("userName", `${action.payload.userName}`);
+      const decodedToken = decodeToken(action.payload.token);
+      saveUserInfo({
+        isAuthenticated: true,
+        error: "",
+        token: action.payload.token,
+      });
       return {
         ...state,
-        userName: action.payload.userName,
         isAuthenticated: true,
-        permission: action.payload.permission,
+        error: "",
+        token: action.payload.token,
+        user: {
+          userName: decodedToken.userName,
+          permission: decodedToken.permission,
+          name: decodedToken.name,
+          role: decodedToken.Role,
+          email: decodedToken.Email,
+        },
       };
     case userActions.LOGOUT:
-      localStorage.clear();
-      return {
-        ...state,
-        isAuthenticated: false,
-      };
+      saveUserInfo(emptyState);
+      return emptyState;
     default:
       return state;
   }
