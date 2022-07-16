@@ -19,25 +19,23 @@ import ViewAlertDetails from "./Pages/Alerts/ViewAlert/ViewAlertDetails";
 import CaseDetails from "./Pages/Cases/CaseDetails/CaseDetails";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<App />}>
-            <Route path="/" element={<Login />} />
-            <Route path="/Dashboard" element={<Dashboard />} />
-            <Route path="/Cases" element={<Cases />} />
-            <Route path="/Alerts" element={<Alerts />} />
-            <Route path="/Tickets" element={<Tickets />} />
-            <Route path="/Settings" element={<Settings />} />
-            <Route path="/Users" element={<UsersList />} />
-            <Route path="/AddUser" element={<AddEditUser />} />
-            <Route path="/AlertDetails" element={<ViewAlertDetails />} />
-            <Route path="/CaseDetails" element={<CaseDetails />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </Provider>
-  </React.StrictMode>,
+  <Provider store={store}>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<App />}>
+          <Route path="/" element={<Login />} />
+          <Route path="/Dashboard" element={<Dashboard />} />
+          <Route path="/Cases" element={<Cases />} />
+          <Route path="/Alerts" element={<Alerts />} />
+          <Route path="/Tickets" element={<Tickets />} />
+          <Route path="/Settings" element={<Settings />} />
+          <Route path="/Users" element={<UsersList />} />
+          <Route path="/AddUser" element={<AddEditUser />} />
+          <Route path="/AlertDetails" element={<ViewAlertDetails />} />
+          <Route path="/CaseDetails" element={<CaseDetails />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  </Provider>,
   document.getElementById("root")
 );

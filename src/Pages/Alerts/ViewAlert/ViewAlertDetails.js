@@ -16,6 +16,7 @@ const ViewAlertDetails = () => {
 
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
+    id: "",
     timeStamp: "",
     ruleName: "",
     description: "",
@@ -38,6 +39,7 @@ const ViewAlertDetails = () => {
       setLoading(true);
       const res = await AlertsApi.getAlertDetails(state);
       setFormData({
+        id: DataFormatter(res.data.id),
         timeStamp: DataFormatter(res.data.timeStamp),
         ruleName: DataFormatter(res.data.ruleName),
         description: DataFormatter(res.data.description),
@@ -150,6 +152,12 @@ const ViewAlertDetails = () => {
             </FormGroup>
             <FormGroup className="row-container-form-style">
               <div className="form-label-input-container">
+                <Label>Alert ID</Label>
+                <Label className="form-data-lbl-style">{formData.id}</Label>
+              </div>
+            </FormGroup>
+            <FormGroup className="row-container-form-style">
+              <div className="form-label-input-container">
                 <Label>Host IPs</Label>
                 <Label className="form-data-lbl-style">{formData.hostIp}</Label>
               </div>
@@ -167,7 +175,7 @@ const ViewAlertDetails = () => {
             <Button
               className="form-back-btn-style"
               onClick={() => {
-                router("/Alerts");
+                router(-1);
               }}
             >
               Back

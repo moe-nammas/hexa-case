@@ -183,7 +183,7 @@ const Alerts = () => {
                 className="primary-btn-style"
                 onClick={() => setOpenModal(!openModal)}
               >
-                OPEN CASE
+                Case Request
               </Button>
             </div>
           )}

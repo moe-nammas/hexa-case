@@ -9,6 +9,7 @@ const TableTemplate = ({
   searchChoices,
   multiSelection,
   handleSelectedRow,
+  noSearch = false,
 }) => {
   const [tempData, setTempData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -16,33 +17,37 @@ const TableTemplate = ({
     headCells: {
       style: {
         fontSize: "15px",
-        backgroundColor: "lightGray",
+        backgroundColor: "#F0F0F0",
+        width: "fit-content",
       },
     },
     cells: {
       style: {
         fontSize: "14px",
-        // width: "15rem",
+        width: "fit-content",
       },
     },
     pagination: {
       style: {
         fontSize: "15px",
-        color: "black",
+        color: "rgba(0,0,0,.6)",
+        fontWeight: "500",
       },
     },
   };
   return (
     <div className="table-template-container">
-      <div className="search-container">
-        <SearchBy
-          choices={searchChoices}
-          data={data}
-          setData={setTempData}
-          searchTerm={searchTerm}
-          setSearchTerm={setSearchTerm}
-        />
-      </div>
+      {!noSearch && (
+        <div className="search-container">
+          <SearchBy
+            choices={searchChoices}
+            data={data}
+            setData={setTempData}
+            searchTerm={searchTerm}
+            setSearchTerm={setSearchTerm}
+          />
+        </div>
+      )}
       <DataTable
         columns={columns}
         data={searchTerm.length > 0 ? tempData : data}

@@ -137,7 +137,6 @@ code {
   font-size: larger;
   font-weight: bold;
   color: $PrimaryColor;
-  padding: 1rem;
   margin: 0 !important;
 
   .inputs-container {
@@ -146,6 +145,7 @@ code {
     height: 100%;
     flex-direction: column;
     justify-content: space-around;
+
     .row-container-form-style {
       display: flex;
       gap: 1rem;
@@ -176,32 +176,6 @@ code {
         }
       }
       width: 50%;
-    }
-  }
-  .form-btn-container-style {
-    display: flex;
-    width: fit-content;
-    align-self: flex-end;
-    gap: 1rem;
-
-    .form-submit-btn-style {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 10rem;
-      height: 3rem;
-      background-color: $DarkPrimaryColor;
-
-      &:hover {
-        background-color: $DarkPrimaryHoverColor;
-      }
-    }
-    .form-back-btn-style {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 10rem;
-      height: 3rem;
     }
   }
 }
@@ -242,5 +216,51 @@ code {
   }
   &:active {
     background-color: $DarkPrimaryHoverColor;
+  }
+}
+
+#hover-cursor {
+  &:hover {
+    cursor: pointer;
+    color: black !important;
+  }
+}
+
+.form-btn-container-style {
+  display: flex;
+  width: fit-content;
+  align-self: flex-end;
+  gap: 1rem;
+  margin: 0.5rem;
+
+  .form-submit-btn-style {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 10rem;
+    height: 3rem;
+    background-color: $DarkPrimaryColor;
+
+    &:hover {
+      background-color: $DarkPrimaryHoverColor;
+    }
+  }
+  .form-back-btn-style {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 10rem;
+    height: 3rem;
+  }
+}
+
+.component-header-style {
+  align-self: flex-start;
+  color: $PrimaryColor;
+  font-size: 21px;
+  font-weight: 700;
+
+  span {
+    margin-right: 0.5rem;
   }
 }

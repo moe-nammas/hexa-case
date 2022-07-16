@@ -23,7 +23,6 @@
     margin-left: 0.5rem;
   }
   .field-title {
-    // font-size: x-large !important;
     width: fit-content;
     height: fit-content;
     font-size: 16px;
@@ -58,6 +57,14 @@
       box-shadow: $MyBoxShadowHover;
       background-color: $LightPrimaryColor;
       cursor: pointer;
+    }
+  }
+}
+
+@media screen and (max-width: 1025px) {
+  .dasboard-field-container {
+    .field-title {
+      font-size: 13px !important;
     }
   }
 }
