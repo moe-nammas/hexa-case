@@ -7,51 +7,16 @@ import { FiAlertTriangle } from "react-icons/fi";
 import { IoTicketOutline, IoSpeedometerOutline } from "react-icons/io5";
 import { GoDeviceDesktop } from "react-icons/go";
 import DashboardMediumContainer from "../../Components/DashboardContainers/DashboardCharts/DashboardMediumContainer/DashboardMediumContainer";
-import { AlertsApi, CasesApi } from "../../Api/AxiosApi";
+import { AlertsApi, CasesApi, DashboardApi } from "../../Api/AxiosApi";
+import toast from "react-hot-toast";
 
 const Dashboard = () => {
   const [numberOfCases, setNumberOfCases] = useState(0);
   const [numberOfAlerts, setNumberOfAlerts] = useState(0);
+  const [numberOfAttackedAssets, setNumberOfAttackedAssets] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
-
-  const data = {
-    labels: ["Red", "Blue", "Yellow", "Green", "Purple", "LightBlue"],
-    datasets: [
-      {
-        label: "# of Votes",
-        data: [12, 19, 3, 5, 2, 3],
-        backgroundColor: [
-          "#e62e51",
-          "#235494",
-          "#efa81b",
-          "#58b84c",
-          "#b23cfd",
-          "#53a6dc",
-        ],
-        borderColor: [
-          "#e62e51",
-          "#235494",
-          "#efa81b",
-          "#58b84c",
-          "#b23cfd",
-          "#53a6dc",
-        ],
-        borderWidth: 0,
-      },
-    ],
-  };
-  const data2 = {
-    labels: ["Blue", "Yellow", "Green"],
-    datasets: [
-      {
-        label: "# of Votes",
-        data: [12, 19, 3],
-        backgroundColor: ["#235494", "#efa81b", "#58b84c"],
-        borderColor: ["#235494", "#efa81b", "#58b84c"],
-        borderWidth: 0,
-      },
-    ],
-  };
+  const [topAlerts, setTopAlerts] = useState({});
+  const [alertsBySeverity, setAlertsBySeverity] = useState({});
 
   const smallItems = [
     {
@@ -80,16 +45,16 @@ const Dashboard = () => {
     },
     {
       title: "Attacked Assets",
-      stats: 0,
+      stats: numberOfAttackedAssets,
       icon: <BsShieldX />,
       isLoading: isLoading,
     },
-    {
-      title: "Ticket",
-      stats: 91,
-      icon: <IoTicketOutline />,
-      isLoading: isLoading,
-    },
+    // {
+    //   title: "Ticket",
+    //   stats: 91,
+    //   icon: <IoTicketOutline />,
+    //   isLoading: isLoading,
+    // },
     {
       title: "APS",
       stats: 103,
@@ -103,14 +68,31 @@ const Dashboard = () => {
       setIsLoading(true);
       const casesRes = await CasesApi.getNumberOfCases();
       const alertsRes = await AlertsApi.getNumberOfAlerts();
+      const topAlertsGroupedByName = await DashboardApi.getTopAlerts();
+      const alertsBySeverity = await DashboardApi.getAlertsBySeverity();
+      const numberOfAttackedAssets =
+        await DashboardApi.getNumberOfAttackedAssets();
+      setTopAlerts({
+        labels: topAlertsGroupedByName.data.map((item) => item.rulename),
+        data: topAlertsGroupedByName.data.map((item) => item.numberOfOccurence),
+      });
+      setAlertsBySeverity({
+        labels: alertsBySeverity.data.map((item) => item.severity),
+        data: alertsBySeverity.data.map((item) => item.numberOfOccurence),
+      });
       setNumberOfAlerts(alertsRes.data);
       setNumberOfCases(casesRes.data);
+      setNumberOfAttackedAssets(numberOfAttackedAssets.data);
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
-      //TODO: Handle Error
+      toast.error("Something went wrong! Please try again");
     }
   };
+
+  useEffect(() => {
+    console.log(topAlerts);
+  }, [topAlerts]);
 
   useEffect(() => {
     loadDashboardData();
@@ -131,19 +113,18 @@ const Dashboard = () => {
       </div>
       <div className="dashboard-medium-boxes-container">
         <DashboardMediumContainer
-          dataSet={data}
+          labels={alertsBySeverity.labels}
+          data={alertsBySeverity.data}
           type="Pie"
           title={"Alerts By Severity"}
+          isLoading={isLoading}
         />
         <DashboardMediumContainer
-          dataSet={data2}
+          labels={topAlerts.labels}
+          data={topAlerts.data}
           type="Pie"
-          title={"Top 3 Alerts"}
-        />
-        <DashboardMediumContainer
-          dataSet={data2}
-          type="Pie"
-          title={"Top 3 Alerts"}
+          title={"Top Alerts"}
+          isLoading={isLoading}
         />
       </div>
     </div>

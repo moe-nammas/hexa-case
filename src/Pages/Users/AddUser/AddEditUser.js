@@ -188,28 +188,6 @@ const AddEditUser = () => {
           </FormGroup>
           <FormGroup className="row-container-form-style">
             <div className="form-label-input-container">
-              <Label for="email">Email</Label>
-              <Input
-                placeholder="Email"
-                type="email"
-                name="email"
-                defaultValue={formData.email}
-                onChange={(e) => handleChange(e)}
-              />
-            </div>
-            <div className="form-label-input-container">
-              <Label for="phone">Phone</Label>
-              <Input
-                name="phone"
-                placeholder="Phone"
-                type="text"
-                defaultValue={formData.phone}
-                onChange={(e) => handleChange(e)}
-              />
-            </div>
-          </FormGroup>
-          <FormGroup className="row-container-form-style">
-            <div className="form-label-input-container">
               <Label>Role</Label>
               <Input
                 name="role"
@@ -265,6 +243,28 @@ const AddEditUser = () => {
                   </DropdownItem>
                 </DropdownMenu>
               </Dropdown>
+            </div>
+          </FormGroup>
+          <FormGroup className="row-container-form-style">
+            <div className="form-label-input-container">
+              <Label for="email">Email</Label>
+              <Input
+                placeholder="Email"
+                type="email"
+                name="email"
+                defaultValue={formData.email}
+                onChange={(e) => handleChange(e)}
+              />
+            </div>
+            <div className="form-label-input-container">
+              <Label for="phone">Phone</Label>
+              <Input
+                name="phone"
+                placeholder="Phone"
+                type="text"
+                defaultValue={formData.phone}
+                onChange={(e) => handleChange(e)}
+              />
             </div>
           </FormGroup>
         </div>

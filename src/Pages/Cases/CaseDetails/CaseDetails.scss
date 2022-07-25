@@ -25,6 +25,7 @@
     .case-details-comments-section-container {
       display: flex;
       flex-direction: column;
+      justify-content: space-between;
       width: 100%;
       height: 25rem;
       gap: 1rem;
@@ -70,5 +71,6 @@
     border-radius: $BorderRadius;
     padding: 1rem;
     gap: 1rem;
+    overflow: auto;
   }
 }

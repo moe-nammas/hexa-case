@@ -18,6 +18,10 @@ import {
   ModalFooter,
   ModalHeader,
   FormFeedback,
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
 } from "reactstrap";
 
 const Alerts = () => {
@@ -31,6 +35,8 @@ const Alerts = () => {
   const [openModal, setOpenModal] = useState(false);
   const [description, setDescription] = useState("");
   const [isValidDescription, setIsValidDescription] = useState(true);
+  const [openDropdown, setOpenDropdown] = useState(false);
+  const [selectedChoice, setSelectedChoice] = useState("Severity");
 
   const columns = [
     {
@@ -77,8 +83,12 @@ const Alerts = () => {
     },
   ];
 
+  const handleDropdownChange = (e) => {
+    setSelectedChoice(e.target.innerText);
+  };
+
   const handleSelectedRow = (state) => {
-    setAlertForCases(state.selectedRows);
+    setAlertForCases(state.selectedRows.map((item) => item.alertId));
   };
 
   const handleDelete = async (e, row) => {
@@ -146,18 +156,48 @@ const Alerts = () => {
     <div className="Alerts-container">
       <Modal toggle={() => setOpenModal(!openModal)} isOpen={openModal}>
         <ModalHeader toggle={() => setOpenModal(false)}>
-          Open a new case
+          Request a new case
         </ModalHeader>
         <ModalBody>
-          Please Provide a description
-          <Input
-            type="textarea"
-            placeholder="Description"
-            onChange={(e) => handleDescriptionChange(e)}
-            invalid={!isValidDescription}
-            valid={description.length > 0}
-          />
-          <FormFeedback>Please Provide a description</FormFeedback>
+          <div className="modal-body-container">
+            <div>
+              Please Provide a description
+              <Input
+                type="textarea"
+                placeholder="Description"
+                onChange={(e) => handleDescriptionChange(e)}
+                invalid={!isValidDescription}
+                valid={description.length > 0}
+              />
+              <FormFeedback>Please Provide a description</FormFeedback>
+            </div>
+            <div className="dropdown-container">
+              <Dropdown
+                isOpen={openDropdown}
+                toggle={() => {
+                  setOpenDropdown(!openDropdown);
+                }}
+                className="dropdown-style"
+              >
+                <DropdownToggle caret>{selectedChoice}</DropdownToggle>
+                <DropdownMenu className="dropdown-choices-container">
+                  <DropdownItem onClick={(e) => handleDropdownChange(e)}>
+                    Severity
+                  </DropdownItem>
+                  <DropdownItem divider />
+                  <DropdownItem onClick={(e) => handleDropdownChange(e)}>
+                    Low
+                  </DropdownItem>
+                  <DropdownItem onClick={(e) => handleDropdownChange(e)}>
+                    Medium
+                  </DropdownItem>
+                  <DropdownItem onClick={(e) => handleDropdownChange(e)}>
+                    High
+                  </DropdownItem>
+                </DropdownMenu>
+              </Dropdown>
+            </div>
+          </div>
         </ModalBody>
         <ModalFooter>
           <Button className="primary-btn-style" onClick={handleSubmitNewCase}>
@@ -177,7 +217,7 @@ const Alerts = () => {
         <Loading />
       ) : (
         <>
-          {alertsForCases.length > 0 && (
+          {!!alertsForCases.length && (
             <div className="btns-container">
               <Button
                 className="primary-btn-style"

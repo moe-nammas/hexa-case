@@ -38,7 +38,6 @@ const CaseDetails = () => {
   const [newCommentFormData, setNewCommentFormData] = useState({
     comment: "",
     commentBy: username,
-    commentAt: null,
     caseId: "",
   });
   const choices = ["Alert Id", "Rule Name", "Severity", "Time", "Status"];
@@ -103,7 +102,18 @@ const CaseDetails = () => {
         severity: DataFormatter(res.data.severity),
         id: res.data.id,
       });
-      setAssociatedAlerts(res.data.associatedAlerts);
+      const flattenedData = res.data.associatedAlerts.map((item) => {
+        const editedRow = {
+          ...item,
+          alertId: DataFormatter(item.alertId),
+          timeStamp: DataFormatter(item.timeStamp),
+          ruleName: DataFormatter(item.ruleName),
+          severity: DataFormatter(item.severity),
+          status: DataFormatter(item.status),
+        };
+        return editedRow;
+      });
+      setAssociatedAlerts(flattenedData);
       setComments(res.data.comments);
       setNewCommentFormData({
         ...newCommentFormData,
@@ -135,17 +145,13 @@ const CaseDetails = () => {
   };
 
   const handleSendBtn = async () => {
-    setCommentLoading(true);
-    if (newCommentFormData.comment.length === 0) {
-      setNewCommentError(true);
-      setCommentLoading(false);
-      return;
-    }
-    setNewCommentFormData({
-      ...newCommentFormData,
-      commentAt: new Date(),
-    });
     try {
+      setCommentLoading(true);
+      if (newCommentFormData.comment.length === 0) {
+        setNewCommentError(true);
+        setCommentLoading(false);
+        return;
+      }
       await CasesApi.postComment(newCommentFormData);
       toast.success("Comment posted successfully");
       loadCaseDetails();
@@ -249,7 +255,11 @@ const CaseDetails = () => {
                 </span>
                 Comments
               </label>
-              <CommentsSection comments={comments} />
+              {comments.length ? (
+                <CommentsSection comments={comments} />
+              ) : (
+                <>No Comments</>
+              )}
               <div className="comment-input-container">
                 <div className="comment-img-container">
                   <img src={defaultUserImg} width="100%" height="100%" />
