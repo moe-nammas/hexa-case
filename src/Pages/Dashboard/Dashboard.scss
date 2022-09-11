@@ -12,7 +12,8 @@
   .dashboard-medium-boxes-container {
     display: flex;
     flex-direction: row;
-    width: 100%;
+    flex-wrap: wrap;
+    // width: 100%;
     height: fit-content;
     gap: 1rem;
     justify-content: space-between;

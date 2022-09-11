@@ -33,7 +33,7 @@ const Dashboard = () => {
     },
     {
       title: "Tickets",
-      stats: 91,
+      stats: 0,
       icon: <IoTicketOutline />,
       isLoading: isLoading,
     },
@@ -89,10 +89,6 @@ const Dashboard = () => {
       toast.error("Something went wrong! Please try again");
     }
   };
-
-  useEffect(() => {
-    console.log(topAlerts);
-  }, [topAlerts]);
 
   useEffect(() => {
     loadDashboardData();

@@ -1,13 +1,13 @@
 @import "../../../Styles/Variables.scss";
 
-.add-user-container {
+.case-settings-container {
   display: flex;
+  align-items: center;
   flex-direction: column;
+  background-color: white;
+  padding: 1rem;
   width: 100%;
   height: 100%;
-  gap: 1rem;
-  background-color: white;
-  padding: 0.5rem;
-  border-radius: $BorderRadius;
   overflow: auto;
+  border-radius: $BorderRadius;
 }

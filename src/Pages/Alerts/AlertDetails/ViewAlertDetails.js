@@ -70,26 +70,26 @@ const ViewAlertDetails = () => {
   }, []);
 
   return (
-    <div className="view-alert-container">
+    <div className="content-container">
       {loading ? (
         <Loading />
       ) : (
         <Form className="form-container-style">
           <div className="inputs-container">
             <FormGroup className="row-container-form-style">
-              <div className="form-label-input-container">
+              <div className="form-label-input-container with-border">
                 <Label>Time Stamp</Label>
                 <Label className="form-data-lbl-style">
                   {formData.timeStamp}
                 </Label>
               </div>
-              <div className="form-label-input-container">
+              <div className="form-label-input-container with-border">
                 <Label>Rule Name</Label>
                 <Label className="form-data-lbl-style">
                   {formData.ruleName}
                 </Label>
               </div>
-              <div className="form-label-input-container">
+              <div className="form-label-input-container with-border">
                 <Label>Description</Label>
                 <Label className="form-data-lbl-style">
                   {formData.description}
@@ -97,35 +97,35 @@ const ViewAlertDetails = () => {
               </div>
             </FormGroup>
             <FormGroup className="row-container-form-style">
-              <div className="form-label-input-container">
+              <div className="form-label-input-container with-border">
                 <Label>Severity</Label>
                 <Label className="form-data-lbl-style">
                   {formData.severity}
                 </Label>
               </div>
-              <div className="form-label-input-container">
+              <div className="form-label-input-container with-border">
                 <Label>Score</Label>
                 <Label className="form-data-lbl-style">{formData.score}</Label>
               </div>
-              <div className="form-label-input-container">
+              <div className="form-label-input-container with-border">
                 <Label>Agent</Label>
                 <Label className="form-data-lbl-style">{formData.agent}</Label>
               </div>
             </FormGroup>
             <FormGroup className="row-container-form-style">
-              <div className="form-label-input-container">
+              <div className="form-label-input-container with-border">
                 <Label>Category</Label>
                 <Label className="form-data-lbl-style">
                   {formData.category}
                 </Label>
               </div>
-              <div className="form-label-input-container">
+              <div className="form-label-input-container with-border">
                 <Label>Event Code</Label>
                 <Label className="form-data-lbl-style">
                   {formData.eventCode}
                 </Label>
               </div>
-              <div className="form-label-input-container">
+              <div className="form-label-input-container with-border">
                 <Label>Process</Label>
                 <Label className="form-data-lbl-style">
                   {formData.process}
@@ -133,17 +133,17 @@ const ViewAlertDetails = () => {
               </div>
             </FormGroup>
             <FormGroup className="row-container-form-style">
-              <div className="form-label-input-container">
+              <div className="form-label-input-container with-border">
                 <Label>Action</Label>
                 <Label className="form-data-lbl-style">{formData.action}</Label>
               </div>
-              <div className="form-label-input-container">
+              <div className="form-label-input-container with-border">
                 <Label>Username</Label>
                 <Label className="form-data-lbl-style">
                   {formData.username}
                 </Label>
               </div>
-              <div className="form-label-input-container">
+              <div className="form-label-input-container with-border">
                 <Label>Related Users</Label>
                 <Label className="form-data-lbl-style">
                   {formData.relatedUser}
@@ -151,19 +151,19 @@ const ViewAlertDetails = () => {
               </div>
             </FormGroup>
             <FormGroup className="row-container-form-style">
-              <div className="form-label-input-container">
+              <div className="form-label-input-container with-border">
                 <Label>Alert ID</Label>
                 <Label className="form-data-lbl-style">{formData.id}</Label>
               </div>
             </FormGroup>
             <FormGroup className="row-container-form-style">
-              <div className="form-label-input-container">
+              <div className="form-label-input-container with-border">
                 <Label>Host IPs</Label>
                 <Label className="form-data-lbl-style">{formData.hostIp}</Label>
               </div>
             </FormGroup>
             <FormGroup className="row-container-form-style">
-              <div className="form-label-input-container">
+              <div className="form-label-input-container with-border">
                 <Label>Destination IPs</Label>
                 <Label className="form-data-lbl-style">
                   {formData.destinationIp}

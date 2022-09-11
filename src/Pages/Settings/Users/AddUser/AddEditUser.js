@@ -14,11 +14,11 @@ import {
 } from "reactstrap";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { pageTitleCreator } from "../../../Redux/Actions/index";
+import { pageTitleCreator } from "../../../../Redux/Actions/index";
 import { useEffect } from "react";
-import { UsersApi } from "../../../Api/AxiosApi";
+import { UsersApi } from "../../../../Api/AxiosApi";
 import toast from "react-hot-toast";
-import Loading from "../../../Components/Loading/Loading";
+import Loading from "../../../../Components/Loading/Loading";
 
 const AddEditUser = () => {
   const router = useNavigate();
@@ -51,12 +51,12 @@ const AddEditUser = () => {
           const res = await UsersApi.updateUser(userId, formData);
           toast.success("User Updated Successfully");
           setLoading(false);
-          router("/Users");
+          router("/Settings/Users/ViewUsers");
         } else {
           const res = await UsersApi.createUser(formData);
           toast.success("User Added Successfully");
           setLoading(false);
-          router("/Users");
+          router("/Settings/Users/ViewUsers");
         }
       } else {
         setLoading(false);
@@ -119,7 +119,7 @@ const AddEditUser = () => {
   };
 
   const handleBackBtn = () => {
-    router(`/Users`);
+    router(`/Settings/Users/ViewUsers`);
     dispatch(pageTitleCreator.change({ title: "Users" }));
   };
 
@@ -142,7 +142,7 @@ const AddEditUser = () => {
   };
 
   return (
-    <div className="add-user-container">
+    <div className="content-container add-user-container">
       <Form className="form-container-style">
         <div className="inputs-container">
           <FormGroup className="row-container-form-style">

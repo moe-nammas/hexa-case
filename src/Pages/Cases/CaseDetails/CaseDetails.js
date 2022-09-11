@@ -16,12 +16,17 @@ import { FiAlertTriangle } from "react-icons/fi";
 import TableTemplate from "../../../Components/Table/TableTemplate";
 import CommentsSection from "../../../Components/CommentsSection/CommentsSection";
 import defaultUserImg from "../../../Assets/Images/default-user-img.png";
+import { UncontrolledTooltip } from "reactstrap";
 
 const CaseDetails = () => {
-  const { state } = useLocation();
+  const { state: caseIdFromSystem } = useLocation();
   const router = useNavigate();
   const dispatch = useDispatch();
   const username = useSelector((state) => state.user).user.userName;
+
+  useEffect(() => {
+    console.log(caseIdFromSystem);
+  }, []);
 
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
@@ -39,6 +44,7 @@ const CaseDetails = () => {
     comment: "",
     commentBy: username,
     caseId: "",
+    caseIdFromSystem: caseIdFromSystem,
   });
   const choices = ["Alert Id", "Rule Name", "Severity", "Time", "Status"];
   const [associatedAlerts, setAssociatedAlerts] = useState([]);
@@ -78,7 +84,16 @@ const CaseDetails = () => {
           <AiOutlineEye
             className="edit-icon-style"
             onClick={(e) => handleButtonClick(e, row)}
+            id={`view-icon-${row.alertId}`}
           />
+          <UncontrolledTooltip
+            autohide
+            flip
+            target={`view-icon-${row.alertId}`}
+            placement="left"
+          >
+            View
+          </UncontrolledTooltip>
         </div>
       ),
       ignoreRowClick: true,
@@ -90,7 +105,7 @@ const CaseDetails = () => {
   const loadCaseDetails = async () => {
     try {
       setLoading(true);
-      const res = await CasesApi.getCaseDetails(state);
+      const res = await CasesApi.getCaseDetails(caseIdFromSystem);
       setFormData({
         name: DataFormatter(res.data.name),
         description: DataFormatter(res.data.description),
@@ -134,7 +149,7 @@ const CaseDetails = () => {
   }, []);
 
   const handleButtonClick = (e, row) => {
-    router("/AlertDetails", { state: row.alertId });
+    router("/Alerts/AlertDetails", { state: row.alertId });
   };
 
   const handleCommentInput = (e) => {
@@ -189,20 +204,20 @@ const CaseDetails = () => {
               >
                 <div className="inputs-container">
                   <FormGroup className="row-container-form-style">
-                    <div className="form-label-input-container">
+                    <div className="form-label-input-container with-border">
                       <Label>Name</Label>
                       <Label className="form-data-lbl-style">
                         {formData.name}
                       </Label>
                     </div>
-                    <div className="form-label-input-container">
+                    <div className="form-label-input-container with-border">
                       <Label>Description</Label>
                       <Label className="form-data-lbl-style">
                         {formData.description}
                       </Label>
                     </div>
                   </FormGroup>
-                  <FormGroup className="row-container-form-style">
+                  <FormGroup className="row-container-form-style with-border">
                     <div className="form-label-input-container">
                       <Label>Status</Label>
                       <Label className="form-data-lbl-style">
@@ -210,21 +225,21 @@ const CaseDetails = () => {
                       </Label>
                     </div>
 
-                    <div className="form-label-input-container">
+                    <div className="form-label-input-container with-border">
                       <Label>Created By</Label>
                       <Label className="form-data-lbl-style">
                         {formData.createdBy}
                       </Label>
                     </div>
                   </FormGroup>
-                  <FormGroup className="row-container-form-style">
+                  <FormGroup className="row-container-form-style with-border">
                     <div className="form-label-input-container">
                       <Label>Closed Time</Label>
                       <Label className="form-data-lbl-style">
                         {formData.closedTime}
                       </Label>
                     </div>
-                    <div className="form-label-input-container">
+                    <div className="form-label-input-container with-border">
                       <Label>Closed By</Label>
                       <Label className="form-data-lbl-style">
                         {formData.closedBy}
@@ -232,13 +247,13 @@ const CaseDetails = () => {
                     </div>
                   </FormGroup>
                   <FormGroup className="row-container-form-style">
-                    <div className="form-label-input-container">
+                    <div className="form-label-input-container with-border">
                       <Label>Creation Time</Label>
                       <Label className="form-data-lbl-style">
                         {formData.creationTime}
                       </Label>
                     </div>
-                    <div className="form-label-input-container">
+                    <div className="form-label-input-container with-border">
                       <Label>Severity</Label>
                       <Label className="form-data-lbl-style">
                         {formData.severity}
@@ -268,11 +283,12 @@ const CaseDetails = () => {
                   className={`comment-input ${newCommentError ? "error" : ""} `}
                   placeholder="Comment..."
                   onChange={(e) => handleCommentInput(e)}
+                  disabled={formData.status == "closed"}
                 />
                 <Button
                   className="primary-btn-style"
                   onClick={handleSendBtn}
-                  disabled={commentLoading}
+                  disabled={commentLoading || formData.status == "closed"}
                 >
                   Send
                 </Button>
@@ -296,7 +312,7 @@ const CaseDetails = () => {
               <Button
                 className="form-back-btn-style"
                 onClick={() => {
-                  router("/Cases");
+                  router(-1);
                 }}
               >
                 Back

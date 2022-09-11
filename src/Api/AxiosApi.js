@@ -13,6 +13,9 @@ export const CasesApi = {
   getCases: () => axios.get("Cases"),
   getCaseDetails: (id) => axios.get(`Cases/CaseDetails?id=${id}`),
   postComment: (comment) => axios.post(`Cases/PostComment`, comment),
+  create: (data) => axios.post(`Cases`, data),
+  changeStatus: (data) => axios.put(`Cases/ChangeStatus`, data),
+  delete: (id) => axios.delete(`Cases?id=${id}`),
 };
 
 export const UsersApi = {

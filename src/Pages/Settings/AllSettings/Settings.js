@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import "./Settings.scss";
-import SettingsCard from "../../Components/SettingsCard/SettingsCard";
+import SettingsCard from "../../../Components/SettingsCard/SettingsCard";
 import { FiUser, FiAlertTriangle } from "react-icons/fi";
 import { AiOutlineSafety, AiOutlineInfoCircle } from "react-icons/ai";
 import { BsGear } from "react-icons/bs";
@@ -8,7 +8,7 @@ import { IoTicketOutline } from "react-icons/io5";
 import { AiOutlineFileSearch } from "react-icons/ai";
 import { MdOutlineNotificationsActive } from "react-icons/md";
 import { useDispatch } from "react-redux";
-import { pageTitleCreator } from "../../Redux/Actions/index";
+import { pageTitleCreator } from "../../../Redux/Actions/index";
 
 const Settings = () => {
   const dispatch = useDispatch();
@@ -17,7 +17,7 @@ const Settings = () => {
     {
       title: "Users",
       icon: <FiUser />,
-      path: "/Users",
+      path: "/Settings/Users/ViewUsers",
     },
     {
       title: "Roles & Permissions",
@@ -37,7 +37,7 @@ const Settings = () => {
     {
       title: "Cases",
       icon: <AiOutlineFileSearch />,
-      path: "/Cases",
+      path: "/Settings/CaseSettings",
     },
     {
       title: "Alerts",

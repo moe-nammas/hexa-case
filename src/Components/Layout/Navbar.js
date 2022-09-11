@@ -8,49 +8,57 @@ import { FiAlertTriangle } from "react-icons/fi";
 import { IoTicketOutline } from "react-icons/io5";
 import { GoSettings } from "react-icons/go";
 import { IoIosLogOut } from "react-icons/io";
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useLayoutEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const Navbar = () => {
-  const [currentActive, setCurrentActive] = useState("Dashboards");
-
   const router = useNavigate();
+  const location = useLocation();
 
-  const iconLabelList = [
+  const [currentActive, setCurrentActive] = useState(location.pathname);
+
+  const [iconLabelList, setIconLabelList] = useState([
     {
       label: "Dashboard",
       Icon: <MdOutlineSpaceDashboard />,
       active: true,
+      pathname: "Dashboard",
     },
     {
       label: "Cases",
       Icon: <AiOutlineFileSearch />,
       active: false,
+      pathname: "Cases/ViewCases",
     },
     {
       label: "Alerts",
       Icon: <FiAlertTriangle />,
       active: false,
+      pathname: "Alerts/ViewAlerts",
     },
     {
       label: "Tickets",
       Icon: <IoTicketOutline />,
       active: false,
+      pathname: "Tickets",
     },
     {
       label: "Settings",
       Icon: <GoSettings />,
       active: false,
+      pathname: "Settings/AllSettings",
     },
-  ];
+  ]);
 
   useEffect(() => {
-    iconLabelList.map((item) => {
-      item.label === currentActive
-        ? (item.active = true)
-        : (item.active = false);
-    });
-  }, [currentActive]);
+    setIconLabelList(
+      iconLabelList.map((item) =>
+        location.pathname.includes(item.label)
+          ? { ...item, active: true }
+          : { ...item, active: false }
+      )
+    );
+  }, [location]);
 
   return (
     <>
@@ -67,6 +75,7 @@ const Navbar = () => {
                 key={item.label}
                 active={item.active}
                 setCurrentActive={setCurrentActive}
+                pathname={item.pathname}
               />
             ))}
             <div
@@ -74,6 +83,7 @@ const Navbar = () => {
                 borderLeft: "1px lightgray solid",
                 height: "3rem",
                 marginTop: "5px",
+                marginLeft: "5px",
               }}
             ></div>
             <IconLabel label={"Logout"} icon={<IoIosLogOut />} />

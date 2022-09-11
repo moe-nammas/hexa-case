@@ -1,21 +1,20 @@
 import React, { useEffect, useState, useMemo } from "react";
 import "./UsersList.scss";
-import { DataFormatter } from "../../../Helpers/DataFormatter";
-import Loading from "../../../Components/Loading/Loading";
-import TableTemplate from "../../../Components/Table/TableTemplate";
-import { UsersApi } from "../../../Api/AxiosApi";
+import { DataFormatter } from "../../../../Helpers/DataFormatter";
+import Loading from "../../../../Components/Loading/Loading";
+import TableTemplate from "../../../../Components/Table/TableTemplate";
+import { UsersApi } from "../../../../Api/AxiosApi";
 import { IoTrashOutline } from "react-icons/io5";
 import { BiEdit } from "react-icons/bi";
-import { Button } from "reactstrap";
+import { Button, UncontrolledTooltip } from "reactstrap";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { pageTitleCreator } from "../../../Redux/Actions/index";
+import { pageTitleCreator } from "../../../../Redux/Actions/index";
 import toast from "react-hot-toast";
 
 const UsersList = () => {
   const [users, setUsers] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [selectedRows, setSelectedRows] = useState([]);
 
   const router = useNavigate();
   const dispatch = useDispatch();
@@ -58,11 +57,29 @@ const UsersList = () => {
           <BiEdit
             className="edit-icon-style"
             onClick={(e) => handleButtonClick(e, row)}
+            id={`edit-icon-${row.userID}`}
           />
+          <UncontrolledTooltip
+            autohide
+            flip
+            target={`edit-icon-${row.userID}`}
+            placement="left"
+          >
+            Edit
+          </UncontrolledTooltip>
           <IoTrashOutline
             className="delete-icon-style"
             onClick={(e) => handleDelete(e, row)}
+            id={`delete-icon-${row.userID}`}
           />
+          <UncontrolledTooltip
+            autohide
+            flip
+            target={`delete-icon-${row.userID}`}
+            placement="left"
+          >
+            Delete
+          </UncontrolledTooltip>
         </div>
       ),
       ignoreRowClick: true,
@@ -80,7 +97,7 @@ const UsersList = () => {
   };
 
   const handleButtonClick = (e, row) => {
-    router("/AddUser", { state: row });
+    router("/Settings/Users/EditUser", { state: row });
   };
 
   const getTableData = async () => {
@@ -112,7 +129,7 @@ const UsersList = () => {
   }, []);
 
   return (
-    <div className="users-container">
+    <div className="content-container users-container">
       {isLoading ? (
         <Loading />
       ) : (
@@ -121,7 +138,7 @@ const UsersList = () => {
             <Button
               className="primary-btn-style"
               onClick={() => {
-                router("/AddUser", { replace: true });
+                router("/Settings/Users/AddUser", { replace: true });
                 dispatch(pageTitleCreator.change({ title: "Add New User" }));
               }}
             >

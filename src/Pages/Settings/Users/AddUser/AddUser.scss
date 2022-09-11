@@ -1,0 +1,12 @@
+@import "../../../../Styles/Variables.scss";
+
+.add-user-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 1rem;
+  background-color: white;
+  padding: 0.5rem;
+  border-radius: $BorderRadius;
+  overflow: auto;
+}

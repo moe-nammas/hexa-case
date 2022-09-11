@@ -4,7 +4,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: fit-content;
+  width: 10rem;
   height: fit-content;
   font-size: 19px;
   color: $PrimaryColor;
@@ -29,6 +29,10 @@
 #active {
   background-color: $PrimaryColor;
   border-radius: $BorderRadius;
+  transition: background-color 0.4s ease;
+  -webkit-transition: background-color 0.4s ease;
+  -moz-transition: background-color 0.4s ease;
+  -o-transition: background-color 0.4s ease;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
     rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
   color: white;

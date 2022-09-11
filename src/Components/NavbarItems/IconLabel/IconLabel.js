@@ -1,13 +1,15 @@
 import React from "react";
 import "./IconLabel.scss";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { pageTitleCreator } from "../../../Redux/Actions/index";
 import { userActionCreator } from "../../../Redux/Actions/index";
+import { useEffect } from "react";
 
-const IconLabel = ({ label, icon, active, setCurrentActive }) => {
+const IconLabel = ({ label, icon, active, setCurrentActive, pathname }) => {
   const router = useNavigate();
   const dispatch = useDispatch();
+  const location = useLocation();
 
   const handleClick = () => {
     if (label === "Logout") {
@@ -15,10 +17,11 @@ const IconLabel = ({ label, icon, active, setCurrentActive }) => {
       router("/");
       return;
     }
-    setCurrentActive(label);
     dispatch(pageTitleCreator.change({ title: label }));
-    router(`/${label}`);
+    router(`/${pathname}`);
+    setCurrentActive(label);
   };
+
   return (
     <div
       className="icon-lbl-container"

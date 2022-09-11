@@ -118,12 +118,7 @@ const Login = () => {
                   </Alert>
                 </div>
               )}
-              <Button
-                color="primary"
-                outline
-                onClick={handleSubmit}
-                disabled={loading}
-              >
+              <Button color="primary" onClick={handleSubmit} disabled={loading}>
                 Login
               </Button>
             </div>
