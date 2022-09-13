@@ -1,7 +1,7 @@
 import { pageTitleActions } from "../Actions";
 
 const initialState = {
-  pageTitle: "Dashboard",
+  pageTitle: "",
 };
 
 const pageTitleReducer = (state = initialState, action) => {

@@ -3,10 +3,12 @@ import "./Settings.scss";
 import SettingsCard from "../../../Components/SettingsCard/SettingsCard";
 import { FiUser, FiAlertTriangle } from "react-icons/fi";
 import { AiOutlineSafety, AiOutlineInfoCircle } from "react-icons/ai";
-import { BsGear } from "react-icons/bs";
 import { IoTicketOutline } from "react-icons/io5";
 import { AiOutlineFileSearch } from "react-icons/ai";
-import { MdOutlineNotificationsActive } from "react-icons/md";
+import {
+  MdOutlineNotificationsActive,
+  MdOutlineSpaceDashboard,
+} from "react-icons/md";
 import { useDispatch } from "react-redux";
 import { pageTitleCreator } from "../../../Redux/Actions/index";
 
@@ -25,9 +27,9 @@ const Settings = () => {
       path: "/Permissions",
     },
     {
-      title: "System",
-      icon: <BsGear />,
-      path: "/System",
+      title: "Dashboard",
+      icon: <MdOutlineSpaceDashboard />,
+      path: "/Settings/DashboardSettings",
     },
     {
       title: "About",

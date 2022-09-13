@@ -15,6 +15,7 @@ import { useDispatch } from "react-redux";
 import { userActionCreator } from "../../Redux/Actions/index";
 import { UsersApi } from "../../Api/AxiosApi";
 import toast from "react-hot-toast";
+import Loading from "../../Components/Loading/Loading";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -118,8 +119,13 @@ const Login = () => {
                   </Alert>
                 </div>
               )}
-              <Button color="primary" onClick={handleSubmit} disabled={loading}>
-                Login
+              <Button
+                color="primary"
+                onClick={handleSubmit}
+                disabled={loading}
+                style={{ display: "flex", justifyContent: "center" }}
+              >
+                {loading ? <Loading padding={false} /> : "Login"}
               </Button>
             </div>
           </FormGroup>

@@ -22,6 +22,7 @@ import AlertsIndex from "./Pages/Alerts/AlertsIndex";
 import CasesIndex from "./Pages/Cases/CasesIndex";
 import SettingsIndex from "./Pages/Settings/SettingsIndex";
 import UsersSettingsIndex from "./Pages/Settings/Users/UsersSettingsIndex";
+import DashboardSettingsIndex from "./Pages/Settings/DashboardSettings/DashboardSettingsIndex";
 
 ReactDOM.render(
   <Provider store={store}>
@@ -50,6 +51,10 @@ ReactDOM.render(
               />
             </Route>
             <Route path="/Settings/CaseSettings" element={<CaseSettings />} />
+            <Route
+              path="/Settings/DashboardSettings"
+              element={<DashboardSettingsIndex />}
+            ></Route>
           </Route>
         </Route>
       </Routes>

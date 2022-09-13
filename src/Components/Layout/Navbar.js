@@ -53,7 +53,7 @@ const Navbar = () => {
   useEffect(() => {
     setIconLabelList(
       iconLabelList.map((item) =>
-        location.pathname.includes(item.label)
+        location.pathname.split("/")[1].includes(item.label)
           ? { ...item, active: true }
           : { ...item, active: false }
       )

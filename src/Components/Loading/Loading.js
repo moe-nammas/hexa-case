@@ -1,9 +1,12 @@
 import React from "react";
 import { Spinner } from "reactstrap";
 
-const Loading = () => {
+const Loading = ({ padding = true }) => {
   return (
-    <div className="spinner-position">
+    <div
+      className="spinner-position"
+      style={padding ? { padding: "1rem" } : {}}
+    >
       <Spinner>Loading...</Spinner>
     </div>
   );
