@@ -8,7 +8,9 @@ import {
   DropdownItem,
   DropdownMenu,
   DropdownToggle,
+  UncontrolledPopover,
 } from "reactstrap";
+import { useLayoutEffect } from "react";
 
 const HeaderComponent = () => {
   const [openPopover, setOpenPopover] = useState(false);
@@ -37,18 +39,8 @@ const HeaderComponent = () => {
       </div>
       {pageTitle?.includes("Dashboard") && (
         <div className="filter-container" id="filter-icon-container">
-          <FiFilter
-            size="2rem"
-            className="filter-icon"
-            onClick={() => setOpenPopover(!openPopover)}
-          />
-          <Popover
-            isOpen={openPopover}
-            flip
-            target="filter-icon-container"
-            toggle={() => setOpenPopover(!openPopover)}
-            onAbort={() => setOpenPopover(false)}
-          >
+          <FiFilter size="2rem" className="filter-icon" />
+          <UncontrolledPopover flip target="filter-icon-container">
             <Dropdown
               isOpen={openDropdown}
               toggle={() => {
@@ -77,7 +69,7 @@ const HeaderComponent = () => {
                 </DropdownItem>
               </DropdownMenu>
             </Dropdown>
-          </Popover>
+          </UncontrolledPopover>
         </div>
       )}
     </div>

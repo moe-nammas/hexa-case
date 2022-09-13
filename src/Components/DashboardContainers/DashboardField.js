@@ -3,7 +3,14 @@ import "./DashboardField.scss";
 import { FiChevronsRight } from "react-icons/fi";
 import Loading from "../Loading/Loading";
 
-const DashboardField = ({ title, stats, icon, more = true, isLoading }) => {
+const DashboardField = ({
+  title,
+  stats,
+  icon,
+  more = true,
+  isLoading,
+  func,
+}) => {
   return (
     <div className="dasboard-field-container">
       <div className="field-title">
@@ -27,7 +34,7 @@ const DashboardField = ({ title, stats, icon, more = true, isLoading }) => {
         </div>
       )}
       {more && (
-        <div className="footer-container">
+        <div className="footer-container" onClick={func}>
           <label>More</label>
           <FiChevronsRight />
         </div>

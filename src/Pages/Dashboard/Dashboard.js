@@ -9,14 +9,19 @@ import { GoDeviceDesktop } from "react-icons/go";
 import DashboardMediumContainer from "../../Components/DashboardContainers/DashboardCharts/DashboardMediumContainer/DashboardMediumContainer";
 import { AlertsApi, CasesApi, DashboardApi } from "../../Api/AxiosApi";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import AttackedAssetsModal from "../../Components/Modals/AttackedAssetsModal/AttackedAssetsModal";
 
 const Dashboard = () => {
+  const router = useNavigate();
+
   const [numberOfCases, setNumberOfCases] = useState(0);
   const [numberOfAlerts, setNumberOfAlerts] = useState(0);
   const [numberOfAttackedAssets, setNumberOfAttackedAssets] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [topAlerts, setTopAlerts] = useState({});
   const [alertsBySeverity, setAlertsBySeverity] = useState({});
+  const [openAttackedAssetsModal, setOpenAttackedAssetsModal] = useState(false);
 
   const smallItems = [
     {
@@ -24,30 +29,44 @@ const Dashboard = () => {
       stats: numberOfAlerts,
       icon: <FiAlertTriangle />,
       isLoading: isLoading,
+      func: () => {
+        router("/Alerts/ViewAlerts");
+      },
+      show: true,
     },
     {
       title: "Cases",
       stats: numberOfCases,
       icon: <AiOutlineFileSearch />,
       isLoading: isLoading,
+      func: () => {
+        router("/Cases/ViewCases");
+      },
+      show: true,
     },
     {
       title: "Tickets",
       stats: 0,
       icon: <IoTicketOutline />,
       isLoading: isLoading,
+      show: false,
     },
     {
       title: "Monitored Assets",
       stats: 1365,
       icon: <GoDeviceDesktop />,
       isLoading: isLoading,
+      show: true,
     },
     {
       title: "Attacked Assets",
       stats: numberOfAttackedAssets,
       icon: <BsShieldX />,
       isLoading: isLoading,
+      show: true,
+      func: () => {
+        setOpenAttackedAssetsModal(true);
+      },
     },
     // {
     //   title: "Ticket",
@@ -60,6 +79,7 @@ const Dashboard = () => {
       stats: 103,
       icon: <IoSpeedometerOutline />,
       isLoading: isLoading,
+      show: true,
     },
   ];
 
@@ -95,35 +115,42 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <div className="dashboard-container">
-      <div className="dashboard-small-boxes-container">
-        {smallItems.map((item) => (
-          <DashboardField
-            title={item.title}
-            stats={item.stats}
-            icon={item.icon}
+    <>
+      <AttackedAssetsModal
+        openModal={openAttackedAssetsModal}
+        setOpenModal={setOpenAttackedAssetsModal}
+      />
+      <div className="dashboard-container">
+        <div className="dashboard-small-boxes-container">
+          {smallItems.map((item) => (
+            <DashboardField
+              title={item.title}
+              stats={item.stats}
+              icon={item.icon}
+              isLoading={isLoading}
+              key={item.title}
+              func={item.func}
+            />
+          ))}
+        </div>
+        <div className="dashboard-medium-boxes-container">
+          <DashboardMediumContainer
+            labels={alertsBySeverity.labels}
+            data={alertsBySeverity.data}
+            type="Pie"
+            title={"Alerts By Severity"}
             isLoading={isLoading}
-            key={item.title}
           />
-        ))}
+          <DashboardMediumContainer
+            labels={topAlerts.labels}
+            data={topAlerts.data}
+            type="Pie"
+            title={"Top Alerts"}
+            isLoading={isLoading}
+          />
+        </div>
       </div>
-      <div className="dashboard-medium-boxes-container">
-        <DashboardMediumContainer
-          labels={alertsBySeverity.labels}
-          data={alertsBySeverity.data}
-          type="Pie"
-          title={"Alerts By Severity"}
-          isLoading={isLoading}
-        />
-        <DashboardMediumContainer
-          labels={topAlerts.labels}
-          data={topAlerts.data}
-          type="Pie"
-          title={"Top Alerts"}
-          isLoading={isLoading}
-        />
-      </div>
-    </div>
+    </>
   );
 };
 
