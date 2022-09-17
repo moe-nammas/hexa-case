@@ -277,6 +277,16 @@ code {
   height: calc(100vh - 202px);
   overflow: auto;
   border-radius: $BorderRadius;
+
+  .btns-container {
+    margin-bottom: 1rem;
+    display: flex;
+    align-self: flex-start;
+
+    .primary-btn-style {
+      width: 9rem !important;
+    }
+  }
 }
 
 .dashboard-info-modal-wrapper {

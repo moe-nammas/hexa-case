@@ -11,9 +11,12 @@ import { AlertsApi, CasesApi, DashboardApi } from "../../Api/AxiosApi";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import AttackedAssetsModal from "../../Components/Modals/AttackedAssetsModal/AttackedAssetsModal";
+import { useDispatch } from "react-redux";
+import { pageTitleCreator } from "../../Redux/Actions/index";
 
 const Dashboard = () => {
   const router = useNavigate();
+  const dispatch = useDispatch();
 
   const [numberOfCases, setNumberOfCases] = useState(0);
   const [numberOfAlerts, setNumberOfAlerts] = useState(0);
@@ -52,6 +55,9 @@ const Dashboard = () => {
       icon: <IoTicketOutline />,
       isLoading: isLoading,
       show: false,
+      func: () => {
+        router("/Tickets/ViewTickets");
+      },
     },
     {
       title: "Monitored Assets",
@@ -129,6 +135,7 @@ const Dashboard = () => {
   };
 
   useEffect(() => {
+    dispatch(pageTitleCreator.change({ title: "Dashboard" }));
     loadDashboardData();
   }, []);
 

@@ -195,7 +195,7 @@ const Alerts = () => {
   };
 
   return (
-    <div className="content-container Alerts-container">
+    <div className="content-container">
       <Modal toggle={() => setOpenModal(!openModal)} isOpen={openModal}>
         <ModalHeader toggle={() => setOpenModal(false)}>
           Request a new case

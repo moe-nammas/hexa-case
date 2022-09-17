@@ -129,7 +129,7 @@ const UsersList = () => {
   }, []);
 
   return (
-    <div className="content-container users-container">
+    <div className="content-container">
       {isLoading ? (
         <Loading />
       ) : (
@@ -144,7 +144,6 @@ const UsersList = () => {
             >
               Add User
             </Button>
-            {/* <Button className="danger-btn-style"> Delete Users</Button> */}
           </div>
           <TableTemplate
             searchChoices={filters}

@@ -36,3 +36,7 @@ export const DashboardApi = {
     axios.get("Dashboard/GetNumberOfAttackedAssets"),
   getAttackedAssets: () => axios.get("Dashboard/GetAttackedAssets"),
 };
+
+export const TicketsApi = {
+  getAll: () => axios.get("Tickets"),
+};

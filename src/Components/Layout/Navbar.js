@@ -40,7 +40,7 @@ const Navbar = () => {
       label: "Tickets",
       Icon: <IoTicketOutline />,
       active: false,
-      pathname: "Tickets",
+      pathname: "Tickets/ViewTickets",
     },
     {
       label: "Settings",

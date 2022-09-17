@@ -12,7 +12,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "react-datepicker/dist/react-datepicker.css";
 import Alerts from "./Pages/Alerts/AlertsList/Alerts";
 import Settings from "./Pages/Settings/AllSettings/Settings";
-import Tickets from "./Pages/Tickets/Tickets";
 import AddEditUser from "./Pages/Settings/Users/AddUser/AddEditUser";
 import UsersList from "./Pages/Settings/Users/UsersList/UsersList";
 import ViewAlertDetails from "./Pages/Alerts/AlertDetails/ViewAlertDetails";
@@ -23,6 +22,9 @@ import CasesIndex from "./Pages/Cases/CasesIndex";
 import SettingsIndex from "./Pages/Settings/SettingsIndex";
 import UsersSettingsIndex from "./Pages/Settings/Users/UsersSettingsIndex";
 import DashboardSettingsIndex from "./Pages/Settings/DashboardSettings/DashboardSettingsIndex";
+import TicketsIndex from "./Pages/Tickets/TicketsIndex";
+import TicketsList from "./Pages/Tickets/TicketsList/TicketsList";
+import AddTicket from "./Pages/Tickets/AddTicket/AddTicket";
 
 ReactDOM.render(
   <Provider store={store}>
@@ -39,7 +41,10 @@ ReactDOM.render(
             <Route path="/Alerts/ViewAlerts" element={<Alerts />}></Route>
             <Route path="/Alerts/AlertDetails" element={<ViewAlertDetails />} />
           </Route>
-          <Route path="/Tickets" element={<Tickets />} />
+          <Route path="/Tickets" element={<TicketsIndex />}>
+            <Route path="/Tickets/ViewTickets" element={<TicketsList />} />
+            <Route path="/Tickets/AddTicket" element={<AddTicket />} />
+          </Route>
           <Route path="/Settings" element={<SettingsIndex />}>
             <Route path="/Settings/AllSettings" element={<Settings />} />
             <Route path="/Settings/Users" element={<UsersSettingsIndex />}>
