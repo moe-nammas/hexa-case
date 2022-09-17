@@ -278,3 +278,8 @@ code {
   overflow: auto;
   border-radius: $BorderRadius;
 }
+
+.dashboard-info-modal-wrapper {
+  height: calc(100vh - 9rem);
+  overflow: auto;
+}

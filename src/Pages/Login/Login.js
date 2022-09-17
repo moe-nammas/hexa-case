@@ -1,15 +1,7 @@
 import React, { useState } from "react";
 import "./Login.scss";
 import logo from "../../Assets/Images/kytl-logo.png";
-import {
-  Form,
-  FormGroup,
-  Label,
-  Input,
-  FormFeedback,
-  Button,
-  Alert,
-} from "reactstrap";
+import { Form, FormGroup, Label, Input, Button, Alert } from "reactstrap";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { userActionCreator } from "../../Redux/Actions/index";

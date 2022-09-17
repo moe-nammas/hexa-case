@@ -8,7 +8,7 @@ import { FiAlertTriangle } from "react-icons/fi";
 import { IoTicketOutline } from "react-icons/io5";
 import { GoSettings } from "react-icons/go";
 import { IoIosLogOut } from "react-icons/io";
-import { useEffect, useLayoutEffect } from "react";
+import { useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
 const Navbar = () => {

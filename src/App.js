@@ -1,12 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./App.css";
 import Login from "./Pages/Login/Login";
 import Navbar from "./Components/Layout/Navbar";
 import { useSelector } from "react-redux";
 import MainContentContainer from "./Components/Layout/Main/MainContentContainer";
 import { Toaster } from "react-hot-toast";
-import { useDispatch } from "react-redux";
-import { userActionCreator } from "./Redux/Actions/index";
 
 function App() {
   const userInfo = useSelector((state) => state.user);

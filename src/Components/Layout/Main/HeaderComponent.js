@@ -1,19 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./HeaderComponent.scss";
 import { useSelector } from "react-redux";
 import { FiFilter } from "react-icons/fi";
 import {
-  Popover,
   Dropdown,
   DropdownItem,
   DropdownMenu,
   DropdownToggle,
   UncontrolledPopover,
 } from "reactstrap";
-import { useLayoutEffect } from "react";
 
 const HeaderComponent = () => {
-  const [openPopover, setOpenPopover] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(false);
   const [selectedChoice, setSelectedChoice] = useState("Today");
 
@@ -22,7 +19,6 @@ const HeaderComponent = () => {
 
   const handleDropdownChange = (e) => {
     setSelectedChoice(e.target.innerText);
-    setOpenPopover(false);
   };
 
   return (

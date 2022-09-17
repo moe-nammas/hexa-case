@@ -34,4 +34,5 @@ export const DashboardApi = {
   getAlertsBySeverity: () => axios.get("Dashboard/AlertsBySeverity"),
   getNumberOfAttackedAssets: () =>
     axios.get("Dashboard/GetNumberOfAttackedAssets"),
+  getAttackedAssets: () => axios.get("Dashboard/GetAttackedAssets"),
 };

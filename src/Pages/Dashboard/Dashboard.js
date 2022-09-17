@@ -22,6 +22,8 @@ const Dashboard = () => {
   const [topAlerts, setTopAlerts] = useState({});
   const [alertsBySeverity, setAlertsBySeverity] = useState({});
   const [openAttackedAssetsModal, setOpenAttackedAssetsModal] = useState(false);
+  const [attackedAssets, setAttackedAssets] = useState([]);
+  const [attackedAssetsLoading, setAttackedAssetsLoading] = useState(false);
 
   const smallItems = [
     {
@@ -65,15 +67,10 @@ const Dashboard = () => {
       isLoading: isLoading,
       show: true,
       func: () => {
+        getAttackedAssets();
         setOpenAttackedAssetsModal(true);
       },
     },
-    // {
-    //   title: "Ticket",
-    //   stats: 91,
-    //   icon: <IoTicketOutline />,
-    //   isLoading: isLoading,
-    // },
     {
       title: "APS",
       stats: 103,
@@ -82,6 +79,27 @@ const Dashboard = () => {
       show: true,
     },
   ];
+
+  const getAttackedAssets = async () => {
+    try {
+      setAttackedAssetsLoading(true);
+      const { data: attackedAssetsResponse } =
+        await DashboardApi.getAttackedAssets();
+      const flattenedData = attackedAssetsResponse.map((item) => {
+        const editedRow = {
+          ...item,
+          destinationIp: item.destinationIp,
+        };
+        return editedRow;
+      });
+      setAttackedAssets(flattenedData);
+      setAttackedAssetsLoading(false);
+    } catch (error) {
+      console.log(error);
+      setAttackedAssetsLoading(false);
+      toast.error("Something went wrong while loading...");
+    }
+  };
 
   const loadDashboardData = async () => {
     try {
@@ -119,6 +137,8 @@ const Dashboard = () => {
       <AttackedAssetsModal
         openModal={openAttackedAssetsModal}
         setOpenModal={setOpenAttackedAssetsModal}
+        data={attackedAssets}
+        isLoading={attackedAssetsLoading}
       />
       <div className="dashboard-container">
         <div className="dashboard-small-boxes-container">
