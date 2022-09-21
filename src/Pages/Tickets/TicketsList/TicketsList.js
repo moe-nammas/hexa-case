@@ -6,10 +6,22 @@ import { pageTitleCreator } from "../../../Redux/Actions/index";
 import toast from "react-hot-toast";
 import { DataFormatter } from "../../../Helpers/DataFormatter";
 import { TicketsApi } from "../../../Api/AxiosApi";
-import { Button, UncontrolledTooltip } from "reactstrap";
+import {
+  Button,
+  UncontrolledTooltip,
+  Modal,
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
+} from "reactstrap";
 import { useNavigate } from "react-router-dom";
 import { IoTrashOutline } from "react-icons/io5";
 import { BiEdit } from "react-icons/bi";
+import { MdOutlineRotateLeft } from "react-icons/md";
 
 const TicketsList = () => {
   const dispatch = useDispatch();
@@ -17,6 +29,15 @@ const TicketsList = () => {
 
   const [tickets, setTickets] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isSubmiting, setIsSubmiting] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState(false);
+  const [selectedChoice, setSelectedChoice] = useState("Status");
+  const [isValidStatus, setIsValidStatus] = useState(true);
+  const [formData, setFormData] = useState({
+    id: 0,
+    status: "",
+  });
 
   const filters = ["Name", "Ticket Id", "Created By"];
   const columns = [
@@ -51,8 +72,48 @@ const TicketsList = () => {
       selector: (row) => row.severity,
     },
     {
+      name: "status",
+      sortable: true,
+      selector: (row) => row.status,
+    },
+    {
       cell: (row) => (
         <div className="table-icons-container">
+          {row.status !== "closed" ? (
+            <>
+              <MdOutlineRotateLeft
+                className="edit-icon-style"
+                id={`status-icon-${row.ticketId}`}
+                onClick={() => {
+                  setFormData({ ...formData, id: row.ticketId });
+                  setOpenModal(true);
+                }}
+              />
+              <UncontrolledTooltip
+                autohide
+                flip
+                target={`status-icon-${row.ticketId}`}
+                placement="left"
+              >
+                Change Status
+              </UncontrolledTooltip>
+            </>
+          ) : (
+            <>
+              <MdOutlineRotateLeft
+                id={`disabled-icon-${row.ticketId}`}
+                className="disabled-icon"
+              />{" "}
+              <UncontrolledTooltip
+                autohide
+                flip
+                target={`disabled-icon-${row.ticketId}`}
+                placement="left"
+              >
+                ticket is closed
+              </UncontrolledTooltip>{" "}
+            </>
+          )}
           <BiEdit
             className="edit-icon-style"
             onClick={(e) => handleButtonClick(e, row)}
@@ -102,6 +163,12 @@ const TicketsList = () => {
     }
   };
 
+  const handleDropdownChange = (e) => {
+    setFormData({ ...formData, status: e.target.innerText });
+    setSelectedChoice(e.target.innerText);
+    setIsValidStatus(true);
+  };
+
   const getTableData = async () => {
     try {
       setIsLoading(true);
@@ -115,6 +182,7 @@ const TicketsList = () => {
           createdBy: DataFormatter(item.createdBy),
           createdAt: DataFormatter(item.createdAt),
           severity: DataFormatter(item.severity),
+          status: DataFormatter(item.status),
         };
         return editedRow;
       });
@@ -132,8 +200,97 @@ const TicketsList = () => {
     getTableData();
   }, []);
 
+  const handleChangeStatus = async () => {
+    try {
+      setIsSubmiting(true);
+      if (formData.status === "Status" || formData.status === "") {
+        setIsValidStatus(false);
+        setIsSubmiting(false);
+        return;
+      }
+      await TicketsApi.updateStatus(formData.id, formData.status);
+      toast.success("Status Changed Successfully");
+      setIsSubmiting(false);
+      setOpenModal(false);
+      getTableData();
+    } catch (error) {
+      console.log(error);
+      setIsSubmiting(false);
+      toast.error("Something went wrong! please try again later");
+    }
+  };
+
   return (
     <div className="content-container">
+      <Modal toggle={() => setOpenModal(!openModal)} isOpen={openModal}>
+        <ModalHeader toggle={() => setOpenModal(false)}>
+          Change Ticket Status
+        </ModalHeader>
+        <ModalBody>
+          {isSubmiting ? (
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Loading />
+            </div>
+          ) : (
+            <div className="modal-body-container">
+              <div>
+                <Dropdown
+                  isOpen={openDropdown}
+                  toggle={() => {
+                    setOpenDropdown(!openDropdown);
+                  }}
+                  className="dropdown-style"
+                >
+                  <DropdownToggle caret className="dropdown-style">
+                    {selectedChoice}
+                  </DropdownToggle>
+                  <DropdownMenu style={{ width: "100%" }}>
+                    <DropdownItem onClick={(e) => handleDropdownChange(e)}>
+                      Status
+                    </DropdownItem>
+                    <DropdownItem divider />
+                    <DropdownItem onClick={(e) => handleDropdownChange(e)}>
+                      open
+                    </DropdownItem>
+                    <DropdownItem onClick={(e) => handleDropdownChange(e)}>
+                      closed
+                    </DropdownItem>
+                  </DropdownMenu>
+                </Dropdown>
+                {!isValidStatus && (
+                  <label style={{ color: "#9f3a38" }}>
+                    Please select a status
+                  </label>
+                )}
+              </div>
+            </div>
+          )}
+        </ModalBody>
+        <ModalFooter>
+          <Button
+            className="primary-btn-style"
+            onClick={handleChangeStatus}
+            disabled={isSubmiting}
+          >
+            Confirm
+          </Button>
+          <Button
+            className="secondary-btn-style"
+            onClick={() => {
+              setOpenModal(false);
+            }}
+            disabled={isSubmiting}
+          >
+            Cancel
+          </Button>
+        </ModalFooter>
+      </Modal>
       {isLoading ? (
         <Loading />
       ) : (

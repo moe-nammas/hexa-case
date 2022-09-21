@@ -42,4 +42,5 @@ export const TicketsApi = {
   post: (data) => axios.post("Tickets", data),
   delete: (id) => axios.delete(`Tickets/${id}`),
   update: (id, data) => axios.put(`Tickets/${id}`, data),
+  updateStatus: (id, status) => axios.put(`Tickets/${id}/${status}`),
 };

@@ -149,7 +149,6 @@ const UsersList = () => {
             searchChoices={filters}
             columns={columns}
             data={users}
-            multiSelection
           />
         </>
       )}

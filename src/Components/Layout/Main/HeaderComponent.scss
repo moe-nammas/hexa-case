@@ -29,8 +29,7 @@
     width: 2.5rem;
     height: 2.5rem;
     padding: 0.625rem;
-    // border: 1px solid $LightGrey;
-    box-shadow: $MyBoxShadow;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 0px;
     border-radius: 8px;
     align-items: center;
     justify-content: center;
@@ -46,6 +45,10 @@
 
     .filter-icon {
       color: $PrimaryColor;
+    }
+    .dropdown-style {
+      border: none !important;
+      border-radius: 0 !important;
     }
   }
 }
