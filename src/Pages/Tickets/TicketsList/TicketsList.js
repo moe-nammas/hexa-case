@@ -6,8 +6,10 @@ import { pageTitleCreator } from "../../../Redux/Actions/index";
 import toast from "react-hot-toast";
 import { DataFormatter } from "../../../Helpers/DataFormatter";
 import { TicketsApi } from "../../../Api/AxiosApi";
-import { Button } from "reactstrap";
+import { Button, UncontrolledTooltip } from "reactstrap";
 import { useNavigate } from "react-router-dom";
+import { IoTrashOutline } from "react-icons/io5";
+import { BiEdit } from "react-icons/bi";
 
 const TicketsList = () => {
   const dispatch = useDispatch();
@@ -31,7 +33,7 @@ const TicketsList = () => {
     {
       name: "Description",
       sortable: true,
-      selector: (row) => row.ticketDesctiption,
+      selector: (row) => row.ticketDescription,
     },
     {
       name: "Created By",
@@ -48,7 +50,57 @@ const TicketsList = () => {
       sortable: true,
       selector: (row) => row.severity,
     },
+    {
+      cell: (row) => (
+        <div className="table-icons-container">
+          <BiEdit
+            className="edit-icon-style"
+            onClick={(e) => handleButtonClick(e, row)}
+            id={`edit-icon-${row.ticketId}`}
+          />
+          <UncontrolledTooltip
+            autohide
+            flip
+            target={`edit-icon-${row.ticketId}`}
+            placement="left"
+          >
+            Edit
+          </UncontrolledTooltip>
+          <IoTrashOutline
+            className="delete-icon-style"
+            onClick={(e) => handleDelete(e, row)}
+            id={`delete-icon-${row.ticketId}`}
+          />
+          <UncontrolledTooltip
+            autohide
+            flip
+            target={`delete-icon-${row.ticketId}`}
+            placement="left"
+          >
+            Delete
+          </UncontrolledTooltip>
+        </div>
+      ),
+      ignoreRowClick: true,
+      allowOverflow: true,
+      button: true,
+    },
   ];
+
+  const handleButtonClick = (e, row) => {
+    router("/Tickets/EditTicket", { state: row });
+  };
+
+  const handleDelete = async (e, row) => {
+    try {
+      const res = await TicketsApi.delete(row.ticketId);
+      toast.success("Ticket Deleted Successfully");
+      getTableData();
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong! Please try again later");
+    }
+  };
 
   const getTableData = async () => {
     try {
@@ -59,7 +111,7 @@ const TicketsList = () => {
           ...item,
           ticketId: DataFormatter(item.ticketId),
           ticketName: DataFormatter(item.ticketName),
-          ticketDesctiption: DataFormatter(item.ticketDesctiption),
+          ticketDescription: DataFormatter(item.ticketDescription),
           createdBy: DataFormatter(item.createdBy),
           createdAt: DataFormatter(item.createdAt),
           severity: DataFormatter(item.severity),

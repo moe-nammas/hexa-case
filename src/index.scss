@@ -61,10 +61,6 @@ code {
   &:hover {
     cursor: pointer;
   }
-
-  &:focus {
-    border-color: blue !important;
-  }
 }
 
 .table-icons-container {
@@ -131,10 +127,9 @@ code {
 .form-container-style {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  // align-items: center;
-  height: fit-content;
+  justify-content: space-between;
   width: 100%;
+  height: 100%;
   font-size: larger;
   font-weight: bold;
   color: $PrimaryColor;
@@ -155,6 +150,11 @@ code {
     flex-direction: column;
     width: 100%;
 
+    .invalid-feedback {
+      display: flex;
+      font-size: 13px;
+    }
+
     Label {
       width: max-content;
     }
@@ -163,10 +163,9 @@ code {
 
       .dropdown-style {
         width: 100%;
-        // background-color: $DarkPrimaryColor;
         background-color: white;
         color: #646363;
-        border-color: #ced4da;
+        border-color: lightgray;
         text-align: left;
       }
     }
@@ -203,21 +202,16 @@ code {
 }
 
 .dropdown-style {
-  display: flex !important;
-  flex-direction: row !important;
-  align-items: center !important;
-  justify-content: space-between !important;
-  align-self: flex-start !important;
-  background-color: $DarkPrimaryColor !important;
+  width: 100%;
+  background-color: white !important;
   box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px !important;
-  border: none !important;
-  color: white !important;
+  color: gray !important;
+  border-color: lightgray !important;
 
-  &:hover {
-    background-color: $DarkPrimaryHoverColor;
-  }
-  &:active {
-    background-color: $DarkPrimaryHoverColor;
+  button {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center;
   }
 }
 

@@ -44,7 +44,11 @@ const HeaderComponent = () => {
               }}
               className="dropdown-style"
             >
-              <DropdownToggle caret className="dropdown-style">
+              <DropdownToggle
+                caret
+                className="dropdown-style"
+                style={{ borderRadius: "5px" }}
+              >
                 {selectedChoice}
               </DropdownToggle>
               <DropdownMenu className="dropdown-choices-container">

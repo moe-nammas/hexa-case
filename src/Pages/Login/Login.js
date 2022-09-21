@@ -117,7 +117,14 @@ const Login = () => {
                 disabled={loading}
                 style={{ display: "flex", justifyContent: "center" }}
               >
-                {loading ? <Loading padding={false} /> : "Login"}
+                {loading ? (
+                  <Loading
+                    style={{ width: "1.5rem", height: "1.5rem" }}
+                    padding={false}
+                  />
+                ) : (
+                  "Login"
+                )}
               </Button>
             </div>
           </FormGroup>

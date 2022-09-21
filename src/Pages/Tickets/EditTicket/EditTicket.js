@@ -12,18 +12,19 @@ import {
   Button,
   FormFeedback,
 } from "reactstrap";
-import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { pageTitleCreator } from "../../../Redux/Actions/index";
 import toast from "react-hot-toast";
 import Loading from "../../../Components/Loading/Loading";
 import { TicketsApi } from "../../../Api/AxiosApi";
 
-const AddTicket = () => {
+const EditTicket = () => {
   const router = useNavigate();
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user.user);
+  const { state } = useLocation();
 
+  const [userId, setUserId] = useState(0);
   const [selectedSeverity, setSelectedSeverity] = useState("Severity");
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({
@@ -34,7 +35,6 @@ const AddTicket = () => {
     ticketName: "",
     ticketDescription: "",
     severity: "",
-    createdBy: user.userName,
   });
   const [openSeverityDropdown, setOpenSeverityDropdown] = useState(false);
 
@@ -46,6 +46,17 @@ const AddTicket = () => {
     });
   };
 
+  const fillData = () => {
+    if (state) {
+      setFormData({
+        ticketName: state.ticketName ?? "no data",
+        ticketDescription: state.ticketDescription ?? "no data",
+        severity: state.severity ?? "no data",
+      });
+      setSelectedSeverity(state.severity);
+    }
+  };
+
   const handleDropDownChange = (e) => {
     setFormData({
       ...formData,
@@ -54,7 +65,8 @@ const AddTicket = () => {
   };
 
   useEffect(() => {
-    dispatch(pageTitleCreator.change({ title: "Add New Ticket" }));
+    dispatch(pageTitleCreator.change({ title: "Edit Ticket" }));
+    fillData();
   }, []);
 
   const validate = () => {
@@ -79,9 +91,9 @@ const AddTicket = () => {
   const onSubmitHandler = async () => {
     try {
       setLoading(true);
-      if (validate()) {
-        const res = await TicketsApi.post(formData);
-        toast.success("Ticket Added Successfully");
+      if (validate() && state?.ticketId) {
+        const res = await TicketsApi.update(state.ticketId, formData);
+        toast.success("Ticket Updated Successfully");
         router("/Tickets/ViewTickets");
       }
       setLoading(false);
@@ -103,7 +115,7 @@ const AddTicket = () => {
                 placeholder="e.g. Maintenance"
                 type="text"
                 name="ticketName"
-                defaultValue={formData.name}
+                defaultValue={formData.ticketName}
                 onChange={(e) => handleChange(e)}
                 invalid={errors.ticketName}
               />
@@ -176,7 +188,7 @@ const AddTicket = () => {
                 name="ticketDescription"
                 placeholder="Ticket Description"
                 type="textarea"
-                defaultValue={formData.role}
+                defaultValue={formData.ticketDescription}
                 onChange={(e) => handleChange(e)}
                 invalid={errors.description}
               />
@@ -205,4 +217,4 @@ const AddTicket = () => {
   );
 };
 
-export default AddTicket;
+export default EditTicket;

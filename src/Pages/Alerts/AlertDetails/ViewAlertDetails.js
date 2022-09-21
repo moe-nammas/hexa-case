@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import "./ViewAlertDetails.scss";
 import { Form, FormGroup, Label, Button } from "reactstrap";
 import { useLocation, useNavigate } from "react-router-dom";
 import { AlertsApi } from "../../../Api/AxiosApi";
@@ -74,7 +73,10 @@ const ViewAlertDetails = () => {
       {loading ? (
         <Loading />
       ) : (
-        <Form className="form-container-style">
+        <Form
+          className="form-container-style"
+          style={{ height: "fit-content" }}
+        >
           <div className="inputs-container">
             <FormGroup className="row-container-form-style">
               <div className="form-label-input-container with-border">

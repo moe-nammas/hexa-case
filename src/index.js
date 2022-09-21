@@ -25,6 +25,7 @@ import DashboardSettingsIndex from "./Pages/Settings/DashboardSettings/Dashboard
 import TicketsIndex from "./Pages/Tickets/TicketsIndex";
 import TicketsList from "./Pages/Tickets/TicketsList/TicketsList";
 import AddTicket from "./Pages/Tickets/AddTicket/AddTicket";
+import EditTicket from "./Pages/Tickets/EditTicket/EditTicket";
 
 ReactDOM.render(
   <Provider store={store}>
@@ -38,12 +39,13 @@ ReactDOM.render(
             <Route path="/Cases/CaseDetails" element={<CaseDetails />} />
           </Route>
           <Route path="/Alerts" element={<AlertsIndex />}>
-            <Route path="/Alerts/ViewAlerts" element={<Alerts />}></Route>
+            <Route path="/Alerts/ViewAlerts" element={<Alerts />} />
             <Route path="/Alerts/AlertDetails" element={<ViewAlertDetails />} />
           </Route>
           <Route path="/Tickets" element={<TicketsIndex />}>
             <Route path="/Tickets/ViewTickets" element={<TicketsList />} />
             <Route path="/Tickets/AddTicket" element={<AddTicket />} />
+            <Route path="/Tickets/EditTicket" element={<EditTicket />} />
           </Route>
           <Route path="/Settings" element={<SettingsIndex />}>
             <Route path="/Settings/AllSettings" element={<Settings />} />

@@ -71,7 +71,6 @@ const AddEditUser = () => {
 
   const validateData = () => {
     let valid = true;
-    console.log(formData.name.length);
     if (formData.name.length === 0) {
       setErrors({
         ...errors,
@@ -111,7 +110,6 @@ const AddEditUser = () => {
         role: state.role ?? "no data",
         permission: state.permission,
       });
-      console.log(state.permission);
       state.permission == 1
         ? setSelectedPermission("Admin")
         : setSelectedPermission("User");
@@ -142,7 +140,7 @@ const AddEditUser = () => {
   };
 
   return (
-    <div className="content-container add-user-container">
+    <div className="content-container">
       <Form className="form-container-style">
         <div className="inputs-container">
           <FormGroup className="row-container-form-style">

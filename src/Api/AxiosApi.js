@@ -39,4 +39,7 @@ export const DashboardApi = {
 
 export const TicketsApi = {
   getAll: () => axios.get("Tickets"),
+  post: (data) => axios.post("Tickets", data),
+  delete: (id) => axios.delete(`Tickets/${id}`),
+  update: (id, data) => axios.put(`Tickets/${id}`, data),
 };
