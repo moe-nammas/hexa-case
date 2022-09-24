@@ -9,7 +9,7 @@ const DashboardField = ({
   icon,
   more = true,
   isLoading,
-  func,
+  onClick,
 }) => {
   return (
     <div className="dasboard-field-container">
@@ -34,7 +34,7 @@ const DashboardField = ({
         </div>
       )}
       {more && (
-        <div className="footer-container" onClick={func}>
+        <div className="footer-container" onClick={onClick}>
           <label>More</label>
           <FiChevronsRight />
         </div>

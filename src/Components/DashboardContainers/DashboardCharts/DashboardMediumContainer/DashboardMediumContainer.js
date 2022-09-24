@@ -15,10 +15,10 @@ const DashboardMediumContainer = ({ labels, data, type, title, isLoading }) => {
           {type === "Pie" && <PieChart labels={labels} data={data} />}
         </div>
       )}
-      <div className="footer-container">
+      {/* <div className="footer-container">
         <label>More</label>
         <FiChevronsRight />
-      </div>
+      </div> */}
     </div>
   );
 };

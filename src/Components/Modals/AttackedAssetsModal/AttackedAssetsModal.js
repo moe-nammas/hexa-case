@@ -4,7 +4,6 @@ import Loading from "../../Loading/Loading";
 import TableTemplate from "../../Table/TableTemplate";
 
 const AttackedAssetsModal = ({ openModal, setOpenModal, data, isLoading }) => {
-  const filters = ["Destination IP"];
   const columns = [
     {
       name: "Destination IP",
@@ -23,7 +22,7 @@ const AttackedAssetsModal = ({ openModal, setOpenModal, data, isLoading }) => {
           <Loading />
         ) : (
           <TableTemplate
-            searchChoices={filters}
+            searchChoices={[]}
             columns={columns}
             data={data}
             noSearch

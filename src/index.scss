@@ -296,3 +296,33 @@ code {
   height: calc(100vh - 9rem);
   overflow: auto;
 }
+
+.checked-style {
+  display: flex !important;
+  gap: 1rem !important;
+  color: $PrimaryColor !important;
+
+  .form-check-input {
+    width: 1.3rem !important;
+    height: 1.3rem !important;
+  }
+
+  .form-check-label {
+    font-size: 18px;
+  }
+}
+
+.unchecked-style {
+  display: flex !important;
+  gap: 1rem !important;
+  color: rgb(87, 87, 87) !important;
+
+  .form-check-input {
+    width: 1.3rem !important;
+    height: 1.3rem !important;
+  }
+
+  .form-check-label {
+    font-size: 18px;
+  }
+}

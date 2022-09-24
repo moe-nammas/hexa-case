@@ -29,7 +29,7 @@ const Settings = () => {
     {
       title: "Dashboard",
       icon: <MdOutlineSpaceDashboard />,
-      path: "/Settings/DashboardSettings",
+      path: "/Settings/DashboardSettings/Customizations",
     },
     {
       title: "About",

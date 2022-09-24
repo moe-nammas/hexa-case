@@ -26,6 +26,7 @@ import TicketsIndex from "./Pages/Tickets/TicketsIndex";
 import TicketsList from "./Pages/Tickets/TicketsList/TicketsList";
 import AddTicket from "./Pages/Tickets/AddTicket/AddTicket";
 import EditTicket from "./Pages/Tickets/EditTicket/EditTicket";
+import DashboardCustomization from "./Pages/Settings/DashboardSettings/DashboardCutomizations/DashboardCustomization";
 
 ReactDOM.render(
   <Provider store={store}>
@@ -61,7 +62,12 @@ ReactDOM.render(
             <Route
               path="/Settings/DashboardSettings"
               element={<DashboardSettingsIndex />}
-            ></Route>
+            >
+              <Route
+                path="/Settings/DashboardSettings/Customizations"
+                element={<DashboardCustomization />}
+              />
+            </Route>
           </Route>
         </Route>
       </Routes>

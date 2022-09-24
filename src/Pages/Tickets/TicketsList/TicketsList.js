@@ -110,7 +110,7 @@ const TicketsList = () => {
                 target={`disabled-icon-${row.ticketId}`}
                 placement="left"
               >
-                ticket is closed
+                Status can't be changed. Ticket is closed
               </UncontrolledTooltip>{" "}
             </>
           )}

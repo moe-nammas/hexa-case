@@ -9,6 +9,7 @@ const emptyState = {
   error: "",
   token: null,
   user: {
+    userID: 0,
     userName: "",
     permission: 0,
     name: "",
@@ -23,6 +24,7 @@ if (userObj && userObj.token) {
   initialState = {
     ...userObj,
     user: {
+      userID: decodedToken.userID,
       userName: decodedToken.userName,
       permission: decodedToken.permission,
       name: decodedToken.name,
@@ -49,6 +51,7 @@ const userReducer = (state = initialState, action) => {
         error: "",
         token: action.payload.token,
         user: {
+          userID: decodedToken.UserID,
           userName: decodedToken.userName,
           permission: decodedToken.permission,
           name: decodedToken.name,

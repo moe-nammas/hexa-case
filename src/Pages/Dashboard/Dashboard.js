@@ -34,7 +34,7 @@ const Dashboard = () => {
       stats: numberOfAlerts,
       icon: <FiAlertTriangle />,
       isLoading: isLoading,
-      func: () => {
+      onClick: () => {
         router("/Alerts/ViewAlerts");
       },
       show: true,
@@ -44,7 +44,7 @@ const Dashboard = () => {
       stats: numberOfCases,
       icon: <AiOutlineFileSearch />,
       isLoading: isLoading,
-      func: () => {
+      onClick: () => {
         router("/Cases/ViewCases");
       },
       show: true,
@@ -55,7 +55,7 @@ const Dashboard = () => {
       icon: <IoTicketOutline />,
       isLoading: isLoading,
       show: false,
-      func: () => {
+      onClick: () => {
         router("/Tickets/ViewTickets");
       },
     },
@@ -72,7 +72,7 @@ const Dashboard = () => {
       icon: <BsShieldX />,
       isLoading: isLoading,
       show: true,
-      func: () => {
+      onClick: () => {
         getAttackedAssets();
         setOpenAttackedAssetsModal(true);
       },
@@ -156,7 +156,7 @@ const Dashboard = () => {
               icon={item.icon}
               isLoading={isLoading}
               key={item.title}
-              func={item.func}
+              onClick={item.onClick}
             />
           ))}
         </div>
