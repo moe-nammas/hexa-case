@@ -1,8 +1,14 @@
 import React, { useState, useEffect } from "react";
 import "./DashboardCustomization.scss";
 import { HiOutlineInformationCircle } from "react-icons/hi";
-import { AiOutlineBarChart } from "react-icons/ai";
-import { Button, FormGroup, Input, Label } from "reactstrap";
+import { AiOutlineBarChart, AiOutlinePieChart } from "react-icons/ai";
+import {
+  Button,
+  FormGroup,
+  Input,
+  Label,
+  UncontrolledTooltip,
+} from "reactstrap";
 import { useDispatch } from "react-redux";
 import { pageTitleCreator } from "../../../../Redux/Actions/index";
 
@@ -37,12 +43,18 @@ const DashboardCustomization = () => {
 
   const [charts, setCharts] = useState([
     {
-      name: "Alerts By Severity (Pie Chart)",
+      name: "Alerts By Severity",
       checked: true,
+      icon: <AiOutlinePieChart />,
+      chartType: "Pie Chart",
+      target: "alerts-by-severity",
     },
     {
-      name: "Top Alerts (Pie Chart)",
+      name: "Top Alerts",
       checked: false,
+      icon: <AiOutlinePieChart />,
+      chartType: "Pie Chart",
+      target: "top-alerts",
     },
   ]);
 
@@ -113,7 +125,9 @@ const DashboardCustomization = () => {
                 onChange={handleChartsCheckChange}
                 name={item.name}
               />
-              <Label check>{item.name}</Label>
+              <Label check id={item.target}>
+                {item.name} {item.icon}
+              </Label>
             </FormGroup>
           ))}
         </div>
