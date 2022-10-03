@@ -250,7 +250,10 @@ const TicketsList = () => {
                   <DropdownToggle caret className="dropdown-style">
                     {selectedChoice}
                   </DropdownToggle>
-                  <DropdownMenu style={{ width: "100%" }}>
+                  <DropdownMenu
+                    className="dropdown-choices-container"
+                    style={{ width: "100%" }}
+                  >
                     <DropdownItem onClick={(e) => handleDropdownChange(e)}>
                       Status
                     </DropdownItem>

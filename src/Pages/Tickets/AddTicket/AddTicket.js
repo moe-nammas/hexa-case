@@ -100,7 +100,7 @@ const AddTicket = () => {
             <div className="form-label-input-container">
               <Label>Ticket Name</Label>
               <Input
-                placeholder="e.g. Maintenance"
+                placeholder="e.g. Maintenance, Installation..."
                 type="text"
                 name="ticketName"
                 defaultValue={formData.name}
@@ -114,7 +114,7 @@ const AddTicket = () => {
             <div className="form-label-input-container">
               <Label for="permission">Severity</Label>
               <Dropdown
-                className="dropdown-style"
+                className="form-dropdown-style"
                 isOpen={openSeverityDropdown}
                 toggle={() => {
                   setOpenSeverityDropdown(!openSeverityDropdown);
@@ -123,7 +123,7 @@ const AddTicket = () => {
                 <DropdownToggle caret className="dropdown-style">
                   {selectedSeverity}
                 </DropdownToggle>
-                <DropdownMenu className="dropdown-style">
+                <DropdownMenu className="form-dropdown-style">
                   <DropdownItem
                     accessKey={0}
                     onClick={(e) => {
@@ -174,7 +174,7 @@ const AddTicket = () => {
               <Label>Description</Label>
               <Input
                 name="ticketDescription"
-                placeholder="Ticket Description"
+                placeholder="Please Enter Ticket Description"
                 type="textarea"
                 defaultValue={formData.role}
                 onChange={(e) => handleChange(e)}

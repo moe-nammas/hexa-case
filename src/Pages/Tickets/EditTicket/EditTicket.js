@@ -124,9 +124,9 @@ const EditTicket = () => {
           </FormGroup>
           <FormGroup className="row-container-form-style">
             <div className="form-label-input-container">
-              <Label for="permission">Severity</Label>
+              <Label for="severity">Severity</Label>
               <Dropdown
-                className="dropdown-style"
+                className="form-dropdown-style"
                 isOpen={openSeverityDropdown}
                 toggle={() => {
                   setOpenSeverityDropdown(!openSeverityDropdown);
@@ -135,14 +135,14 @@ const EditTicket = () => {
                 <DropdownToggle caret className="dropdown-style">
                   {selectedSeverity}
                 </DropdownToggle>
-                <DropdownMenu className="dropdown-style">
+                <DropdownMenu className="form-dropdown-style">
                   <DropdownItem
                     accessKey={0}
                     onClick={(e) => {
                       handleDropDownChange(e);
-                      setSelectedSeverity("permission");
+                      setSelectedSeverity("severity");
                     }}
-                    name="permission"
+                    name="severity"
                   >
                     Severity
                   </DropdownItem>
