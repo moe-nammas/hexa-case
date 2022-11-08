@@ -4,7 +4,7 @@ import PieChart from "../../../Charts/PieChart/PieChart";
 import { FiChevronsRight } from "react-icons/fi";
 import Loading from "../../../Loading/Loading";
 
-const DashboardMediumContainer = ({ labels, data, type, title, isLoading }) => {
+const DashboardMediumContainer = ({ labels, data, type = "Pie", title, isLoading }) => {
   return (
     <div className="dashboard-m-container">
       <div className="title-container">{title}</div>

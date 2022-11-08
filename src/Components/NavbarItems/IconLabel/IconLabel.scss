@@ -3,42 +3,45 @@
 .icon-lbl-container {
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 10rem;
+  justify-content: space-evenly;
   height: fit-content;
   font-size: 19px;
+  width: 10rem;
   color: $PrimaryColor;
-  padding: 0.3rem;
+  padding: 0.3rem 0.7rem;
   margin-top: 0.2rem;
-  .label {
-    margin-right: 0.5rem;
-    padding-bottom: 3px;
-
+  gap:3rem;
+  .icon-label-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap:1rem;
+    padding-block: 0.3rem;
+    .label {
+      padding: 0 !important;
+      
+      &:hover {
+        cursor: pointer;
+      }
+    }
     &:hover {
+      color: $LightPrimaryColor;
       cursor: pointer;
     }
-
-    &:first-child {
-      padding-left: 1rem;
-    }
-  }
-  &:hover {
-    color: $LightPrimaryColor;
-    cursor: pointer;
   }
 }
 #active {
-  background-color: $PrimaryColor;
-  border-radius: $BorderRadius;
-  transition: background-color 0.4s ease;
-  -webkit-transition: background-color 0.4s ease;
-  -moz-transition: background-color 0.4s ease;
-  -o-transition: background-color 0.4s ease;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
-    rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
-  color: white;
-
-  &:hover {
-    background-color: $LightPrimaryColor;
-  }
-}
+    background-color: $PrimaryColor;
+    border-radius: $BorderRadius;
+    transition: background-color 0.4s ease;
+    -webkit-transition: background-color 0.4s ease;
+    -moz-transition: background-color 0.4s ease;
+    -o-transition: background-color 0.4s ease;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
+      rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+    color: white;
+    padding-right: 1.5rem;
+    &:hover {
+        background-color: $LightPrimaryColor;
+      }
+    }

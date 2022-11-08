@@ -1,0 +1,32 @@
+@import "../../Styles/Variables.scss";
+
+.card-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+  height: 100%;
+  border-radius: $BorderRadius;
+  box-shadow: $MyBoxShadow;
+  padding: 0.5rem;
+  overflow: auto;
+
+  .content-container {
+    display: flex;
+    flex-direction: column;
+
+    .card-header-container {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .checkboxes-container {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      padding-top: 1.5rem;
+      padding-left: 0.5rem;
+      gap: 1rem;
+    }
+  }
+}

@@ -26,10 +26,12 @@ const IconLabel = ({ label, icon, active, setCurrentActive, pathname }) => {
       id={`${active ? "active" : ""}`}
       onClick={handleClick}
     >
-      <label className="label">{label}</label>
-      <label className="label" style={{ paddingBottom: "7px" }}>
-        {icon}
-      </label>
+      <div className="icon-label-wrapper">
+        <label className="label" style={{ paddingBottom: "7px" }}>
+          {icon}
+        </label>
+        <label className="label">{label}</label>
+      </div>
     </div>
   );
 };

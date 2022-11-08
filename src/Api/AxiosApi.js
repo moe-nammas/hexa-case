@@ -44,3 +44,8 @@ export const TicketsApi = {
   update: (id, data) => axios.put(`Tickets/${id}`, data),
   updateStatus: (id, status) => axios.put(`Tickets/${id}/${status}`),
 };
+
+export const DashboardSettingsApi = {
+  get: (type) => axios.get(`/DashboardSettings?type=${type}`),
+  update: (data) => axios.post(`DashboardSettings`, data),
+};

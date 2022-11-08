@@ -8,7 +8,7 @@ import { Toaster } from "react-hot-toast";
 
 function App() {
   const userInfo = useSelector((state) => state.user);
-  console.log(userInfo);
+  
   return (
     <div className="App">
       {userInfo.isAuthenticated && userInfo.user ? (
