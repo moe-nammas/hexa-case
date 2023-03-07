@@ -3,19 +3,12 @@ import { Modal, ModalBody, ModalHeader } from "reactstrap";
 import Loading from "../../Loading/Loading";
 import TableTemplate from "../../Table/TableTemplate";
 
-const AttackedAssetsModal = ({ openModal, setOpenModal, data, isLoading }) => {
-  const columns = [
-    {
-      name: "Destination IP",
-      sortable: true,
-      selector: (row) => row.destinationIp,
-    },
-  ];
-
+const TableModal = ({ openModal, setOpenModal, data, isLoading, columns, header }) => {
+ 
   return (
     <Modal size="lg" toggle={() => setOpenModal(!openModal)} isOpen={openModal}>
       <ModalHeader toggle={() => setOpenModal(false)}>
-        Attacked Assets
+        {header}
       </ModalHeader>
       <ModalBody className="dashboard-info-modal-wrapper ">
         {isLoading ? (
@@ -33,4 +26,4 @@ const AttackedAssetsModal = ({ openModal, setOpenModal, data, isLoading }) => {
   );
 };
 
-export default AttackedAssetsModal;
+export default TableModal;

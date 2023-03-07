@@ -27,6 +27,8 @@ import TicketsList from "./Pages/Tickets/TicketsList/TicketsList";
 import AddTicket from "./Pages/Tickets/AddTicket/AddTicket";
 import EditTicket from "./Pages/Tickets/EditTicket/EditTicket";
 import DashboardCustomization from "./Pages/Settings/DashboardSettings/DashboardCutomizations/DashboardCustomization";
+import Roles from "./Pages/Settings/Roles/Roles";
+import Permissions from "./Pages/Settings/Permissions/Permissions";
 
 ReactDOM.render(
   <Provider store={store}>
@@ -68,6 +70,8 @@ ReactDOM.render(
                 element={<DashboardCustomization />}
               />
             </Route>
+            <Route path="/Settings/Roles" element={<Roles />} />
+            <Route path="/Settings/Permissions" element={<Permissions />} />
           </Route>
         </Route>
       </Routes>

@@ -22,7 +22,10 @@ import {
   DropdownMenu,
   DropdownToggle,
   Button,
+  Badge,
 } from "reactstrap";
+import { isAuthorized } from "../../../Helpers/Premissions";
+import { ColorResolver } from "../../../Helpers/ColorResolver";
 
 const Cases = () => {
   const router = useNavigate();
@@ -58,6 +61,17 @@ const Cases = () => {
       name: "Status",
       sortable: true,
       selector: (row) => row.status,
+      cell: (row) => (
+        <Badge
+          pill
+          className={`${
+            ColorResolver(row.status) === "warning" ? "text-dark" : ""
+          }`}
+          color={`${ColorResolver(row.status)}`}
+        >
+          {row.status}
+        </Badge>
+      ),
     },
     {
       name: "Created By",
@@ -83,6 +97,17 @@ const Cases = () => {
       name: "Severity",
       sortable: true,
       selector: (row) => row.severity,
+      cell: (row) => (
+        <Badge
+          pill
+          className={`${
+            ColorResolver(row.severity) === "warning" ? "text-dark" : ""
+          }`}
+          color={`${ColorResolver(row.severity)}`}
+        >
+          {row.severity}
+        </Badge>
+      ),
     },
     {
       cell: (row) => (
@@ -100,42 +125,43 @@ const Cases = () => {
           >
             View
           </UncontrolledTooltip>
-          {row.status === "closed" ? (
-            <>
-              <IoTrashOutline
-                className="delete-icon-style"
-                onClick={() => handleDelete(row)}
-                id={`delete-icon-${row.userID}`}
-              />
-              <UncontrolledTooltip
-                autohide
-                flip
-                target={`delete-icon-${row.userID}`}
-                placement="left"
-              >
-                Delete
-              </UncontrolledTooltip>
-            </>
-          ) : (
-            <>
-              <MdOutlineRotateLeft
-                className="edit-icon-style"
-                id={`status-icon-${row.caseId}`}
-                onClick={() => {
-                  setFormData({ ...formData, caseId: row.caseId });
-                  setOpenModal(true);
-                }}
-              />
-              <UncontrolledTooltip
-                autohide
-                flip
-                target={`status-icon-${row.caseId}`}
-                placement="left"
-              >
-                Change Status
-              </UncontrolledTooltip>
-            </>
-          )}
+          {isAuthorized(2) &&
+            (row.status === "closed" ? (
+              <>
+                <IoTrashOutline
+                  className="delete-icon-style"
+                  onClick={() => handleDelete(row)}
+                  id={`delete-icon-${row.userID}`}
+                />
+                <UncontrolledTooltip
+                  autohide
+                  flip
+                  target={`delete-icon-${row.userID}`}
+                  placement="left"
+                >
+                  Delete
+                </UncontrolledTooltip>
+              </>
+            ) : (
+              <>
+                <MdOutlineRotateLeft
+                  className="edit-icon-style"
+                  id={`status-icon-${row.caseId}`}
+                  onClick={() => {
+                    setFormData({ ...formData, caseId: row.caseId });
+                    setOpenModal(true);
+                  }}
+                />
+                <UncontrolledTooltip
+                  autohide
+                  flip
+                  target={`status-icon-${row.caseId}`}
+                  placement="left"
+                >
+                  Change Status
+                </UncontrolledTooltip>
+              </>
+            ))}
         </div>
       ),
       ignoreRowClick: true,

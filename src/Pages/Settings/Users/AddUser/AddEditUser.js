@@ -90,7 +90,7 @@ const AddEditUser = () => {
 
   useEffect(() => {
     changeTitle();
-    fillData();
+    void fillData();
   }, []);
 
   const changeTitle = () => {
@@ -99,9 +99,10 @@ const AddEditUser = () => {
       : dispatch(pageTitleCreator.change({ title: "Add New User" }));
   };
 
-  const fillData = () => {
+  const fillData = async () => {
     if (state) {
       setUserId(state.userId);
+      const { data } = await UsersApi.getUserById(state.userId);
       setFormData({
         name: state.name ?? "no data",
         username: state.username ?? "no data",
@@ -110,7 +111,7 @@ const AddEditUser = () => {
         role: state.role ?? "no data",
         permission: state.permission,
       });
-      state.permission == 1
+      state.permission === 1
         ? setSelectedPermission("Admin")
         : setSelectedPermission("User");
     }

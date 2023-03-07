@@ -15,7 +15,7 @@ import {
 } from "../../Api/AxiosApi";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import AttackedAssetsModal from "../../Components/Modals/AttackedAssetsModal/AttackedAssetsModal";
+import TableModal from "../../Components/Modals/AttackedAssetsModal/TableModal";
 import { useDispatch } from "react-redux";
 import { pageTitleCreator } from "../../Redux/Actions/index";
 import Loading from "../../Components/Loading/Loading";
@@ -34,8 +34,15 @@ const Dashboard = () => {
   const [attackedAssets, setAttackedAssets] = useState([]);
   const [attackedAssetsLoading, setAttackedAssetsLoading] = useState(false);
   const [availableItems, setAvailableItems] = useState([]);
-
   const [items, setItems] = useState([]);
+
+  const columns = [
+    {
+      name: "Destination IP",
+      sortable: true,
+      selector: (row) => row.destinationIp,
+    },
+  ];
 
   const getAttackedAssets = async () => {
     try {
@@ -237,11 +244,13 @@ const Dashboard = () => {
     </div>
   ) : (
     <>
-      <AttackedAssetsModal
+      <TableModal
         openModal={openAttackedAssetsModal}
         setOpenModal={setOpenAttackedAssetsModal}
         data={attackedAssets}
         isLoading={attackedAssetsLoading}
+        columns={columns}
+        header={"Attacked Assets"}
       />
       <div className="dashboard-container">
         <div className="dashboard-small-boxes-container">

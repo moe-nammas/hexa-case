@@ -17,11 +17,14 @@ import {
   DropdownItem,
   DropdownMenu,
   DropdownToggle,
+  Badge,
 } from "reactstrap";
 import { useNavigate } from "react-router-dom";
 import { IoTrashOutline } from "react-icons/io5";
 import { BiEdit } from "react-icons/bi";
 import { MdOutlineRotateLeft } from "react-icons/md";
+import { isAuthorized } from "../../../Helpers/Premissions";
+import { ColorResolver } from "../../../Helpers/ColorResolver";
 
 const TicketsList = () => {
   const dispatch = useDispatch();
@@ -70,78 +73,101 @@ const TicketsList = () => {
       name: "Severity",
       sortable: true,
       selector: (row) => row.severity,
+      cell: (row) => (
+        <Badge
+          pill
+          className={`${
+            ColorResolver(row.severity) === "warning" ? "text-dark" : ""
+          }`}
+          color={`${ColorResolver(row.severity)}`}
+        >
+          {row.severity}
+        </Badge>
+      ),
     },
     {
       name: "status",
       sortable: true,
       selector: (row) => row.status,
+      cell: (row) => (
+        <Badge
+          pill
+          className={`${
+            ColorResolver(row.status) === "warning" ? "text-dark" : ""
+          }`}
+          color={`${ColorResolver(row.status)}`}
+        >
+          {row.status}
+        </Badge>
+      ),
     },
     {
-      cell: (row) => (
-        <div className="table-icons-container">
-          {row.status !== "closed" ? (
-            <>
-              <MdOutlineRotateLeft
-                className="edit-icon-style"
-                id={`status-icon-${row.ticketId}`}
-                onClick={() => {
-                  setFormData({ ...formData, id: row.ticketId });
-                  setOpenModal(true);
-                }}
-              />
-              <UncontrolledTooltip
-                autohide
-                flip
-                target={`status-icon-${row.ticketId}`}
-                placement="left"
-              >
-                Change Status
-              </UncontrolledTooltip>
-            </>
-          ) : (
-            <>
-              <MdOutlineRotateLeft
-                id={`disabled-icon-${row.ticketId}`}
-                className="disabled-icon"
-              />{" "}
-              <UncontrolledTooltip
-                autohide
-                flip
-                target={`disabled-icon-${row.ticketId}`}
-                placement="left"
-              >
-                Status can't be changed. Ticket is closed
-              </UncontrolledTooltip>{" "}
-            </>
-          )}
-          <BiEdit
-            className="edit-icon-style"
-            onClick={(e) => handleButtonClick(e, row)}
-            id={`edit-icon-${row.ticketId}`}
-          />
-          <UncontrolledTooltip
-            autohide
-            flip
-            target={`edit-icon-${row.ticketId}`}
-            placement="left"
-          >
-            Edit
-          </UncontrolledTooltip>
-          <IoTrashOutline
-            className="delete-icon-style"
-            onClick={(e) => handleDelete(e, row)}
-            id={`delete-icon-${row.ticketId}`}
-          />
-          <UncontrolledTooltip
-            autohide
-            flip
-            target={`delete-icon-${row.ticketId}`}
-            placement="left"
-          >
-            Delete
-          </UncontrolledTooltip>
-        </div>
-      ),
+      cell: (row) =>
+        isAuthorized(2) && (
+          <div className="table-icons-container">
+            {row.status !== "closed" ? (
+              <>
+                <MdOutlineRotateLeft
+                  className="edit-icon-style"
+                  id={`status-icon-${row.ticketId}`}
+                  onClick={() => {
+                    setFormData({ ...formData, id: row.ticketId });
+                    setOpenModal(true);
+                  }}
+                />
+                <UncontrolledTooltip
+                  autohide
+                  flip
+                  target={`status-icon-${row.ticketId}`}
+                  placement="left"
+                >
+                  Change Status
+                </UncontrolledTooltip>
+              </>
+            ) : (
+              <>
+                <MdOutlineRotateLeft
+                  id={`disabled-icon-${row.ticketId}`}
+                  className="disabled-icon"
+                />{" "}
+                <UncontrolledTooltip
+                  autohide
+                  flip
+                  target={`disabled-icon-${row.ticketId}`}
+                  placement="left"
+                >
+                  Status can't be changed. Ticket is closed
+                </UncontrolledTooltip>{" "}
+              </>
+            )}
+            <BiEdit
+              className="edit-icon-style"
+              onClick={(e) => handleButtonClick(e, row)}
+              id={`edit-icon-${row.ticketId}`}
+            />
+            <UncontrolledTooltip
+              autohide
+              flip
+              target={`edit-icon-${row.ticketId}`}
+              placement="left"
+            >
+              Edit
+            </UncontrolledTooltip>
+            <IoTrashOutline
+              className="delete-icon-style"
+              onClick={(e) => handleDelete(e, row)}
+              id={`delete-icon-${row.ticketId}`}
+            />
+            <UncontrolledTooltip
+              autohide
+              flip
+              target={`delete-icon-${row.ticketId}`}
+              placement="left"
+            >
+              Delete
+            </UncontrolledTooltip>
+          </div>
+        ),
       ignoreRowClick: true,
       allowOverflow: true,
       button: true,
@@ -298,17 +324,21 @@ const TicketsList = () => {
         <Loading />
       ) : (
         <>
-          <div className="btns-container">
-            <Button
-              className="primary-btn-style"
-              onClick={() => {
-                router("/Tickets/AddTicket", { replace: true });
-                dispatch(pageTitleCreator.change({ title: "Add New Ticket" }));
-              }}
-            >
-              Add Ticket
-            </Button>
-          </div>
+          {isAuthorized(2) && (
+            <div className="btns-container">
+              <Button
+                className="primary-btn-style"
+                onClick={() => {
+                  router("/Tickets/AddTicket", { replace: true });
+                  dispatch(
+                    pageTitleCreator.change({ title: "Add New Ticket" })
+                  );
+                }}
+              >
+                Add Ticket
+              </Button>
+            </div>
+          )}
           <TableTemplate
             searchChoices={filters}
             columns={columns}

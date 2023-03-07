@@ -3,19 +3,24 @@ import "./UsersList.scss";
 import { DataFormatter } from "../../../../Helpers/DataFormatter";
 import Loading from "../../../../Components/Loading/Loading";
 import TableTemplate from "../../../../Components/Table/TableTemplate";
-import { UsersApi } from "../../../../Api/AxiosApi";
+import { actionsApi, UsersApi } from "../../../../Api/AxiosApi";
 import { IoTrashOutline } from "react-icons/io5";
 import { BiEdit } from "react-icons/bi";
-import { Button, UncontrolledTooltip } from "reactstrap";
+import { RiFileListLine } from "react-icons/ri";
+import { Button, UncontrolledTooltip,Badge } from "reactstrap";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { pageTitleCreator } from "../../../../Redux/Actions/index";
 import toast from "react-hot-toast";
+import TableModal from "../../../../Components/Modals/AttackedAssetsModal/TableModal";
+import { ColorResolver } from "../../../../Helpers/ColorResolver";
 
 const UsersList = () => {
   const [users, setUsers] = useState([]);
+  const [userActions, setUserActions] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-
+  const [openLogModal, setOpenLogModal] = useState(false);
+  const [logDataLoading, setLogDataLoading] = useState(false);
   const router = useNavigate();
   const dispatch = useDispatch();
 
@@ -67,6 +72,19 @@ const UsersList = () => {
           >
             Edit
           </UncontrolledTooltip>
+          <RiFileListLine
+            className="edit-icon-style"
+            onClick={(e) => handleOpenModal(row.userID)}
+            id={`log-icon-${row.userID}`}
+          />
+          <UncontrolledTooltip
+            autohide
+            flip
+            target={`log-icon-${row.userID}`}
+            placement="left"
+          >
+            Users log
+          </UncontrolledTooltip>
           <IoTrashOutline
             className="delete-icon-style"
             onClick={(e) => handleDelete(e, row)}
@@ -87,6 +105,35 @@ const UsersList = () => {
       button: true,
     },
   ]);
+  const userLogColumns = useMemo(() => [
+    {
+      name: "Action ID",
+      sortable: true,
+      selector: (row) => row.actionId,
+    },
+    {
+      name: "type",
+      sortable: true,
+      selector: (row) => row.type,
+      cell: (row) => (
+        <Badge pill className={`${
+          ColorResolver(row.type) === "warning" ? "text-dark" : ""
+        }`} color={`${ColorResolver(row.type)}`}>
+          {row.type}
+        </Badge>
+      ),
+    },
+    {
+      name: "action",
+      sortable: true,
+      selector: (row) => row.action,
+    },
+    {
+      name: "createdAt",
+      sortable: true,
+      selector: (row) => row.createdAt,
+    },
+  ]);
 
   const handleDelete = async (e, row) => {
     try {
@@ -98,6 +145,29 @@ const UsersList = () => {
 
   const handleButtonClick = (e, row) => {
     router("/Settings/Users/EditUser", { state: row });
+  };
+
+  const handleOpenModal = async (userId) => {
+    try {
+      setOpenLogModal(true);
+      setLogDataLoading(true);
+      const { data } = await actionsApi.get(userId);
+      const flattenedData = data.map((item) => {
+        const editedRow = {
+          ...item,
+          actionId: DataFormatter(item.actionId),
+          type: DataFormatter(item.type),
+          action: DataFormatter(item.action),
+          createdAt: DataFormatter(item.createdAt),
+        };
+        return editedRow;
+      });
+      setUserActions(flattenedData);
+      setLogDataLoading(false);
+    } catch (error) {
+      console.log("error: ", error);
+      toast.error("Something went wrong! please try again later");
+    }
   };
 
   const getTableData = async () => {
@@ -134,6 +204,14 @@ const UsersList = () => {
         <Loading />
       ) : (
         <>
+          <TableModal
+            openModal={openLogModal}
+            setOpenModal={setOpenLogModal}
+            data={userActions}
+            isLoading={logDataLoading}
+            columns={userLogColumns}
+            header={"User Actions Log"}
+          />
           <div className="btns-container">
             <Button
               className="primary-btn-style"

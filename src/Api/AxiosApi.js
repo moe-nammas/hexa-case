@@ -20,6 +20,7 @@ export const CasesApi = {
 
 export const UsersApi = {
   getUsers: () => axios.get("Users"),
+  getUserById: (id) => axios.get(`User?id=${id}`),
   updateUser: (id, formData) => axios.put(`Users?id=${id}`, formData),
   createUser: (formData) => axios.post(`Users`, formData),
   deleteUser: (id) => axios.delete(`Users?id=${id}`),
@@ -49,3 +50,7 @@ export const DashboardSettingsApi = {
   get: (type) => axios.get(`/DashboardSettings?type=${type}`),
   update: (data) => axios.post(`DashboardSettings`, data),
 };
+
+export const actionsApi = {
+  get:(id) => axios.get(`UsersActions/${id}`),
+}

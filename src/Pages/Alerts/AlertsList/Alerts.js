@@ -23,7 +23,10 @@ import {
   DropdownMenu,
   DropdownToggle,
   UncontrolledTooltip,
+  Badge,
 } from "reactstrap";
+import { isAuthorized } from "../../../Helpers/Premissions";
+import { ColorResolver } from "../../../Helpers/ColorResolver";
 
 const Alerts = () => {
   const router = useNavigate();
@@ -45,6 +48,7 @@ const Alerts = () => {
     severity: "",
     createdby: user.userName,
     associatedAlertsIds: "",
+    userId: user.userID,
   });
 
   const columns = [
@@ -67,11 +71,29 @@ const Alerts = () => {
       name: "Severity",
       sortable: true,
       selector: (row) => row.severity,
+      cell: (row) => (
+        <Badge pill className={`${
+          ColorResolver(row.severity) === "warning" ? "text-dark" : ""
+        }`} color={`${ColorResolver(row.severity)}`}>
+          {row.severity}
+        </Badge>
+      ),
     },
     {
       name: "Status",
       sortable: true,
       selector: (row) => row.status,
+      cell: (row) => (
+        <Badge
+          pill
+          className={`${
+            ColorResolver(row.status) === "warning" ? "text-dark" : ""
+          }`}
+          color={`${ColorResolver(row.status)}`}
+        >
+          {row.status}
+        </Badge>
+      ),
     },
     {
       cell: (row) => (
@@ -89,19 +111,23 @@ const Alerts = () => {
           >
             View
           </UncontrolledTooltip>
-          <IoTrashOutline
-            className="delete-icon-style"
-            onClick={(e) => handleDelete(e, row)}
-            id={`delete-icon-${row.alertId}`}
-          />
-          <UncontrolledTooltip
-            autohide
-            flip
-            target={`delete-icon-${row.alertId}`}
-            placement="left"
-          >
-            Delete
-          </UncontrolledTooltip>
+          {isAuthorized(2) && (
+            <>
+              <IoTrashOutline
+                className="delete-icon-style"
+                onClick={(e) => handleDelete(e, row)}
+                id={`delete-icon-${row.alertId}`}
+              />
+              <UncontrolledTooltip
+                autohide
+                flip
+                target={`delete-icon-${row.alertId}`}
+                placement="left"
+              >
+                Delete
+              </UncontrolledTooltip>
+            </>
+          )}
         </div>
       ),
       ignoreRowClick: true,
@@ -306,7 +332,7 @@ const Alerts = () => {
             searchChoices={choices}
             columns={columns}
             data={alerts}
-            multiSelection
+            multiSelection={true}
             handleSelectedRow={handleSelectedRow}
           />
         </>

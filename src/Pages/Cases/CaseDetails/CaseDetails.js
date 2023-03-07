@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./CaseDetails.scss";
-import { Form, FormGroup, Label, Button, Input } from "reactstrap";
+import { Form, FormGroup, Label, Button, Badge } from "reactstrap";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { CasesApi } from "../../../Api/AxiosApi";
@@ -17,16 +17,13 @@ import TableTemplate from "../../../Components/Table/TableTemplate";
 import CommentsSection from "../../../Components/CommentsSection/CommentsSection";
 import defaultUserImg from "../../../Assets/Images/default-user-img.png";
 import { UncontrolledTooltip } from "reactstrap";
+import { ColorResolver } from "../../../Helpers/ColorResolver";
 
 const CaseDetails = () => {
   const { state: caseIdFromSystem } = useLocation();
   const router = useNavigate();
   const dispatch = useDispatch();
   const username = useSelector((state) => state.user).user.userName;
-
-  useEffect(() => {
-    console.log(caseIdFromSystem);
-  }, []);
 
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
@@ -72,11 +69,33 @@ const CaseDetails = () => {
       name: "Severity",
       sortable: true,
       selector: (row) => row.severity,
+      cell: (row) => (
+        <Badge
+          pill
+          className={`${
+            ColorResolver(row.severity) === "warning" ? "text-dark" : ""
+          }`}
+          color={`${ColorResolver(row.severity)}`}
+        >
+          {row.severity}
+        </Badge>
+      ),
     },
     {
       name: "Status",
       sortable: true,
       selector: (row) => row.status,
+      cell: (row) => (
+        <Badge
+          pill
+          className={`${
+            ColorResolver(row.status) === "warning" ? "text-dark" : ""
+          }`}
+          color={`${ColorResolver(row.status)}`}
+        >
+          {row.status}
+        </Badge>
+      ),
     },
     {
       cell: (row) => (
@@ -221,7 +240,9 @@ const CaseDetails = () => {
                     <div className="form-label-input-container">
                       <Label>Status</Label>
                       <Label className="form-data-lbl-style">
-                        {formData.status}
+                        <Badge color={ColorResolver(formData.status)}>
+                          {formData.status}
+                        </Badge>
                       </Label>
                     </div>
 
@@ -256,7 +277,16 @@ const CaseDetails = () => {
                     <div className="form-label-input-container with-border">
                       <Label>Severity</Label>
                       <Label className="form-data-lbl-style">
-                        {formData.severity}
+                        <Badge
+                          className={`${
+                            ColorResolver(formData.severity) === "warning"
+                              ? "text-dark"
+                              : ""
+                          }`}
+                          color={ColorResolver(formData.severity)}
+                        >
+                          {formData.severity}
+                        </Badge>
                       </Label>
                     </div>
                   </FormGroup>
