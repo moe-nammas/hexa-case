@@ -12,5 +12,7 @@ export const ColorResolver = (status) => {
     case "Creation":
     case "open":
       return "primary";
+    case "Comment":
+      return "info";
   }
 };

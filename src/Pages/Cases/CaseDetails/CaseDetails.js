@@ -23,7 +23,7 @@ const CaseDetails = () => {
   const { state: caseIdFromSystem } = useLocation();
   const router = useNavigate();
   const dispatch = useDispatch();
-  const username = useSelector((state) => state.user).user.userName;
+  const { user } = useSelector((state) => state.user);
 
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
@@ -39,7 +39,8 @@ const CaseDetails = () => {
   });
   const [newCommentFormData, setNewCommentFormData] = useState({
     comment: "",
-    commentBy: username,
+    commentBy: user.userName,
+    userId: user.userID,
     caseId: "",
     caseIdFromSystem: caseIdFromSystem,
   });

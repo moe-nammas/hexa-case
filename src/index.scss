@@ -295,6 +295,8 @@ code {
 .dashboard-info-modal-wrapper {
   height: calc(100vh - 9rem);
   overflow: auto;
+  display: flex;
+  justify-content: center;
 }
 
 .checked-style {

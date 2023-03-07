@@ -10,7 +10,7 @@ const TableModal = ({ openModal, setOpenModal, data, isLoading, columns, header 
       <ModalHeader toggle={() => setOpenModal(false)}>
         {header}
       </ModalHeader>
-      <ModalBody className="dashboard-info-modal-wrapper ">
+      <ModalBody className="dashboard-info-modal-wrapper">
         {isLoading ? (
           <Loading />
         ) : (
