@@ -39,6 +39,9 @@ const Cases = () => {
   const [openDropdown, setOpenDropdown] = useState(false);
   const [selectedChoice, setSelectedChoice] = useState("Status");
   const [isValidStatus, setIsValidStatus] = useState(true);
+  const [total, setTotal] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [limit, setLimit] = useState(10);
   const [formData, setFormData] = useState({
     caseId: 0,
     status: "",
@@ -194,7 +197,8 @@ const Cases = () => {
   const getTableData = async () => {
     try {
       setIsLoading(true);
-      const res = await CasesApi.getCases();
+      const {data:res} = await CasesApi.getCases(limit, limit * (currentPage - 1));
+      setTotal(res.total);
       const flattenedData = res.data.map((item) => {
         const editedRow = {
           ...item,
@@ -217,6 +221,10 @@ const Cases = () => {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    getTableData();
+  }, [limit, currentPage]);
 
   useEffect(() => {
     dispatch(pageTitleCreator.change({ title: "Cases" }));
@@ -325,7 +333,17 @@ const Cases = () => {
       {isLoading ? (
         <Loading />
       ) : (
-        <TableTemplate searchChoices={filters} columns={columns} data={cases} />
+        <TableTemplate
+          searchChoices={filters}
+          columns={columns}
+          data={cases}
+          // handleSelectedRow={handleSelectedRow}
+          setCurrentPage={setCurrentPage}
+          setLimit={setLimit}
+          currentPage={currentPage}
+          total={total}
+          rowsPerPage={limit}
+        />
       )}
     </div>
   );

@@ -51,6 +51,10 @@ const Alerts = () => {
     userId: user.userID,
   });
 
+  const [total, setTotal] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [limit, setLimit] = useState(10);
+
   const columns = [
     {
       name: "Alert ID",
@@ -72,9 +76,13 @@ const Alerts = () => {
       sortable: true,
       selector: (row) => row.severity,
       cell: (row) => (
-        <Badge pill className={`${
-          ColorResolver(row.severity) === "warning" ? "text-dark" : ""
-        }`} color={`${ColorResolver(row.severity)}`}>
+        <Badge
+          pill
+          className={`${
+            ColorResolver(row.severity) === "warning" ? "text-dark" : ""
+          }`}
+          color={`${ColorResolver(row.severity)}`}
+        >
           {row.severity}
         </Badge>
       ),
@@ -151,7 +159,11 @@ const Alerts = () => {
   const getTableData = async () => {
     try {
       setIsLoading(true);
-      const res = await AlertsApi.getAlerts();
+      const { data: res } = await AlertsApi.getAlerts(
+        limit,
+        limit * (currentPage - 1)
+      );
+      setTotal(res.total);
       const flattenedData = res.data.map((item) => {
         const editedRow = {
           ...item,
@@ -219,6 +231,10 @@ const Alerts = () => {
       setOpenModal(false);
     }
   };
+
+  useEffect(() => {
+    getTableData();
+  }, [limit, currentPage]);
 
   return (
     <div className="content-container">
@@ -334,6 +350,11 @@ const Alerts = () => {
             data={alerts}
             multiSelection={true}
             handleSelectedRow={handleSelectedRow}
+            setCurrentPage={setCurrentPage}
+            setLimit={setLimit}
+            currentPage={currentPage}
+            total={total}
+            rowsPerPage={limit}
           />
         </>
       )}

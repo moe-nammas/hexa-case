@@ -9,7 +9,12 @@ const TableTemplate = ({
   searchChoices,
   multiSelection,
   handleSelectedRow,
+  total,
   noSearch = false,
+  rowsPerPage,
+  setLimit,
+  currentPage,
+  setCurrentPage
 }) => {
   const [tempData, setTempData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -35,6 +40,25 @@ const TableTemplate = ({
       },
     },
   };
+
+  const conditionalRowStyles = [
+    {
+      when: (row) => {
+        return row.severity === "medium";
+      },
+      style: {
+        backgroundColor: "#fcf3a6",
+      },
+    },
+    {
+      when: (row) => {
+        return row.severity === "high";
+      },
+      style: {
+        backgroundColor: "#FFCDD2",
+      },
+    },
+  ];
   return (
     <div className="table-template-container">
       {!noSearch && (
@@ -52,11 +76,22 @@ const TableTemplate = ({
         columns={columns}
         data={searchTerm.length > 0 ? tempData : data}
         customStyles={customStyles}
-        pagination
-        paginationPerPage={20}
+        conditionalRowStyles={conditionalRowStyles}
         selectableRows={multiSelection}
         onSelectedRowsChange={handleSelectedRow}
         responsive
+        pagination
+        paginationServer
+        onChangePage={(page) => {
+          setCurrentPage(page);
+        }}
+        onChangeRowsPerPage={(currentRowsPerPage) => {
+          setLimit(currentRowsPerPage);
+        }}
+        paginationPerPage={rowsPerPage}
+        paginationDefaultPage={currentPage}
+        paginationRowsPerPageOptions={[10, 15, 20, 25, 30]}
+        paginationTotalRows={total}
       />
     </div>
   );

@@ -4,13 +4,15 @@ const axios = axiosConfiguration("/");
 
 export const AlertsApi = {
   getNumberOfAlerts: () => axios.get("/Alerts/NumberOfAlerts"),
-  getAlerts: () => axios.get("Alerts"),
+  getAlerts: (limit, currentPage) =>
+    axios.get(`Alerts?limit=${limit}&offset=${currentPage}`),
   getAlertDetails: (id) => axios.get(`Alerts/AlertDetails?id=${id}`),
 };
 
 export const CasesApi = {
   getNumberOfCases: () => axios.get("Cases/NumberOfCases"),
-  getCases: () => axios.get("Cases"),
+  getCases: (limit, currentPage) =>
+    axios.get(`Cases?limit=${limit}&${currentPage}`),
   getCaseDetails: (id) => axios.get(`Cases/CaseDetails?id=${id}`),
   postComment: (comment) => axios.post(`Cases/PostComment`, comment),
   create: (data) => axios.post(`Cases`, data),
@@ -24,10 +26,7 @@ export const UsersApi = {
   updateUser: (id, formData) => axios.put(`Users?id=${id}`, formData),
   createUser: (formData) => axios.post(`Users`, formData),
   deleteUser: (id) => axios.delete(`Users?id=${id}`),
-  Login: (formData) =>
-    axios.get(
-      `Users/Login?username=${formData.username}&password=${formData.password}`
-    ),
+  Login: (formData) => axios.post(`Users/Login`, formData),
 };
 
 export const DashboardApi = {
@@ -52,5 +51,5 @@ export const DashboardSettingsApi = {
 };
 
 export const actionsApi = {
-  get:(id) => axios.get(`UsersActions/${id}`),
-}
+  get: (id) => axios.get(`UsersActions/${id}`),
+};
