@@ -187,6 +187,7 @@ const TicketsList = () => {
 
   const getTableData = async () => {
     try {
+      console.log("first");
       setIsLoading(true);
       const { data: res } = await TicketsApi.getAll(
         limit,
