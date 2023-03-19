@@ -153,7 +153,7 @@ const Alerts = () => {
   };
 
   const handleButtonClick = (e, row) => {
-    router("/Alerts/AlertDetails", { state: row.alertId });
+    router(`/Alerts/${row.alertId}`);
   };
 
   const getTableData = async () => {
@@ -193,11 +193,6 @@ const Alerts = () => {
     if (formData.description.length > 0) setIsValidDescription(true);
   }, [formData.description]);
 
-  useEffect(() => {
-    dispatch(pageTitleCreator.change({ title: "Alerts" }));
-    getTableData();
-  }, []);
-
   const onChangeHandler = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -233,6 +228,7 @@ const Alerts = () => {
   };
 
   useEffect(() => {
+    dispatch(pageTitleCreator.change({ title: "Alerts" }));
     getTableData();
   }, [limit, currentPage]);
 

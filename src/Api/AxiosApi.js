@@ -21,8 +21,9 @@ export const CasesApi = {
 };
 
 export const UsersApi = {
-  getUsers: () => axios.get("Users"),
-  getUserById: (id) => axios.get(`User?id=${id}`),
+  getUsers: (limit, currentPage) =>
+    axios.get(`Users?limit=${limit}&${currentPage}`),
+  getUserById: (id) => axios.get(`Users/${id}`),
   updateUser: (id, formData) => axios.put(`Users?id=${id}`, formData),
   createUser: (formData) => axios.post(`Users`, formData),
   deleteUser: (id) => axios.delete(`Users?id=${id}`),
@@ -38,7 +39,8 @@ export const DashboardApi = {
 };
 
 export const TicketsApi = {
-  getAll: () => axios.get("Tickets"),
+  getAll: (limit, currentPage) =>
+    axios.get(`Tickets?limit=${limit}&offset=${currentPage}`),
   post: (data) => axios.post("Tickets", data),
   delete: (id) => axios.delete(`Tickets/${id}`),
   update: (id, data) => axios.put(`Tickets/${id}`, data),
@@ -51,5 +53,14 @@ export const DashboardSettingsApi = {
 };
 
 export const actionsApi = {
-  get: (id) => axios.get(`UsersActions/${id}`),
+  get: (limit, currentPage, id) =>
+    axios.get(`UsersActions?limit=${limit}&offset=${currentPage}&id=${id}`),
+};
+
+export const rolesApi = {
+  get: (limit, currentPage) =>
+    axios.get(`roles?limit=${limit}&offset=${currentPage}`),
+  post: async (newRole) => {
+    axios.post(`roles`, newRole);
+  },
 };

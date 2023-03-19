@@ -12,7 +12,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "react-datepicker/dist/react-datepicker.css";
 import Alerts from "./Pages/Alerts/AlertsList/Alerts";
 import Settings from "./Pages/Settings/AllSettings/Settings";
-import AddEditUser from "./Pages/Settings/Users/AddUser/AddEditUser";
+import AddUser from "./Pages/Settings/Users/AddUser/AddEditUser";
 import UsersList from "./Pages/Settings/Users/UsersList/UsersList";
 import ViewAlertDetails from "./Pages/Alerts/AlertDetails/ViewAlertDetails";
 import CaseDetails from "./Pages/Cases/CaseDetails/CaseDetails";
@@ -29,6 +29,7 @@ import EditTicket from "./Pages/Tickets/EditTicket/EditTicket";
 import DashboardCustomization from "./Pages/Settings/DashboardSettings/DashboardCutomizations/DashboardCustomization";
 import Roles from "./Pages/Settings/Roles/Roles";
 import Permissions from "./Pages/Settings/Permissions/Permissions";
+import EditUser from "./Pages/Settings/Users/EditUser/EditUser";
 
 ReactDOM.render(
   <Provider store={store}>
@@ -38,27 +39,24 @@ ReactDOM.render(
           <Route path="/" element={<Login />} />
           <Route path="/Dashboard" element={<Dashboard />} />
           <Route path="/Cases" element={<CasesIndex />}>
-            <Route path="/Cases/ViewCases" element={<Cases />}></Route>
-            <Route path="/Cases/CaseDetails" element={<CaseDetails />} />
+            <Route path="/Cases" element={<Cases />}></Route>
+            <Route path="/Cases/:id" element={<CaseDetails />} />
           </Route>
           <Route path="/Alerts" element={<AlertsIndex />}>
-            <Route path="/Alerts/ViewAlerts" element={<Alerts />} />
-            <Route path="/Alerts/AlertDetails" element={<ViewAlertDetails />} />
+            <Route path="/Alerts/" element={<Alerts />} />
+            <Route path="/Alerts/:id" element={<ViewAlertDetails />} />
           </Route>
           <Route path="/Tickets" element={<TicketsIndex />}>
-            <Route path="/Tickets/ViewTickets" element={<TicketsList />} />
+            <Route path="/Tickets" element={<TicketsList />} />
             <Route path="/Tickets/AddTicket" element={<AddTicket />} />
             <Route path="/Tickets/EditTicket" element={<EditTicket />} />
           </Route>
           <Route path="/Settings" element={<SettingsIndex />}>
             <Route path="/Settings/AllSettings" element={<Settings />} />
             <Route path="/Settings/Users" element={<UsersSettingsIndex />}>
-              <Route path="/Settings/Users/ViewUsers" element={<UsersList />} />
-              <Route path="/Settings/Users/AddUser" element={<AddEditUser />} />
-              <Route
-                path="/Settings/Users/EditUser"
-                element={<AddEditUser />}
-              />
+              <Route path="/Settings/Users" element={<UsersList />} />
+              <Route path="/Settings/Users/AddUser" element={<AddUser />} />
+              <Route path="/Settings/Users/:id" element={<EditUser />} />
             </Route>
             <Route path="/Settings/CaseSettings" element={<CaseSettings />} />
             <Route

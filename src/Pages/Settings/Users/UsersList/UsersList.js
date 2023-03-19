@@ -7,7 +7,7 @@ import { actionsApi, UsersApi } from "../../../../Api/AxiosApi";
 import { IoTrashOutline } from "react-icons/io5";
 import { BiEdit } from "react-icons/bi";
 import { RiFileListLine } from "react-icons/ri";
-import { Button, UncontrolledTooltip,Badge } from "reactstrap";
+import { Button, UncontrolledTooltip, Badge } from "reactstrap";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { pageTitleCreator } from "../../../../Redux/Actions/index";
@@ -23,6 +23,14 @@ const UsersList = () => {
   const [logDataLoading, setLogDataLoading] = useState(false);
   const router = useNavigate();
   const dispatch = useDispatch();
+
+  const [total, setTotal] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [limit, setLimit] = useState(10);
+
+  const [usersLogsTotal, setUsersLogsTotal] = useState(0);
+  const [usersLogsCurrentPage, setUsersLogsCurrentPage] = useState(1);
+  const [usersLogslimit, setUsersLogsLimit] = useState(10);
 
   const filters = ["User ID", "Name", "Email", "Role", "Phone"];
   const columns = useMemo(() => [
@@ -116,9 +124,13 @@ const UsersList = () => {
       sortable: true,
       selector: (row) => row.type,
       cell: (row) => (
-        <Badge pill className={`${
-          ColorResolver(row.type) === "warning" ? "text-dark" : ""
-        }`} color={`${ColorResolver(row.type)}`}>
+        <Badge
+          pill
+          className={`${
+            ColorResolver(row.type) === "warning" ? "text-dark" : ""
+          }`}
+          color={`${ColorResolver(row.type)}`}
+        >
           {row.type}
         </Badge>
       ),
@@ -127,6 +139,11 @@ const UsersList = () => {
       name: "action",
       sortable: true,
       selector: (row) => row.action,
+    },
+    {
+      name: "Associated id",
+      sortable: true,
+      selector: (row) => row.associatedId,
     },
     {
       name: "createdAt",
@@ -144,20 +161,26 @@ const UsersList = () => {
   };
 
   const handleButtonClick = (e, row) => {
-    router("/Settings/Users/EditUser", { state: row });
+    router(`/Settings/Users/${row.userId}`);
   };
 
   const handleOpenModal = async (userId) => {
     try {
       setOpenLogModal(true);
       setLogDataLoading(true);
-      const { data } = await actionsApi.get(userId);
-      const flattenedData = data.map((item) => {
+      const { data:res } = await actionsApi.get(
+        usersLogslimit,
+        usersLogslimit * (usersLogsCurrentPage - 1),
+        userId,
+      );
+      setUsersLogsTotal(res.total)
+      const flattenedData = res.data.map((item) => {
         const editedRow = {
           ...item,
           actionId: DataFormatter(item.actionId),
           type: DataFormatter(item.type),
           action: DataFormatter(item.action),
+          associatedId: DataFormatter(item.associatedId),
           createdAt: DataFormatter(item.createdAt),
         };
         return editedRow;
@@ -173,7 +196,11 @@ const UsersList = () => {
   const getTableData = async () => {
     try {
       setIsLoading(true);
-      const res = await UsersApi.getUsers();
+      const { data: res } = await UsersApi.getUsers(
+        limit,
+        limit * (currentPage - 1)
+      );
+      setTotal(res.total);
       const flattenedData = res.data.map((item) => {
         const editedRow = {
           ...item,
@@ -190,13 +217,15 @@ const UsersList = () => {
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
+      toast.error("Something went wrong! try again later");
       console.log(error);
     }
   };
 
   useEffect(() => {
+    dispatch(pageTitleCreator.change({ title: "Users" }));
     getTableData();
-  }, []);
+  }, [limit, currentPage]);
 
   return (
     <div className="content-container">
@@ -210,6 +239,11 @@ const UsersList = () => {
             data={userActions}
             isLoading={logDataLoading}
             columns={userLogColumns}
+            setCurrentPage={setUsersLogsCurrentPage}
+            setLimit={setUsersLogsLimit}
+            currentPage={usersLogsCurrentPage}
+            total={usersLogsTotal}
+            rowsPerPage={usersLogslimit}
             header={"User Actions Log"}
           />
           <div className="btns-container">
@@ -227,6 +261,11 @@ const UsersList = () => {
             searchChoices={filters}
             columns={columns}
             data={users}
+            setCurrentPage={setCurrentPage}
+            setLimit={setLimit}
+            currentPage={currentPage}
+            total={total}
+            rowsPerPage={limit}
           />
         </>
       )}

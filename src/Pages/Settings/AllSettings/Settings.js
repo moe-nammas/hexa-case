@@ -21,7 +21,7 @@ const Settings = () => {
     {
       title: "Users",
       icon: <FiUser />,
-      path: "/Settings/Users/ViewUsers",
+      path: "/Settings/Users",
       isAuth: () => {
         return isAuthorized(1, 2);
       },
@@ -47,7 +47,7 @@ const Settings = () => {
       icon: <BsShieldLock />,
       path: "/Settings/Permissions",
       isAuth: () => {
-        return isAuthorized(2);
+        return isAuthorized(1, 2);
       },
     },
     {

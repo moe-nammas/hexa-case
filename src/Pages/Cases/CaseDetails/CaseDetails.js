@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./CaseDetails.scss";
 import { Form, FormGroup, Label, Button, Badge } from "reactstrap";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { CasesApi } from "../../../Api/AxiosApi";
 import { DataFormatter } from "../../../Helpers/DataFormatter";
@@ -20,7 +20,7 @@ import { UncontrolledTooltip } from "reactstrap";
 import { ColorResolver } from "../../../Helpers/ColorResolver";
 
 const CaseDetails = () => {
-  const { state: caseIdFromSystem } = useLocation();
+  const { id: caseIdParam } = useParams();
   const router = useNavigate();
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
@@ -42,7 +42,7 @@ const CaseDetails = () => {
     commentBy: user.userName,
     userId: user.userID,
     caseId: "",
-    caseIdFromSystem: caseIdFromSystem,
+    caseIdFromSystem: caseIdParam,
   });
   const choices = ["Alert Id", "Rule Name", "Severity", "Time", "Status"];
   const [associatedAlerts, setAssociatedAlerts] = useState([]);
@@ -125,7 +125,7 @@ const CaseDetails = () => {
   const loadCaseDetails = async () => {
     try {
       setLoading(true);
-      const res = await CasesApi.getCaseDetails(caseIdFromSystem);
+      const res = await CasesApi.getCaseDetails(caseIdParam);
       setFormData({
         name: DataFormatter(res.data.name),
         description: DataFormatter(res.data.description),

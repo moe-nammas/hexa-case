@@ -94,7 +94,7 @@ const EditTicket = () => {
       if (validate() && state?.ticketId) {
         const res = await TicketsApi.update(state.ticketId, formData);
         toast.success("Ticket Updated Successfully");
-        router("/Tickets/ViewTickets");
+        router("/Tickets");
       }
       setLoading(false);
     } catch (error) {
@@ -199,7 +199,7 @@ const EditTicket = () => {
         <div className="form-btn-container-style">
           <Button
             className="form-back-btn-style"
-            onClick={() => router("/Tickets/ViewTickets")}
+            onClick={() => router("/Tickets")}
             disabled={loading}
           >
             {loading ? <Loading /> : "Back"}

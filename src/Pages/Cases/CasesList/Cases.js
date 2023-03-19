@@ -128,7 +128,7 @@ const Cases = () => {
           >
             View
           </UncontrolledTooltip>
-          {isAuthorized(2) &&
+          {isAuthorized(1,2) &&
             (row.status === "closed" ? (
               <>
                 <IoTrashOutline
@@ -174,7 +174,7 @@ const Cases = () => {
   ];
 
   const handleButtonClick = (e, row) => {
-    router("/Cases/CaseDetails", { state: row.caseId });
+    router(`/Cases/${row.caseId}`);
   };
 
   const handleDropdownChange = (e) => {
@@ -223,13 +223,9 @@ const Cases = () => {
   };
 
   useEffect(() => {
-    getTableData();
-  }, [limit, currentPage]);
-
-  useEffect(() => {
     dispatch(pageTitleCreator.change({ title: "Cases" }));
     getTableData();
-  }, []);
+  }, [limit, currentPage]);
 
   const handleChangeStatus = async () => {
     try {

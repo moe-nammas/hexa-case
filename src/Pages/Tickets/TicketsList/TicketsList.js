@@ -25,6 +25,7 @@ import { BiEdit } from "react-icons/bi";
 import { MdOutlineRotateLeft } from "react-icons/md";
 import { isAuthorized } from "../../../Helpers/Premissions";
 import { ColorResolver } from "../../../Helpers/ColorResolver";
+import ChangeTicketStatusModal from "./ChangeTicketStatusModal";
 
 const TicketsList = () => {
   const dispatch = useDispatch();
@@ -32,16 +33,11 @@ const TicketsList = () => {
 
   const [tickets, setTickets] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [isSubmiting, setIsSubmiting] = useState(false);
   const [openModal, setOpenModal] = useState(false);
-  const [openDropdown, setOpenDropdown] = useState(false);
-  const [selectedChoice, setSelectedChoice] = useState("Status");
-  const [isValidStatus, setIsValidStatus] = useState(true);
-  const [formData, setFormData] = useState({
-    id: 0,
-    status: "",
-  });
-
+  const [total, setTotal] = useState(0);
+  const [selectedTicketId, setSelectedTicketId] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [limit, setLimit] = useState(10);
   const filters = ["Name", "Ticket Id", "Created By"];
   const columns = [
     {
@@ -103,7 +99,7 @@ const TicketsList = () => {
     },
     {
       cell: (row) =>
-        isAuthorized(2) && (
+        isAuthorized(1, 2) && (
           <div className="table-icons-container">
             {row.status !== "closed" ? (
               <>
@@ -111,7 +107,7 @@ const TicketsList = () => {
                   className="edit-icon-style"
                   id={`status-icon-${row.ticketId}`}
                   onClick={() => {
-                    setFormData({ ...formData, id: row.ticketId });
+                    setSelectedTicketId(row.ticketId);
                     setOpenModal(true);
                   }}
                 />
@@ -189,16 +185,14 @@ const TicketsList = () => {
     }
   };
 
-  const handleDropdownChange = (e) => {
-    setFormData({ ...formData, status: e.target.innerText });
-    setSelectedChoice(e.target.innerText);
-    setIsValidStatus(true);
-  };
-
   const getTableData = async () => {
     try {
       setIsLoading(true);
-      const res = await TicketsApi.getAll();
+      const { data: res } = await TicketsApi.getAll(
+        limit,
+        limit * (currentPage - 1)
+      );
+      setTotal(res.total);
       const flattenedData = res.data.map((item) => {
         const editedRow = {
           ...item,
@@ -224,107 +218,23 @@ const TicketsList = () => {
   useEffect(() => {
     dispatch(pageTitleCreator.change({ title: "Tickets" }));
     getTableData();
-  }, []);
-
-  const handleChangeStatus = async () => {
-    try {
-      setIsSubmiting(true);
-      if (formData.status === "Status" || formData.status === "") {
-        setIsValidStatus(false);
-        setIsSubmiting(false);
-        return;
-      }
-      await TicketsApi.updateStatus(formData.id, formData.status);
-      toast.success("Status Changed Successfully");
-      setIsSubmiting(false);
-      setOpenModal(false);
-      getTableData();
-    } catch (error) {
-      console.log(error);
-      setIsSubmiting(false);
-      toast.error("Something went wrong! please try again later");
-    }
-  };
+  }, [limit, currentPage]);
 
   return (
     <div className="content-container">
-      <Modal toggle={() => setOpenModal(!openModal)} isOpen={openModal}>
-        <ModalHeader toggle={() => setOpenModal(false)}>
-          Change Ticket Status
-        </ModalHeader>
-        <ModalBody>
-          {isSubmiting ? (
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <Loading />
-            </div>
-          ) : (
-            <div className="modal-body-container">
-              <div>
-                <Dropdown
-                  isOpen={openDropdown}
-                  toggle={() => {
-                    setOpenDropdown(!openDropdown);
-                  }}
-                  className="dropdown-style"
-                >
-                  <DropdownToggle caret className="dropdown-style">
-                    {selectedChoice}
-                  </DropdownToggle>
-                  <DropdownMenu
-                    className="dropdown-choices-container"
-                    style={{ width: "100%" }}
-                  >
-                    <DropdownItem onClick={(e) => handleDropdownChange(e)}>
-                      Status
-                    </DropdownItem>
-                    <DropdownItem divider />
-                    <DropdownItem onClick={(e) => handleDropdownChange(e)}>
-                      open
-                    </DropdownItem>
-                    <DropdownItem onClick={(e) => handleDropdownChange(e)}>
-                      closed
-                    </DropdownItem>
-                  </DropdownMenu>
-                </Dropdown>
-                {!isValidStatus && (
-                  <label style={{ color: "#9f3a38" }}>
-                    Please select a status
-                  </label>
-                )}
-              </div>
-            </div>
-          )}
-        </ModalBody>
-        <ModalFooter>
-          <Button
-            className="primary-btn-style"
-            onClick={handleChangeStatus}
-            disabled={isSubmiting}
-          >
-            Confirm
-          </Button>
-          <Button
-            className="secondary-btn-style"
-            onClick={() => {
-              setOpenModal(false);
-            }}
-            disabled={isSubmiting}
-          >
-            Cancel
-          </Button>
-        </ModalFooter>
-      </Modal>
+      {openModal && (
+        <ChangeTicketStatusModal
+          openModal={openModal}
+          setOpenModal={setOpenModal}
+          ticketId={selectedTicketId}
+          getTableData={getTableData}
+        />
+      )}
       {isLoading ? (
         <Loading />
       ) : (
         <>
-          {isAuthorized(2) && (
+          {isAuthorized(1, 2) && (
             <div className="btns-container">
               <Button
                 className="primary-btn-style"
@@ -343,6 +253,11 @@ const TicketsList = () => {
             searchChoices={filters}
             columns={columns}
             data={tickets}
+            setCurrentPage={setCurrentPage}
+            setLimit={setLimit}
+            currentPage={currentPage}
+            total={total}
+            rowsPerPage={limit}
           />
         </>
       )}

@@ -82,7 +82,7 @@ const AddTicket = () => {
       if (validate()) {
         const res = await TicketsApi.post(formData);
         toast.success("Ticket Added Successfully");
-        router("/Tickets/ViewTickets");
+        router("/Tickets");
       }
       setLoading(false);
     } catch (error) {
@@ -187,7 +187,7 @@ const AddTicket = () => {
         <div className="form-btn-container-style">
           <Button
             className="form-back-btn-style"
-            onClick={() => router("/Tickets/ViewTickets")}
+            onClick={() => router("/Tickets")}
             disabled={loading}
           >
             {loading ? <Loading /> : "Back"}

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./AddUser.scss";
+import "../AddUser/AddUser.scss";
 import {
   Form,
   FormGroup,
@@ -20,11 +20,13 @@ import { UsersApi } from "../../../../Api/AxiosApi";
 import toast from "react-hot-toast";
 import Loading from "../../../../Components/Loading/Loading";
 
-const AddUser = () => {
+const EditUser = () => {
   const router = useNavigate();
   const dispatch = useDispatch();
+  const { id } = useParams();
 
   const [openPermssionsDropdown, setOpenPermssionsDropdown] = useState(false);
+  const [userId, setUserId] = useState(0);
   const [selectedPermission, setSelectedPermission] = useState("Permissions");
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState(null);
@@ -45,10 +47,10 @@ const AddUser = () => {
       setErrors(null);
       const isValidData = validateData();
       if (isValidData) {
-        const res = await UsersApi.createUser(formData);
-        toast.success("User Added Successfully");
+        const res = await UsersApi.updateUser(userId, formData);
+        toast.success("User Updated Successfully");
         setLoading(false);
-        router("/Settings/Users");
+        router("/Settings/Users/ViewUsers");
       } else {
         setLoading(false);
         return;
@@ -80,12 +82,30 @@ const AddUser = () => {
   };
 
   useEffect(() => {
-    dispatch(pageTitleCreator.change({ title: "Add New User" }));
+    dispatch(pageTitleCreator.change({ title: "Edit User" }));
+    fillData();
   }, []);
+
+  const fillData = async () => {
+    if (id) {
+      setUserId(id);
+      const { data: res } = await UsersApi.getUserById(id);
+      setFormData({
+        name: res.name ?? "no data",
+        username: res.username ?? "no data",
+        email: res.email ?? "no data",
+        phone: res.phone ?? "no data",
+        role: res.role ?? "no data",
+        permission: res.permission,
+      });
+      res.permission === 1
+        ? setSelectedPermission("Admin")
+        : setSelectedPermission("User");
+    }
+  };
 
   const handleBackBtn = () => {
     router(`/Settings/Users`);
-    dispatch(pageTitleCreator.change({ title: "Users" }));
   };
 
   const handleChange = (e) => {
@@ -267,4 +287,4 @@ const AddUser = () => {
   );
 };
 
-export default AddUser;
+export default EditUser;

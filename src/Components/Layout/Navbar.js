@@ -28,19 +28,19 @@ const Navbar = () => {
       label: "Cases",
       Icon: <AiOutlineFileSearch />,
       active: false,
-      pathname: "Cases/ViewCases",
+      pathname: "Cases",
     },
     {
       label: "Alerts",
       Icon: <FiAlertTriangle />,
       active: false,
-      pathname: "Alerts/ViewAlerts",
+      pathname: "Alerts",
     },
     {
       label: "Tickets",
       Icon: <IoTicketOutline />,
       active: false,
-      pathname: "Tickets/ViewTickets",
+      pathname: "Tickets",
     },
     {
       label: "Settings",

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Form, FormGroup, Label, Button } from "reactstrap";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { AlertsApi } from "../../../Api/AxiosApi";
 import { DataFormatter } from "../../../Helpers/DataFormatter";
 import Loading from "../../../Components/Loading/Loading";
@@ -9,7 +9,7 @@ import { useDispatch } from "react-redux";
 import { pageTitleCreator } from "../../../Redux/Actions/index";
 
 const ViewAlertDetails = () => {
-  const { state } = useLocation();
+  const { id } = useParams();
   const router = useNavigate();
   const dispatch = useDispatch();
 
@@ -36,7 +36,7 @@ const ViewAlertDetails = () => {
   const loadAlertDetails = async () => {
     try {
       setLoading(true);
-      const res = await AlertsApi.getAlertDetails(state);
+      const res = await AlertsApi.getAlertDetails(id);
       setFormData({
         id: DataFormatter(res.data.id),
         timeStamp: DataFormatter(res.data.timeStamp),
